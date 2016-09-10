@@ -1,0 +1,27 @@
+<!-- Header -->
+<md-toolbar>
+  <div class="md-toolbar-tools">
+    <md-button class="md-icon-button" ng-click="toggleLeft()">
+      <md-icon md-font-set="md">menu</md-icon>
+    </md-button>
+    <h2>
+      <span>{{currentState().title}}</span>
+    </h2>
+    <span flex></span>
+  </div>
+</md-toolbar>
+<!-- Body -->
+<section layout="row" flex>
+  <!-- Side nav -->
+  <md-sidenav class="md-sidenav-left" md-component-id="left" md-whiteframe="2">
+    <md-list ng-cloak>
+      <md-subheader class="md-no-sticky">Menu</md-subheader>
+      <md-list-item ng-click="goTo(state.state)" ng-repeat="state in states">
+        <p>{{state.name}}</p>
+      </md-list-item>
+      <md-divider></md-divider>
+    </md-list>
+  </md-sidenav>
+  <!-- Main Content -->
+  <ui-view></ui-view>
+</section>
