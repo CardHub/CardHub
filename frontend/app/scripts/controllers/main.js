@@ -11,14 +11,36 @@ angular.module('frontendApp')
   .controller('MainCtrl', function ($scope, $timeout, $mdSidenav, $state) {
     $scope.states = [
       {
-        'name': 'Home',
+        'name': 'All',
+        'color': 'white',
         'state': 'main.home'
       },
       {
-        'name': 'Deck',
+        'name': 'Study',
+        'color': 'study',
+        'state': 'main.deck'
+      },
+      {
+        'name': 'Work',
+        'color': 'work',
+        'state': 'main.deck'
+      },
+      {
+        'name': 'Life',
+        'color': 'life',
+        'state': 'main.deck'
+      },
+      {
+        'name': 'Deleted',
+        'color': 'white',
         'state': 'main.deck'
       }
     ];
+
+    //To be replaced by FB data
+    $scope.userPhoto = '/../../images/user_photo.jpg';
+    $scope.userName = 'Luo Xiao Hei';
+
     // Default state
     $scope.currentState = function() {
       return $state.current;
