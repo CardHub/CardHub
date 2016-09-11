@@ -93,6 +93,12 @@ md-list-item.nav-item {
   }
 }
 
+md-list-item .material-icons {
+  color: $color-text;
+  font-size: 18px;
+  margin-right: 16px;
+}
+
 .white {
   background-color: white;  
 }

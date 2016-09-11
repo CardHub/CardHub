@@ -40,10 +40,12 @@ angular.module('frontendApp')
     $scope.publicStates = [
       {
         'name': 'Starred',
+        'icon': 'stars',
         'state': 'main.deck'
       },
       {
         'name': 'Explore',
+        'icon': 'explore',
         'state': 'main.deck'
       }
     ];
@@ -71,4 +73,8 @@ angular.module('frontendApp')
 
     $scope.toggleLeft = buildToggler('left');
     $scope.toggleRight = buildToggler('right');
+
+    function logOut() {
+      
+    }
   });
