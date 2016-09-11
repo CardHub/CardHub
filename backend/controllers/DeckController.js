@@ -23,38 +23,12 @@ exports.index = function(req, res) {
 
 // Create a new deck for the current user.
 exports.create = function(req, res) {
-  var user = req.user;
   if (!verifyDeckData(req.body)) {
     return res.status(400).json({
       message: 'Invalid deck data.'
     });
   }
-  var deckName = req.body.name;
-  // Remove duplicate tags
-  var tagSet = new Set();
-  req.body.tags.forEach(function(item) {
-    tagSet.add(item.name);
-  });
-  var deckTags = [];
-  tagSet.forEach(function(item) {
-    deckTags.push({
-      name: item
-    });
-  });
-  var deckCards = req.body.cards.map(function(item) {
-    return {
-      front: item.front,
-      back: item.back
-    };
-  });
-  var deckVisibility = req.body.public;
-  var deckData = {
-    name: deckName,
-    tags: deckTags,
-    owner: user._id,
-    cards: deckCards,
-    public: deckVisibility
-  }
+  var deckData = getDeckDataFromRequest(req);
   var newDeck = new Deck(deckData);
   var promise = newDeck.save();
   promise.then(function(deck) {
@@ -111,11 +85,63 @@ exports.show = function(req, res) {
 
 
 exports.update = function(req, res) {
+  if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+    res.status(400).json({
+      message: "Invalid deck id."
+    });
+    return;
+  }
 
+  // Make sure the user owns the document before update it.
+  var query = Deck.findById(req.params.id).exec();
+  query.then(function(deck) {
+    if (!deck || !deck.owner.equals(req.user._id)) {
+      return res.status(401).json({
+        message: 'No permission for the operation.'
+      });
+    }
+    // Verify the deck is valid.
+    if (!verifyDeckData(req.body)) {
+      return res.status(400).json({
+        message: 'Invalid deck data.'
+      });
+    }
+    var deckData = getDeckDataFromRequest(req);
+    deckData.updated_at = Date.now();
+    // Update the deck.
+    var query = Deck.findByIdAndUpdate(req.params.id, deckData, {'new': true}).exec();
+    query.then(function(deck) {
+      return res.json(deck);
+    });
+  }).fail(function(err) {
+    res.status(500).json({
+      message: err.message
+    });
+  });
 };
 
 exports.destroy = function(req, res) {
-
+  if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+    res.status(400).json({
+      message: "Invalid deck id."
+    });
+    return;
+  }
+  var query = Deck.findById(req.params.id).exec();
+  query.then(function(deck) {
+    Deck.findByIdAndRemove(req.params.id, function(err) {
+      if (err) {
+        return res.status(500).json({
+          message: error.message
+        });
+      }
+      res.status(200).end();
+    });
+  }).fail(function(err) {
+    res.status(500).json({
+      message: err.message
+    });
+  });
 };
 
 function getToken(req) {
@@ -151,4 +177,34 @@ function verifyDeckData(data) {
   }
 
   return true;
+}
+
+function getDeckDataFromRequest(req) {
+  var deckName = req.body.name;
+  // Remove duplicate tags
+  var tagSet = new Set();
+  req.body.tags.forEach(function(item) {
+    tagSet.add(item.name);
+  });
+  var deckTags = [];
+  tagSet.forEach(function(item) {
+    deckTags.push({
+      name: item
+    });
+  });
+  var deckCards = req.body.cards.map(function(item) {
+    return {
+      front: item.front,
+      back: item.back
+    };
+  });
+  var deckVisibility = req.body.public;
+  var deckData = {
+    name: deckName,
+    tags: deckTags,
+    owner: req.user._id,
+    cards: deckCards,
+    public: deckVisibility
+  };
+  return deckData;
 }
