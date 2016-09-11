@@ -29,7 +29,6 @@ exports.authenticate = function(req, res) {
 
       if (user) {
         // Sign user token
-        console.log('user found');
         return res.json(user.generateJwt());
       } else {
         var newUser = new User({
