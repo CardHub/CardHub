@@ -9,7 +9,7 @@
  */
 angular.module('frontendApp')
   .controller('MainCtrl', function ($scope, $timeout, $mdSidenav, $state) {
-    $scope.states = [
+    $scope.personalStates = [
       {
         'name': 'All',
         'color': 'white',
@@ -33,6 +33,17 @@ angular.module('frontendApp')
       {
         'name': 'Deleted',
         'color': 'white',
+        'state': 'main.deck'
+      }
+    ];
+
+    $scope.publicStates = [
+      {
+        'name': 'Starred',
+        'state': 'main.deck'
+      },
+      {
+        'name': 'Explore',
         'state': 'main.deck'
       }
     ];
