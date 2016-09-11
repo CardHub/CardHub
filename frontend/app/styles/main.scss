@@ -3,13 +3,16 @@
 
 $font-avenir: Avenir, Helvetica, sans-serif;
 
-$color-main: #91A7D0;
-$color-action: #A3777E;
-$color-text: #615C60;
-$color-background: #F0F0F0;
-$color-study: #BEC6D5;
-$color-work: #C0B7AF;
-$color-life: #F6CAC9;
+$color-main: #91A7D0; //serenity blue
+$color-action: #A3777E; //nostalgia rose red
+$color-text: #615C60; //volcanic glass dark grey
+$color-background: #F0F0F0; //light grey
+$color-study: #BEC6D5;  //artic ice light blue
+$color-work: #C0B7AF; //silver gray
+$color-life: #F6CAC9; //rose quartz pink
+
+$mobile-large-text: 20px;
+$mobile-small-text: 16px;
 
 .browsehappy {
   margin: 0.2em 0;
@@ -20,6 +23,9 @@ $color-life: #F6CAC9;
 
 body {
   padding: 0;
+  font: 100% $font-avenir;
+  color: $color-text;
+  background-color: $color-background;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -44,11 +50,69 @@ body {
   }
 }
 
+/* Action bar */
 .md-toolbar-tools {
   background-color: $color-main;
-  h2 {
-    font: 100% $font-avenir;
+}
+
+/* Side-nav */
+.side-nav {
+  padding-top: 0px;
+}
+
+md-list-item.user-photo {
+  background-color: $color-main;
+  padding-top: 60px;
+}
+
+md-list-item .md-avatar {
+  height: 56px;
+  width: 56px;
+}
+
+.user-name {
+  background-color: $color-main;
+  color: white;
+  font-size: $mobile-large-text;
+  padding-bottom: 20px;
+}
+
+.md-subheader.md-no-sticky {
+  font-size: $mobile-large-text;
+  color: $color-work;
+  background-color: white;
+}
+
+md-list-item.nav-item {
+  p {
+    font-size: $mobile-small-text;
   }
+  .md-avatar {
+    max-width: 16px;
+    max-height: 16px;
+  }
+}
+
+md-list-item .material-icons {
+  color: $color-text;
+  font-size: 18px;
+  margin-right: 16px;
+}
+
+.white {
+  background-color: white;  
+}
+
+.study {
+  background-color: $color-study;
+}
+
+.work {
+  background-color: $color-work;
+}
+
+.life {
+  background-color: $color-life;
 }
 
 /* Custom page footer */
@@ -83,7 +147,7 @@ body {
 }
 
 /* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 768px) {
   .container {
     max-width: 730px;
   }
@@ -102,5 +166,8 @@ body {
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
     border-bottom: 0;
+  }
+  md-list-item.user-photo {
+    padding-top:10px;
   }
 }
