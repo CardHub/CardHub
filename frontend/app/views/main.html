@@ -14,12 +14,25 @@
 <section layout="row" flex>
   <!-- Side nav -->
   <md-sidenav class="md-sidenav-left" md-component-id="left" md-whiteframe="2">
-    <md-list ng-cloak>
-      <md-subheader class="md-no-sticky">Menu</md-subheader>
-      <md-list-item ng-click="goTo(state.state)" ng-repeat="state in states">
+    <md-list ng-cloak class="side-nav">
+      <md-list-item class="user-photo">
+        <img ng-src="{{userPhoto}}"class="md-avatar">
+      </md-list-item>
+      <md-list-item class="user-name">
+        <p>Hey, {{userName}}</p>
+      </md-list-item>
+      <md-subheader class="md-no-sticky">Personal</md-subheader>
+      <md-list-item ng-click="goTo(state.state)" ng-repeat="state in personalStates" class="nav-item">
+        <div class="md-avatar" ng-class="state.color"></div>
+        <p>{{state.name}}</p>
+      </md-list-item>
+      <md-subheader class="md-no-sticky">Public</md-subheader>
+      <md-list-item ng-click="goTo(state.state)" ng-repeat="state in publicStates">
+        <i class="material-icons">{{state.icon}}</i>
         <p>{{state.name}}</p>
       </md-list-item>
       <md-divider></md-divider>
+      <md-list-item ng-click="logOut()">Log Out</md-list-item>
     </md-list>
   </md-sidenav>
   <!-- Main Content -->
