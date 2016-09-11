@@ -1,6 +1,16 @@
 // bower:scss
 // endbower
 
+$font-avenir: Avenir, Helvetica, sans-serif;
+
+$color-main: #91A7D0;
+$color-action: #A3777E;
+$color-text: #615C60;
+$color-background: #F0F0F0;
+$color-study: #BEC6D5;
+$color-work: #C0B7AF;
+$color-life: #F6CAC9;
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -31,6 +41,13 @@ body {
     margin-bottom: 0;
     line-height: 40px;
     padding-bottom: 19px;
+  }
+}
+
+.md-toolbar-tools {
+  background-color: $color-main;
+  h2 {
+    font: 100% $font-avenir;
   }
 }
 
