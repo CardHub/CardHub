@@ -28,6 +28,10 @@ body {
   background-color: $color-background;
 }
 
+md-content {
+  background-color: $color-background;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
@@ -114,6 +118,15 @@ md-list-item .material-icons {
 .life {
   background-color: $color-life;
 }
+
+//decks
+.study-deck {
+  width: 360px;
+  height: 180px;
+  background-image: url("../../images/study-deck.png");
+  background-size: 100%;
+}
+
 
 /* Custom page footer */
 .footer {
