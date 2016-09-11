@@ -3,6 +3,7 @@ var router = express.Router();
 var jwt = require('express-jwt');
 var config = require('../config/config');
 var AuthCtrl = require('../controllers/AuthenticateController');
+var DeckCtrl = require('../controllers/DeckController');
 
 // Set up token authenticate
 var verifyToken = jwt({secret: config.secret});
@@ -17,5 +18,12 @@ router.post('/authenticate', AuthCtrl.authenticate);
 router.get('/secret', verifyToken, function(req, res) {
   res.send(req.user);
 });
+
+router.get('/deck', verifyToken, DeckCtrl.index);
+router.post('/deck', verifyToken, DeckCtrl.create);
+router.get('/deck/:id', DeckCtrl.show);
+router.put('/deck/:id', verifyToken, DeckCtrl.update);
+router.delete('/deck/:id', verifyToken, DeckCtrl.destroy);
+
 
 module.exports = router;

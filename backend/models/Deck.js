@@ -11,6 +11,7 @@ var DeckSchema = new Schema({
     front: String,
     back: String
   }],
+  public: Boolean,
   created_at: Date,
   updated_at: Date
 });
