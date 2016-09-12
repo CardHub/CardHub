@@ -1,17 +1,5 @@
-<!-- Header -->
-<md-toolbar>
-  <div class="md-toolbar-tools">
-    <md-button class="md-icon-button" ng-click="toggleLeft()">
-      <md-icon md-font-set="md">menu</md-icon>
-    </md-button>
-    <h2>
-      <span>{{currentState().title}}</span>
-    </h2>
-    <span flex></span>
-  </div>
-</md-toolbar>
 <!-- Body -->
-<section layout="row" flex>
+<div layout="column" layout-fill>
   <!-- Side nav -->
   <md-sidenav class="md-sidenav-left" md-component-id="left" md-whiteframe="2">
     <md-list ng-cloak class="side-nav">
@@ -36,5 +24,19 @@
     </md-list>
   </md-sidenav>
   <!-- Main Content -->
-  <ui-view></ui-view>
-</section>
+  <!-- Header -->
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button class="md-icon-button" ng-click="toggleLeft()">
+        <md-icon md-font-set="md">menu</md-icon>
+      </md-button>
+      <h2>
+        <span>{{currentState().title}}</span>
+      </h2>
+      <span flex></span>
+    </div>
+  </md-toolbar>
+  <md-content flex layout-padding>
+    <ui-view style="width: 100%;"></ui-view>
+  </md-content>
+</div>

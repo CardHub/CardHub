@@ -1,15 +1,13 @@
-<md-content flex layout-padding>
-  <!-- <div layout="column" layout-align="top center"> -->
-	  <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
-      <!-- tag color here is dummied to the first one in the list -->
-      <div ng-repeat="card in deck.cards" ng-class=deck.tags[0].name+"-deck-deckview" ng-click="viewCard(card, deck.tags)" class="deck-homeview">
-        <div class="preview-wrapper">
-          <h4 align="center" class="card-preview">{{ deck.name | limitTo:55}}</h4>
-        </div>
+<!-- <div layout="column" layout-align="top center"> -->
+  <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
+    <!-- tag color here is dummied to the first one in the list -->
+    <div ng-repeat="card in deck.cards" ng-class=deck.tags[0].name+"-deck-deckview" ng-click="viewCard(card, deck.tags)" class="deck-homeview">
+      <div class="preview-wrapper">
+        <h4 align="center" class="card-preview">{{ deck.name | limitTo:55}}</h4>
       </div>
     </div>
-    <div layout="row" layout-align="end end">
-      <md-button> Add </md-button>
-    </div>
-  <!-- </div> -->
-</md-content>
+  </div>
+  <div layout="row" layout-align="end end">
+    <md-button> Add </md-button>
+  </div>
+<!-- </div> -->
