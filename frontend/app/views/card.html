@@ -1,0 +1,14 @@
+<md-content flex layout-padding>
+  <div layout="column" layout-align="center center">
+    <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
+      <div ng-repeat="card in cards" ng-if="card.tag === stateId && card.cardId === cardId" ng-click="isCardFront=!isCardFront" class="single-card">
+        <h4 align="center" ng-if="isCardFront">{{ card.nameFront }}</h4>
+        <p align="center" ng-if="!isCardFront">{{ card.nameBack }}</p>
+      </div>
+    </div>
+    <div layout="row" layout-align="end center">
+      <md-button> Edit </md-button>
+      <md-button> Delete </md-button>
+    </div>
+  </div>
+</md-content>

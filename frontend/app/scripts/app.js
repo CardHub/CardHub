@@ -40,6 +40,13 @@ angular
       templateUrl: 'views/deck.html',
       controller: 'DeckCtrl',
       title: 'Deck'
+    }).state({
+      name: 'main.card',
+      url: '/deck/:id/:cardId',
+      parent: 'main',
+      templateUrl: 'views/card.html',
+      controller: 'CardCtrl',
+      title: 'Card'
     });
 
     $urlRouterProvider.when('', '/home');

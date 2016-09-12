@@ -8,33 +8,43 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('DeckCtrl', function ($scope, $stateParams) {
+  .controller('DeckCtrl', function ($scope, $state, $stateParams) {
     $scope.decks = [
     	{
     		'tag' : 'study',
-    		'name-front' : 'GRE word',
-    		'name-back' : 'Meaning'
+    		'cardId': '1',
+    		'nameFront' : 'GRE word',
+    		'nameBack' : 'Meaning'
     	},
     	{
     		'tag' : 'work',
-    		'name-front' : 'CS3216 Presentation',
-    		'name-back' : 'Notes'
+    		'cardId': '1',
+    		'nameFront' : 'CS3216 Presentation',
+    		'nameBack' : 'Notes'
     	},
     	{
     		'tag' : 'study',
-    		'name-front' : 'Japanese word',
-    		'name-back' : 'Meaning'
+    		'cardId': '2',
+    		'nameFront' : 'Japanese word',
+    		'nameBack' : 'Meaning'
     	},
     	{
     		'tag' : 'life',
-    		'name-front' : 'Dish',
-    		'name-back' : 'Recipe'
+    		'cardId': '1',
+    		'nameFront' : 'Dish',
+    		'nameBack' : 'Recipe'
     	},
     	{
     		'tag' : 'life',
-    		'name-front' : 'Book title',
-    		'name-back' : 'Comments'
+    		'cardId': '2',
+    		'nameFront' : 'Book title',
+    		'nameBack' : 'Comments'
     	}
     ];
     $scope.stateId = $stateParams.id;
+
+    $scope.viewCard = function(cardId) {
+      console.log(cardId);
+      $state.go("main.card", {id: $scope.stateId, cardId: cardId});
+    }
   });

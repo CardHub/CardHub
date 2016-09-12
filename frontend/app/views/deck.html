@@ -1,7 +1,10 @@
 <md-content flex layout-padding>
-  <div layout="column" layout-align="top center">
+  <!-- <div layout="column" layout-align="top center"> -->
 	  <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
-      <div ng-repeat="deck in decks" ng-if="deck.tag === stateId" ng-class=decks[$index].tag+"-deck" class="deck"></div>
+      <div ng-repeat="deck in decks" ng-if="deck.tag === stateId" ng-class=decks[$index].tag+"-deck" ng-click="viewCard(deck.cardId)" class="deck"></div>
     </div>
-  </div>
+    <div layout="column" layout-align="end end">
+      <md-button> Add </md-button>
+    </div>
+  <!-- </div> -->
 </md-content>
