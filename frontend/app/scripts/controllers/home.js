@@ -27,6 +27,11 @@ angular.module('frontendApp')
     		'isDeleted': false
     	},
     	{
+    		'tag' : 'work',
+    		'name' : 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
+    		'isDeleted': false
+    	},
+    	{
     		'tag' : 'study',
     		'name' : 'Japanese kanji 1',
     		'isDeleted': false
