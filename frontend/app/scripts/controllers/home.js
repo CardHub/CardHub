@@ -18,23 +18,33 @@ angular.module('frontendApp')
     $scope.decks = [
     	{
     		'tag' : 'study',
-    		'name' : 'GRE vocab'
+    		'name' : 'GRE vocab',
+    		'isDeleted': false
     	},
     	{
     		'tag' : 'work',
     		'name' : 'CS3216 Presentation dscdsvsvvvvvvvvvvvvvvvvvvffffffffffffffffffffffdddddddddddddddddd',
+    		'isDeleted': false
     	},
     	{
     		'tag' : 'study',
-    		'name' : 'Japanese kanji',
+    		'name' : 'Japanese kanji 1',
+    		'isDeleted': false
+    	},
+    	{
+    		'tag' : 'study',
+    		'name' : 'Japanese kanji 2',
+    		'isDeleted': true
     	},
     	{
     		'tag' : 'life',
-    		'name' : 'Recipe'
+    		'name' : 'Recipe',
+    		'isDeleted': false
     	},
     	{
     		'tag' : 'life',
-    		'name' : 'Book titles'
+    		'name' : 'Book titles',
+    		'isDeleted': false
     	}
     ];
   });

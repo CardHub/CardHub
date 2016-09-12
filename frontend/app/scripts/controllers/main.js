@@ -52,6 +52,7 @@ angular.module('frontendApp')
     //To be replaced by FB data
     $scope.userPhoto = '/../../images/user_photo.jpg';
     $scope.userName = 'Luo Xiao Hei';
+    $scope.deckDeleted = false;
 
     // Default state
     $scope.currentState = function() {
@@ -65,7 +66,12 @@ angular.module('frontendApp')
 
     $scope.changeFilter = function(filter) {
       $scope.toggleLeft();
-      $scope.deckFilter = filter;
+      if (filter==='deleted') {
+        $scope.deckDeleted = true;
+      } else {
+        $scope.deckFilter = filter;
+        $scope.deckDeleted = false;
+      }
     };
 
     function buildToggler(componentId) {
