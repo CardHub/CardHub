@@ -29,6 +29,11 @@ md-content {
   background-color: $color-background;
 }
 
+//header color
+.md-toolbar-tools {
+  background-color: $color-main;
+}
+
 .loading-fullscreen {
   md-progress-circular path{
     stroke: white;
