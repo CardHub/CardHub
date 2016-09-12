@@ -37,7 +37,7 @@ angular
       controller: 'MainCtrl'
     }).state({
       name: 'main.home',
-      url: '/home',
+      url: '/home/:filterTag',
       parent: 'main',
       templateUrl: 'views/home.html',
       controller: 'HomeCtrl',

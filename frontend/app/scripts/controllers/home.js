@@ -8,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('HomeCtrl', function ($scope, $state) {
+  .controller('HomeCtrl', function ($scope, $state, $stateParams) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -139,14 +139,13 @@ angular.module('frontendApp')
 
     $scope.displayedDecks = $scope.decks;
     $scope.selectedTag = "";
+    $scope.deckFilter = $stateParams.filterTag;
 
-    $scope.$on('changeFilterEvent', function (event, data) {
-      var deckFilter = data.deckFilter;
-      var deckDeleted = data.deckDeleted;
+    $scope.updateDeck = function(deckFilter, deckDeleted) {
       $scope.displayedDecks = [];
       for (var deck of $scope.decks) {
         if (deckDeleted === deck.isDeleted) {
-          if (deckDeleted || deckFilter==undefined) {
+          if (deckDeleted || deckFilter==undefined || deckFilter=="") {
             $scope.displayedDecks.push(deck);
           } else {
             for (var tag of deck.tags) {
@@ -158,8 +157,23 @@ angular.module('frontendApp')
           }
         }
       }
-    });
-    
+    }
+    console.log($scope.deckFilter);
+    if ($scope.deckFilter) {
+      if ($scope.deckFilter != "deleted") {
+        $scope.updateDeck($scope.deckFilter, false);
+      } else {
+        $scope.updateDeck($scope.deckFilter, true);
+      }
+    } else {
+      $scope.updateDeck($scope.deckFilter, false);
+    }
+    // $scope.$on('changeFilterEvent', function(event, data) {
+    //   var deckFilter = data.deckFilter;
+    //   var deckDeleted = data.deckDeleted;
+    //   $scope.updateDeck(deckFilter, deckDeleted);
+    // });
+
     $scope.viewDeck = function(deckId) {
       $state.go("main.deck", {id: deckId});
     }
