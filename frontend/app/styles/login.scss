@@ -1,0 +1,32 @@
+.login-main-wrapper {
+  height: 100%;
+}
+.login-logo-container {
+  img {
+    width: 250px;
+  }
+
+  h1 {
+    font-size: 3em;
+    margin-bottom: 0;
+  }
+}
+
+.login-login-button {
+  padding-bottom: 50px;
+  md-icon {
+    vertical-align: middle;
+  }
+  span {
+    font-size: 15px;
+    vertical-align: middle;
+  }
+}
+
+.login-foot-notes {
+  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+}

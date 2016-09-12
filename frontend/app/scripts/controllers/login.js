@@ -8,10 +8,12 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('LoginCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('LoginCtrl', function ($scope, LoadingHelper) {
+    $scope.login = function() {
+      LoadingHelper.show();
+
+      setTimeout(function() {
+        LoadingHelper.hide();
+      }, 4000);
+    };
   });

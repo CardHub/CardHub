@@ -46,5 +46,5 @@ angular.module('frontendApp')
     $scope.viewCard = function(cardId) {
       console.log(cardId);
       $state.go("main.card", {id: $scope.stateId, cardId: cardId});
-    }
+    };
   });

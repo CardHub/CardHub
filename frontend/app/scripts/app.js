@@ -21,6 +21,11 @@ angular
   })
   .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state({
+      name: 'login',
+      url: '/login',
+      templateUrl: 'views/login.html',
+      controller: 'LoginCtrl'
+    }).state({
       name: 'main',
       abstract: true,
       url: '',
