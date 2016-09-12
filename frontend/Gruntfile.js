@@ -245,7 +245,8 @@ module.exports = function (grunt) {
       },
       dist: {
         options: {
-          generatedImagesDir: '<%= yeoman.dist %>/images/generated'
+          generatedImagesDir: '<%= yeoman.dist %>/images/generated',
+          specify: ['<%= yeoman.app %>/styles/main.scss']
         }
       },
       server: {
@@ -439,9 +440,7 @@ module.exports = function (grunt) {
         'compass'
       ],
       dist: [
-        'compass:dist',
-        'imagemin',
-        'svgmin'
+        'compass:dist'
       ]
     },
 
@@ -488,6 +487,8 @@ module.exports = function (grunt) {
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
+    'imagemin',
+    'svgmin',
     'postcss',
     'ngtemplates',
     'concat',
