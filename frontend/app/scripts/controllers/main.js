@@ -65,13 +65,13 @@ angular.module('frontendApp')
     };
 
     $scope.changeFilter = function(filter) {
-      $scope.toggleLeft();
       if (filter==='deleted') {
         $scope.deckDeleted = true;
       } else {
         $scope.deckFilter = filter;
         $scope.deckDeleted = false;
       }
+      $scope.goTo('/home','main.home');
     };
 
     function buildToggler(componentId) {

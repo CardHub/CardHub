@@ -251,6 +251,7 @@ module.exports = function (grunt) {
       },
       server: {
         options: {
+          specify: ['<%= yeoman.app %>/styles/main.scss'],
           sourcemap: true
         }
       }
