@@ -15,7 +15,7 @@ router.get('/', function(req, res) {
 // Authenticate with Facebook access token
 router.post('/authenticate', AuthCtrl.authenticate);
 // Verify JSWT
-router.get('/secret', verifyToken, function(req, res) {
+router.get('/me', verifyToken, function(req, res) {
   res.send(req.user);
 });
 
