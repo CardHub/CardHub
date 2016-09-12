@@ -1,0 +1,24 @@
+.deck {
+  width: 360px;
+  height: 180px;
+  background-size: 100%;
+}
+
+.study-deck {
+  background-image: url("../../images/study-deck.png");
+}
+
+.work-deck {
+  background-image: url("../../images/work-deck.png");
+}
+
+.life-deck {
+  background-image: url("../../images/life-deck.png");
+}
+
+@media screen and (max-width: 768px) {
+  .deck {
+    width: 300px;
+    height: 150px;
+  }
+}
