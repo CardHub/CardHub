@@ -64,6 +64,9 @@ angular.module('frontendApp')
       $state.go(stateUrl, {id: stateId});
     };
 
+    // initialize filter variables
+    $scope.deckDeleted = false;
+    $scope.deckFilter = "";
     $scope.changeFilter = function(filter) {
       if (filter==='deleted') {
         $scope.deckDeleted = true;
@@ -71,7 +74,9 @@ angular.module('frontendApp')
         $scope.deckFilter = filter;
         $scope.deckDeleted = false;
       }
-      $scope.goTo('/home','main.home');
+      $scope.toggleLeft();
+      $state.go("main.home");
+      // $scope.goTo('/home','main.home');
     };
 
     function buildToggler(componentId) {

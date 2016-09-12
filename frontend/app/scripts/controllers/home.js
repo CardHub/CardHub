@@ -14,42 +14,142 @@ angular.module('frontendApp')
       'AngularJS',
       'Karma'
     ];
-
+    // dummy data
     $scope.decks = [
     	{
-    		'tag' : 'study',
-    		'name' : 'GRE vocab',
-    		'isDeleted': false
+        '_id' : '121212',
+        'created_at': '2016-09-11T09:12:24.208Z',
+        'updated_at': '2016-09-11T09:12:24.208Z',
+        'name' : 'GRE vocab',
+        'owner' : 'asdasdoadkos',
+        '__v': 0,
+        'isDeleted': false,
+        'public': false,
+        'cards' : [
+          {
+            '_id': '132131',
+            'front' : 'GRE word',
+            'back' : 'Meaning'
+          }
+        ],
+    		'tags': [
+          {
+            'name': 'study',
+            '_id': 'dede131313'
+          },
+          {
+            'name': 'work',
+            '_id': 'dede131313'
+          }
+        ]
     	},
     	{
-    		'tag' : 'work',
-    		'name' : 'CS3216 Presentation dscdsvsvvvvvvvvvvvvvvvvvvffffffffffffffffffffffdddddddddddddddddd',
-    		'isDeleted': false
+        '_id' : '1212122112',
+        'created_at': '2016-09-11T09:12:24.208Z',
+        'updated_at': '2016-09-11T09:12:24.208Z',
+        'name' : 'CS3216 Presentation dscdsvsvvvvvvvvvvvvvvvvvvffffffffffffffffffffffdddddddddddddddddd',
+        'owner' : 'asdasdoadkos',
+        '__v': 0,
+        'isDeleted': false,
+        'public': false,
+        'cards' : [
+          {
+            '_id': '143141',
+            'front' : 'CS3216 Presentation',
+            'back' : 'Notes'
+          }
+        ],
+    		'tags' : [
+          {
+            'name': 'work',
+            '_id': 'dede22131313'
+          }
+        ]
     	},
     	{
-    		'tag' : 'work',
-    		'name' : 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
-    		'isDeleted': false
+        '_id' : '12535432',
+        'created_at': '2016-09-11T09:12:24.208Z',
+        'updated_at': '2016-09-11T09:12:24.208Z',
+        'name' : 'Japanese kanji 1',
+        'owner' : 'asdasdoadkos',
+        '__v': 0,
+        'isDeleted': false,
+        'public': false,
+        'cards' : [
+          {
+            '_id': '2654645',
+            'front' : 'Japanese word',
+            'back' : 'Meaning'
+          }
+        ],
+        'tags' : [
+          {
+            'name': 'study',
+            '_id': 'dede131313'
+          }
+        ]
     	},
     	{
-    		'tag' : 'study',
-    		'name' : 'Japanese kanji 1',
-    		'isDeleted': false
+        '_id' : '12909fe09112',
+        'created_at': '2016-09-11T09:12:24.208Z',
+        'updated_at': '2016-09-11T09:12:24.208Z',
+        'name' : 'Recipe',
+        'owner' : 'asdasdoadkos',
+        '__v': 0,
+        'isDeleted': false,
+        'public': false,
+    		'cards' : [
+          {
+            '_id': '1765756',
+            'front' : 'Dish',
+            'back' : 'Recipe'
+          }
+        ],
+        'tags' : [
+          {
+            'name': 'life',
+            '_id': 'dede898313'
+          }
+        ]
     	},
     	{
-    		'tag' : 'study',
-    		'name' : 'Japanese kanji 2',
-    		'isDeleted': true
-    	},
-    	{
-    		'tag' : 'life',
-    		'name' : 'Recipe',
-    		'isDeleted': false
-    	},
-    	{
-    		'tag' : 'life',
-    		'name' : 'Book titles',
-    		'isDeleted': false
+    		'_id' : '12wewe909112',
+        'created_at': '2016-09-11T09:12:24.208Z',
+        'updated_at': '2016-09-11T09:12:24.208Z',
+        'name' : 'Book titles',
+        'owner' : 'asdasdoadkos',
+        '__v': 0,
+        'isDeleted': false,
+        'public': false,
+        'cards' : [
+          {
+            '_id': '4231212',
+            'front' : 'Book title',
+            'back' : 'Comments'
+          }
+        ],
+        'tags' : [
+          {
+            'name': 'life',
+            '_id': 'dede898313'
+          }
+        ] 
     	}
     ];
+
+    $scope.displayedDecks = [];
+    for (var deck of $scope.decks) {
+      if ($scope.deckDeleted === deck.isDeleted) {
+        if ($scope.deckDeleted || $scope.deckFilter=="") {
+          $scope.displayedDecks.push(deck);
+        } else {
+          for (var tag of deck.tags) {
+            if (tag.name === $scope.deckFilter) {
+              $scope.displayedDecks.push(deck);
+              break;
+            }
+          }
+        }
+      }
+    }
   });
