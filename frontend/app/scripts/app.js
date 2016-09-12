@@ -14,10 +14,14 @@ angular
     'ngResource',
     'ui.router',
     'ngSanitize',
-    'ngMaterial'
+    'ngMaterial',
+    'LocalStorageModule'
   ])
   .config(function($mdIconProvider) {
     $mdIconProvider.fontSet('md', 'material-icons');
+  })
+  .config(function(localStorageServiceProvider) {
+    localStorageServiceProvider.setPrefix('CARDHUB_');
   })
   .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state({
@@ -56,4 +60,31 @@ angular
 
     $urlRouterProvider.when('', '/home');
     $urlRouterProvider.otherwise('/home');
+  })
+  .factory('Config', function() {
+    return {
+      apiUrl: 'http://localhost:3000/api'
+    }
+  })
+  .run(function($window, UserAuth, Config, $http) {
+    $window.fbAsyncInit = function() {
+      FB.init({
+        appId: '346992402310773',
+        xfbml: true,
+        version: 'v2.7'
+      });
+      UserAuth.watchFacebookAuthenticationStatus();
+    };
+
+    (function(d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        return;
+      }
+      js = d.createElement(s);
+      js.id = id;
+      js.src = '//connect.facebook.net/en_US/sdk.js';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
   });
