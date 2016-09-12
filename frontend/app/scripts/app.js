@@ -58,8 +58,8 @@ angular
       title: 'Card'
     });
 
-    $urlRouterProvider.when('', '/home');
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.when('', '/home/');
+    $urlRouterProvider.otherwise('/home/');
   })
   .factory('Config', function() {
     return {
