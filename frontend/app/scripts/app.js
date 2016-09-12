@@ -44,19 +44,14 @@ angular
       title: 'Home'
     }).state({
       name: 'main.deck',
-      url: '/deck',
-      params: {deck: null},
+      url: '/deck/:id',
       parent: 'main',
       templateUrl: 'views/deck.html',
       controller: 'DeckCtrl',
       title: 'Deck'
     }).state({
       name: 'main.card',
-      url: '/card',
-      params: {
-        card: null,
-        tags: null
-      },
+      url: '/card/:deckId/:cardId',
       parent: 'main',
       templateUrl: 'views/card.html',
       controller: 'CardCtrl',
