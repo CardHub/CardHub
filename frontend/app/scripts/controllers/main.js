@@ -10,7 +10,7 @@
 angular.module('frontendApp')
   .controller('MainCtrl', function ($scope, $timeout, $mdSidenav, $state, UserAuth) {
     $scope.personalFilters = [
-      {
+    {
         'title': 'All',
         'color': 'white',
       },
@@ -75,11 +75,11 @@ angular.module('frontendApp')
         $scope.deckDeleted = false;
       }
       $scope.toggleLeft();
-      $scope.$broadcast('changeFilterEvent', {
-        deckFilter: $scope.deckFilter,
-        deckDeleted: $scope.deckDeleted
-      });
-      $state.go("main.home");
+      // $scope.$broadcast('changeFilterEvent', {
+      //   deckFilter: $scope.deckFilter,
+      //   deckDeleted: $scope.deckDeleted
+      // });
+      $state.go("main.home", {filterTag: $scope.deckFilter});
       // $scope.goTo('/home','main.home');
     };
 

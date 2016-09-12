@@ -37,7 +37,7 @@ angular
       controller: 'MainCtrl'
     }).state({
       name: 'main.home',
-      url: '/home',
+      url: '/home/:filterTag',
       parent: 'main',
       templateUrl: 'views/home.html',
       controller: 'HomeCtrl',
@@ -58,8 +58,8 @@ angular
       title: 'Card'
     });
 
-    $urlRouterProvider.when('', '/home');
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.when('', '/home/');
+    $urlRouterProvider.otherwise('/home/');
   })
   .factory('Config', function() {
     return {
