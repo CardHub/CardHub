@@ -1,5 +1,7 @@
 <md-content flex layout-padding>
   <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
-  	<div ng-repeat="deck in decks" ng-class=decks[$index].tag+"-deck" class="deck"></div>
+  	<div ng-repeat="deck in filtered = (decks | filter: decks[$index].isDeleted=deckDeleted | filter:decks[$index].tag=deckFilter) track by $index" ng-class=filtered[$index].tag+"-deck" class="deck">
+  		<div layout="column" layout-align="center" class="deck-title">{{filtered[$index].name | limitTo:55}}</div>
+  	</div>
   </div>
 </md-content>

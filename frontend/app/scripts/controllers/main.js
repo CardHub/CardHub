@@ -9,35 +9,30 @@
  */
 angular.module('frontendApp')
   .controller('MainCtrl', function ($scope, $timeout, $mdSidenav, $state) {
-    $scope.personalStates = [
+    $scope.personalFilters = [
       {
-        'name': 'All',
+        'title': 'All',
         'color': 'white',
-        'state': 'main.home'
       },
       {
-        'name': 'Study',
+        'title': 'Study',
         'color': 'study',
-        'state': 'main.deck',
-        'stateId': 'study'
+        'name': 'study'
       },
       {
-        'name': 'Work',
+        'title': 'Work',
         'color': 'work',
-        'state': 'main.deck',
-        'stateId': 'work'
+        'name': 'work'
       },
       {
-        'name': 'Life',
+        'title': 'Life',
         'color': 'life',
-        'state': 'main.deck',
-        'stateId': 'life'
+        'name': 'life'
       },
       {
-        'name': 'Deleted',
+        'title': 'Deleted',
         'color': 'white',
-        'state': 'main.deck',
-        'stateId': 'deleted'
+        'name': 'deleted'
       }
     ];
 
@@ -57,6 +52,7 @@ angular.module('frontendApp')
     //To be replaced by FB data
     $scope.userPhoto = '/../../images/user_photo.jpg';
     $scope.userName = 'Luo Xiao Hei';
+    $scope.deckDeleted = false;
 
     // Default state
     $scope.currentState = function() {
@@ -68,6 +64,15 @@ angular.module('frontendApp')
       $state.go(stateUrl, {id: stateId});
     };
 
+    $scope.changeFilter = function(filter) {
+      $scope.toggleLeft();
+      if (filter==='deleted') {
+        $scope.deckDeleted = true;
+      } else {
+        $scope.deckFilter = filter;
+        $scope.deckDeleted = false;
+      }
+    };
 
     function buildToggler(componentId) {
       return function() {
