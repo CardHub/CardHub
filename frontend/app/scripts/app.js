@@ -35,7 +35,7 @@ angular
       title: 'Home'
     }).state({
       name: 'main.deck',
-      url: '/deck',
+      url: '/deck/:id',
       parent: 'main',
       templateUrl: 'views/deck.html',
       controller: 'DeckCtrl',

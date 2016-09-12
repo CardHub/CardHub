@@ -18,22 +18,26 @@ angular.module('frontendApp')
       {
         'name': 'Study',
         'color': 'study',
-        'state': 'main.deck'
+        'state': 'main.deck',
+        'stateId': 'study'
       },
       {
         'name': 'Work',
         'color': 'work',
-        'state': 'main.deck'
+        'state': 'main.deck',
+        'stateId': 'work'
       },
       {
         'name': 'Life',
         'color': 'life',
-        'state': 'main.deck'
+        'state': 'main.deck',
+        'stateId': 'life'
       },
       {
         'name': 'Deleted',
         'color': 'white',
-        'state': 'main.deck'
+        'state': 'main.deck',
+        'stateId': 'deleted'
       }
     ];
 
@@ -59,9 +63,9 @@ angular.module('frontendApp')
       return $state.current;
     };
 
-    $scope.goTo = function(stateId) {
+    $scope.goTo = function(stateUrl, stateId) {
       $scope.toggleLeft();
-      $state.go(stateId);
+      $state.go(stateUrl, {id: stateId});
     };
 
 

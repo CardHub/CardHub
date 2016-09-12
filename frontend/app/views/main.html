@@ -22,7 +22,7 @@
         <p>Hey, {{userName}}</p>
       </md-list-item>
       <md-subheader class="md-no-sticky">Personal</md-subheader>
-      <md-list-item ng-click="goTo(state.state)" ng-repeat="state in personalStates" class="nav-item">
+      <md-list-item ng-click="goTo(state.state, state.stateId)" ng-repeat="state in personalStates" class="nav-item">
         <div class="md-avatar" ng-class="state.color"></div>
         <p>{{state.name}}</p>
       </md-list-item>

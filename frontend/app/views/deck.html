@@ -1,5 +1,7 @@
 <md-content flex layout-padding>
   <div layout="column" layout-align="top center">
-    This is deck page
+	  <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
+      <div ng-repeat="deck in decks" ng-if="deck.tag === stateId" ng-class=decks[$index].tag+"-deck" class="deck"></div>
+    </div>
   </div>
 </md-content>
