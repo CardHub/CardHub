@@ -1,6 +1,6 @@
 <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
 	<div ng-repeat="deck in displayedDecks" ng-class=displayedDecks[$index].tags[0].name+"-deck-homeview" class="deck-homeview">
 	<!-- <div ng-repeat="deck in filtered = (decks | filter: decks[$index].isDeleted==deckDeleted | filter: filtered[$index].tags[0].name===deckFilter) track by $index" ng-class=filtered[$index].tags[0].name+"-deck-homeview" class="deck-homeview"> -->
-		<div layout="column" layout-align="center" class="deck-title" ng-click="viewDeck(displayedDecks[$index])">{{displayedDecks[$index].name | limitTo:55}}</div>
+		<div layout="column" layout-align="center" class="deck-title" ng-click="viewDeck(displayedDecks[$index]._id)">{{displayedDecks[$index].name | limitTo:55}}</div>
 	</div>
 </div>
