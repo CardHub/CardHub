@@ -162,7 +162,7 @@ function verifyToken(token) {
 
 // A simple verify function to validate data.
 function verifyDeckData(data) {
-  if (!('name' in data) || !('tags' in data) || !('cards' in data) || !('public' in data)) {
+  if (!('name' in data) || !('tags' in data) || !('cards' in data)) {
     return false;
   }
   // Check tags
@@ -198,12 +198,14 @@ function getDeckDataFromRequest(req) {
       back: item.back
     };
   });
-  var deckVisibility = req.body.public;
+  var isDeleted = req.body.isDeleted || false;
+  var deckVisibility = req.body.public || true;
   var deckData = {
     name: deckName,
     tags: deckTags,
     owner: req.user._id,
     cards: deckCards,
+    isDeleted: isDeleted,
     public: deckVisibility
   };
   return deckData;
