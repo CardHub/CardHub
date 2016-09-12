@@ -136,7 +136,7 @@ angular.module('frontendApp')
         ] 
     	},
         {
-            '_id' : '12wewe909112',
+        '_id' : '12wewe909112',
         'created_at': '2016-09-11T09:12:24.208Z',
         'updated_at': '2016-09-11T09:12:24.208Z',
         'name' : 'Grocery list',
@@ -183,7 +183,7 @@ angular.module('frontendApp')
     }
     console.log($scope.deckFilter);
     if ($scope.deckFilter) {
-      if ($scope.deckFilter != "deleted") {
+      if ($scope.deckFilter !== "deleted") {
         $scope.updateDeck($scope.deckFilter, false);
       } else {
         $scope.updateDeck($scope.deckFilter, true);

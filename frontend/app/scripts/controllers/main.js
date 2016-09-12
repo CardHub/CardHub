@@ -67,10 +67,10 @@ angular.module('frontendApp')
     $scope.deckDeleted = false;
     $scope.deckFilter = "";
     $scope.changeFilter = function(filter) {
+      $scope.deckFilter = filter;
       if (filter==='deleted') {
         $scope.deckDeleted = true;
       } else {
-        $scope.deckFilter = filter;
         $scope.deckDeleted = false;
       }
       $scope.toggleLeft();
