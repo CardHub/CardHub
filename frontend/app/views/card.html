@@ -1,10 +1,10 @@
 <md-content flex layout-padding>
   <div layout="column" layout-align="center center">
     <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
-      <div ng-repeat="card in cards" ng-if="card.tag === stateId && card.cardId === cardId" ng-click="isCardFront=!isCardFront" ng-class='{"{{cards[$index].tag+"-deck-deckview"}}": isCardFront}' class="card-cardview">
+      <div ng-class='{"{{tags[0].name+"-deck-deckview"}}": isCardFront}' ng-click="isCardFront=!isCardFront" class="card-cardview">
         <div class="preview-wrapper">
-          <h4 align="center" class="card-preview card-front-view" ng-if="isCardFront">{{ card.nameFront }}</h4>
-          <p align="center" class="card-preview card-back-view" ng-if="!isCardFront">{{ card.nameBack }}</p>
+          <h4 align="center" class="card-preview card-front-view" ng-if="isCardFront">{{ card.front }}</h4>
+          <p align="center" class="card-preview card-back-view" ng-if="!isCardFront">{{ card.back }}</p>
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('HomeCtrl', function ($scope) {
+  .controller('HomeCtrl', function ($scope, $state) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -151,5 +151,8 @@ angular.module('frontendApp')
           }
         }
       }
+    }
+    $scope.viewDeck = function(curDeck) {
+      $state.go("main.deck", {deck: curDeck});
     }
   });

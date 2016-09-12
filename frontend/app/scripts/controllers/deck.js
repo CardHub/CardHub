@@ -9,11 +9,9 @@
  */
 angular.module('frontendApp')
   .controller('DeckCtrl', function ($scope, $state, $stateParams) {
-    $scope.decks = [];
-    $scope.stateId = $stateParams.id;
+    $scope.deck = $stateParams.deck;
 
-    $scope.viewCard = function(cardId) {
-      console.log(cardId);
-      $state.go("main.card", {id: $scope.stateId, cardId: cardId});
+    $scope.viewCard = function(card, tags) {
+      $state.go("main.card", {card: card, tags: tags});
     }
   });

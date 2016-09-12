@@ -68,6 +68,7 @@ angular.module('frontendApp')
     $scope.deckDeleted = false;
     $scope.deckFilter = "";
     $scope.changeFilter = function(filter) {
+      console.log(filter);
       if (filter==='deleted') {
         $scope.deckDeleted = true;
       } else {
@@ -75,7 +76,7 @@ angular.module('frontendApp')
         $scope.deckDeleted = false;
       }
       $scope.toggleLeft();
-      $state.go("main.home");
+      $state.go("main.home", "", { reload: true });
       // $scope.goTo('/home','main.home');
     };
 
