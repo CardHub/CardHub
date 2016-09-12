@@ -11,7 +11,8 @@ var DeckSchema = new Schema({
     front: String,
     back: String
   }],
-  public: Boolean,
+  public: { type: Boolean, default: true},
+  isDeleted: { type: Boolean, default: false },
   created_at: Date,
   updated_at: Date
 });
