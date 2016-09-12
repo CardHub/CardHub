@@ -134,7 +134,30 @@ angular.module('frontendApp')
             '_id': 'dede898313'
           }
         ] 
-    	}
+    	},
+        {
+            '_id' : '12wewe909112',
+        'created_at': '2016-09-11T09:12:24.208Z',
+        'updated_at': '2016-09-11T09:12:24.208Z',
+        'name' : 'Book titles',
+        'owner' : 'asdasdoadkos',
+        '__v': 0,
+        'isDeleted': true,
+        'public': false,
+        'cards' : [
+          {
+            '_id': '4231212',
+            'front' : 'Book title',
+            'back' : 'Comments'
+          }
+        ],
+        'tags' : [
+          {
+            'name': 'life',
+            '_id': 'dede898313'
+          }
+        ] 
+        }
     ];
 
     $scope.displayedDecks = $scope.decks;
