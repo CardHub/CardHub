@@ -47,7 +47,7 @@ angular.module('frontendApp')
         '_id' : '1212122112',
         'created_at': '2016-09-11T09:12:24.208Z',
         'updated_at': '2016-09-11T09:12:24.208Z',
-        'name' : 'CS3216 Presentation dscdsvsvvvvvvvvvvvvvvvvvvffffffffffffffffffffffdddddddddddddddddd',
+        'name' : 'CS3216 Presentation',
         'owner' : 'asdasdoadkos',
         '__v': 0,
         'isDeleted': false,
@@ -139,7 +139,7 @@ angular.module('frontendApp')
             '_id' : '12wewe909112',
         'created_at': '2016-09-11T09:12:24.208Z',
         'updated_at': '2016-09-11T09:12:24.208Z',
-        'name' : 'Book titles',
+        'name' : 'Grocery list',
         'owner' : 'asdasdoadkos',
         '__v': 0,
         'isDeleted': true,
@@ -147,8 +147,8 @@ angular.module('frontendApp')
         'cards' : [
           {
             '_id': '4231212',
-            'front' : 'Book title',
-            'back' : 'Comments'
+            'front' : 'Date',
+            'back' : 'Grocery'
           }
         ],
         'tags' : [
