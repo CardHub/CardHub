@@ -8,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('MainCtrl', function ($scope, $timeout, $mdSidenav, $state) {
+  .controller('MainCtrl', function ($scope, $timeout, $mdSidenav, $state, UserAuth) {
     $scope.personalFilters = [
       {
         'title': 'All',
@@ -92,7 +92,9 @@ angular.module('frontendApp')
     $scope.toggleLeft = buildToggler('left');
     $scope.toggleRight = buildToggler('right');
 
-    function logOut() {
-      
-    }
+    $scope.logOut = function() {
+      $scope.toggleLeft();
+      UserAuth.clearUserData();
+      $state.go('login');
+    };
   });

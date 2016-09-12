@@ -26,8 +26,8 @@ angular.module('frontendApp')
       localStorageService.set(KEY_USER, user);
     };
 
-    this.logout = function() {
-
+    this.clearUserData = function() {
+      localStorageService.remove(KEY_USER, KEY_USER_TOKEN);
     };
 
     this.getCurrentUser = function() {
