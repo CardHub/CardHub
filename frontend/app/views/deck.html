@@ -1,9 +1,13 @@
 <md-content flex layout-padding>
   <!-- <div layout="column" layout-align="top center"> -->
 	  <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
-      <div ng-repeat="deck in decks" ng-if="deck.tag === stateId" ng-class=decks[$index].tag+"-deck" ng-click="viewCard(deck.cardId)" class="deck"></div>
+      <div ng-repeat="deck in decks" ng-if="deck.tag === stateId" ng-class=decks[$index].tag+"-deck-deckview" ng-click="viewCard(deck.cardId)" class="deck-deckview">
+        <div class="preview-wrapper">
+          <h4 align="center" class="card-preview">{{ deck.nameFront }}</h4>
+        </div>
+      </div>
     </div>
-    <div layout="column" layout-align="end end">
+    <div layout="row" layout-align="end end">
       <md-button> Add </md-button>
     </div>
   <!-- </div> -->

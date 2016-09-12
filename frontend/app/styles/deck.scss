@@ -1,19 +1,31 @@
-.deck {
+.deck-homeview {
   width: 360px;
   height: 180px;
   background-size: 100%;
 }
-
-.study-deck {
+.study-deck-homeview {
   background-image: url("../../images/study-deck.png");
 }
-
-.work-deck {
+.work-deck-homeview {
   background-image: url("../../images/work-deck.png");
 }
-
-.life-deck {
+.life-deck-homeview {
   background-image: url("../../images/life-deck.png");
+}
+
+.deck-deckview {
+  width: 240px;
+  height: 240px;
+  background-size: 100%;
+}
+.study-deck-deckview {
+  background-color: $color-study;
+}
+.work-deck-deckview {
+  background-color: $color-work;
+}
+.life-deck-deckview {
+  background-color: $color-life;
 }
 
 @media screen and (max-width: 768px) {
