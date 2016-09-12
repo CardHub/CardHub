@@ -9,31 +9,30 @@
  */
 angular.module('frontendApp')
   .controller('MainCtrl', function ($scope, $timeout, $mdSidenav, $state) {
-    $scope.personalStates = [
+    $scope.personalFilters = [
       {
-        'name': 'All',
+        'title': 'All',
         'color': 'white',
-        'state': 'main.home'
       },
       {
-        'name': 'Study',
+        'title': 'Study',
         'color': 'study',
-        'state': 'main.deck'
+        'name': 'study'
       },
       {
-        'name': 'Work',
+        'title': 'Work',
         'color': 'work',
-        'state': 'main.deck'
+        'name': 'work'
       },
       {
-        'name': 'Life',
+        'title': 'Life',
         'color': 'life',
-        'state': 'main.deck'
+        'name': 'life'
       },
       {
-        'name': 'Deleted',
+        'title': 'Deleted',
         'color': 'white',
-        'state': 'main.deck'
+        'name': 'deleted'
       }
     ];
 
@@ -64,6 +63,10 @@ angular.module('frontendApp')
       $state.go(stateId);
     };
 
+    $scope.changeFilter = function(filter) {
+      $scope.toggleLeft();
+      $scope.deckFilter = filter;
+    };
 
     function buildToggler(componentId) {
       return function() {
