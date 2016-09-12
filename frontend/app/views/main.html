@@ -4,10 +4,10 @@
   <md-sidenav class="md-sidenav-left" md-component-id="left" md-whiteframe="2">
     <md-list ng-cloak class="side-nav">
       <md-list-item class="user-photo">
-        <img ng-src="{{userPhoto}}"class="md-avatar">
+        <img ng-src="{{$root.userPhoto}}"class="md-avatar">
       </md-list-item>
       <md-list-item class="user-name">
-        <p>Hey, {{userName}}</p>
+        <p>Hey, {{$root.userName}}</p>
       </md-list-item>
       <md-subheader class="md-no-sticky">Personal</md-subheader>
       <md-list-item ng-click="changeFilter(filter.name)" ng-repeat="filter in personalFilters" class="nav-item">

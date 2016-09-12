@@ -13,6 +13,7 @@ angular.module('frontendApp')
       LoadingHelper.show();
       FB.login(function(response) {
         if (response.status === 'connected') {
+          apiHelper.getUserDetails();
           var token = response.authResponse.accessToken;
           apiHelper.login({
             token: token

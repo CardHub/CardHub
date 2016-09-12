@@ -12,7 +12,7 @@ angular.module('frontendApp')
     $scope.personalFilters = [
     {
         'title': 'All',
-        'color': 'white',
+        'color': 'white', 
       },
       {
         'title': 'Study',
@@ -50,9 +50,8 @@ angular.module('frontendApp')
     ];
 
     //To be replaced by FB data
-    $scope.userPhoto = '/../../images/user_photo.jpg';
-    $scope.userName = 'Luo Xiao Hei';
-    $scope.deckDeleted = false;
+    //$scope.userPhoto = '/../../images/user_photo.jpg';
+    //$scope.userName = 'Luo Xiao Hei';
 
     // Default state
     $scope.currentState = function() {
