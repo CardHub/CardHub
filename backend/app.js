@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api', api);
+app.use('/', api);
 
 // Invalid token error handling
 app.use(function (err, req, res, next) {

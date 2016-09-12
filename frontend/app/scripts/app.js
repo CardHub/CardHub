@@ -63,7 +63,7 @@ angular
   })
   .factory('Config', function() {
     return {
-      apiUrl: 'http://localhost:3000/api'
+      apiUrl: 'https://cardhub.tk/api'
     }
   })
   .run(function($window, UserAuth, Config, $http) {
