@@ -8,13 +8,12 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('UserCtrl', function ($scope, $stateParams) {
+  .controller('UserCtrl', function ($scope, $stateParams, $state) {
     $scope.userId = $stateParams.id;
-    console.log($scope.userId);
 
     // dummy variable
     $scope.user = {
-      '_id' : 'someRandomDummyId',
+      '_id' : '10205718660725416',
       'created_at': '2016-09-11T09:12:24.208Z',
       'updated_at': '2016-09-11T09:12:24.208Z',
       'name' : 'Xiao Hei',
@@ -140,4 +139,8 @@ angular.module('frontendApp')
         }
       ]
     };
+
+    $scope.viewDeck = function(deckId) {
+      $state.go('main.deck', {id: deckId});
+    }
   });
