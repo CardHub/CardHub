@@ -12,7 +12,7 @@ angular.module('frontendApp')
     $scope.personalFilters = [
     {
         'title': 'All',
-        'color': 'white', 
+        'color': 'white',
       },
       {
         'title': 'Study',
@@ -96,4 +96,6 @@ angular.module('frontendApp')
       UserAuth.clearUserData();
       $state.go('login');
     };
+
+    $scope.currentUser = UserAuth.getCurrentUser();
   });

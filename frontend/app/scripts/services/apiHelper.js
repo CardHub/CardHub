@@ -31,24 +31,5 @@ angular.module('frontendApp')
 
     this.me = function() {
       return $http.get(Config.apiUrl + '/me');
-    }
-
-    this.getUserDetails = function() {
-      FB.api('/me', {fields: 'name,picture'}, function(response) {
-        if (response && response.picture && response.picture.data && response.picture.data.url) {
-          $rootScope.$apply(function() {
-          $rootScope.userPhoto = response.picture.data.url;
-        });
-        } else {
-          console.error("Can't get user profile photo");
-        }
-        if (response && response.name){
-          $rootScope.$apply(function() {
-            $rootScope.userName = response.name;
-          });
-        }else {
-          console.error("Can't get user name");
-        }
-      });
-    }
+    };
   });

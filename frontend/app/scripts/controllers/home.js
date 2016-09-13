@@ -133,7 +133,7 @@ angular.module('frontendApp')
             'name': 'life',
             '_id': 'dede898313'
           }
-        ] 
+        ]
     	},
         {
         '_id' : '12wewe909112',
@@ -156,7 +156,7 @@ angular.module('frontendApp')
             'name': 'life',
             '_id': 'dede898313'
           }
-        ] 
+        ]
         }
     ];
 

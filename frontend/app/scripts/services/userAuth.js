@@ -23,6 +23,7 @@ angular.module('frontendApp')
     };
 
     this.saveCurrentUser = function(user) {
+      user.userPhoto = 'https://graph.facebook.com/' + user.fbId +'/picture?type=large'
       localStorageService.set(KEY_USER, user);
     };
 
