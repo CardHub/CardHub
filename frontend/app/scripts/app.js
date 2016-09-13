@@ -83,6 +83,13 @@ angular
       templateUrl: 'views/card.html',
       controller: 'CardCtrl',
       title: 'Card'
+    }).state({
+      name: 'main.user',
+      url: '/user/:id',
+      parent: 'main',
+      templateUrl: 'views/user.html',
+      controller: 'UserCtrl',
+      title: 'User'
     });
 
     $urlRouterProvider.when('', '/home');
