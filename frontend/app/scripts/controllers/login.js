@@ -1,4 +1,5 @@
 'use strict';
+/* globals FB */
 
 /**
  * @ngdoc function

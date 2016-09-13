@@ -65,7 +65,7 @@ angular.module('frontendApp')
 
     // initialize filter variables
     $scope.deckDeleted = false;
-    $scope.deckFilter = "";
+    $scope.deckFilter = '';
     $scope.changeFilter = function(filter) {
       $scope.deckFilter = filter;
       if (filter==='deleted') {
@@ -78,7 +78,7 @@ angular.module('frontendApp')
       //   deckFilter: $scope.deckFilter,
       //   deckDeleted: $scope.deckDeleted
       // });
-      $state.go("main.home", {filterTag: $scope.deckFilter});
+      $state.go('main.home', {filterTag: $scope.deckFilter});
       // $scope.goTo('/home','main.home');
     };
 

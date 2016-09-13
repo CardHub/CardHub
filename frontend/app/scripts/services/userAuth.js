@@ -1,7 +1,8 @@
 'use strict';
+/* globals FB */
 
 angular.module('frontendApp')
-  .service('UserAuth', function($rootScope, $window, localStorageService, apiHelper) {
+  .service('UserAuth', function($rootScope, $window, localStorageService) {
     var KEY_USER = 'USER';
     var KEY_USER_TOKEN = 'USER_TOKEN';
 
@@ -14,7 +15,6 @@ angular.module('frontendApp')
     // 2. If have localStorage token but not facebook token, treat it as login and leave the work to token.
     // 3. If have both token, confirmed logged in.
     this.watchFacebookAuthenticationStatus = function() {
-      var _self = this;
       FB.getLoginStatus(facebookStatusChangeCallback);
     };
 
@@ -23,7 +23,7 @@ angular.module('frontendApp')
     };
 
     this.saveCurrentUser = function(user) {
-      user.userPhoto = 'https://graph.facebook.com/' + user.fbId +'/picture?type=large'
+      user.userPhoto = 'https://graph.facebook.com/' + user.fbId +'/picture?type=large';
       localStorageService.set(KEY_USER, user);
     };
 

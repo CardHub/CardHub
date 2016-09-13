@@ -9,7 +9,7 @@
  */
 angular.module('frontendApp')
   .controller('LoadingCtrl', function($mdDialog, $rootScope) {
-    $rootScope.$on("Loading.Finished", function() {
+    $rootScope.$on('Loading.Finished', function() {
       $mdDialog.cancel();
     });
   });

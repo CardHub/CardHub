@@ -4,7 +4,7 @@ angular.module('frontendApp')
   .factory('BearerAuthInterceptor', function($window, $q, localStorageService, Config) {
     return {
       request: function(config) {
-        if(config.url.indexOf(Config.apiUrl) == -1) {
+        if(config.url.indexOf(Config.apiUrl) === -1) {
           return config || $q.when(config);
         }
         config.headers = config.headers || {};

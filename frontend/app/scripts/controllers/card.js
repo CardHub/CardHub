@@ -38,9 +38,9 @@ angular.module('frontendApp')
     };
 
     $scope.card = [];
-    for (var card of $scope.deck.cards) {
-      if (card._id === $scope.cardId) {
-        $scope.card = card;
+    for (var i = 0; i < $scope.deck.cards.length; i++) {
+      if ($scope.deck.cards[i]._id === $scope.cardId) {
+        $scope.card = $scope.deck.cards[i];
         break;
       }
     }

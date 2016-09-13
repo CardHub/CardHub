@@ -37,6 +37,6 @@ angular.module('frontendApp')
     };
 
     $scope.viewCard = function(deckId, cardId) {
-      $state.go("main.card", {deckId: deckId, cardId: cardId});
-    }
+      $state.go('main.card', {deckId: deckId, cardId: cardId});
+    };
   });

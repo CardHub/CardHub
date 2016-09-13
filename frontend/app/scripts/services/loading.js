@@ -3,7 +3,7 @@
 angular.module('frontendApp')
   .service('LoadingHelper', function($mdDialog, $rootScope) {
     function hideWait() {
-      $rootScope.$emit("Loading.Finished");
+      $rootScope.$emit('Loading.Finished');
     }
 
     function showWait() {
@@ -23,5 +23,5 @@ angular.module('frontendApp')
     return {
       hide: hideWait,
       show: showWait
-    }
+    };
   });

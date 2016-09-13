@@ -161,29 +161,30 @@ angular.module('frontendApp')
     ];
 
     $scope.displayedDecks = $scope.decks;
-    $scope.selectedTag = "";
+    $scope.selectedTag = '';
     $scope.deckFilter = $stateParams.filterTag;
 
     $scope.updateDeck = function(deckFilter, deckDeleted) {
       $scope.displayedDecks = [];
-      for (var deck of $scope.decks) {
+      for (var i=0;i < $scope.decks.length;i++) {
+        var deck = $scope.decks[i];
         if (deckDeleted === deck.isDeleted) {
-          if (deckDeleted || deckFilter==undefined || deckFilter=="") {
+          if (deckDeleted || deckFilter === undefined || deckFilter === '') {
             $scope.displayedDecks.push(deck);
           } else {
-            for (var tag of deck.tags) {
-              if (tag.name === deckFilter) {
-                $scope.displayedDecks.push(deck);
-                break;
-              }
+            var hasTag = deck.tags.some(function(tag) {
+              return tag.name === deckFilter;
+            });
+            if (hasTag) {
+              $scope.displayedDecks.push(deck);
             }
           }
         }
       }
-    }
+    };
     console.log($scope.deckFilter);
     if ($scope.deckFilter) {
-      if ($scope.deckFilter !== "deleted") {
+      if ($scope.deckFilter !== 'deleted') {
         $scope.updateDeck($scope.deckFilter, false);
       } else {
         $scope.updateDeck($scope.deckFilter, true);
@@ -198,6 +199,6 @@ angular.module('frontendApp')
     // });
 
     $scope.viewDeck = function(deckId) {
-      $state.go("main.deck", {id: deckId});
-    }
+      $state.go('main.deck', {id: deckId});
+    };
   });

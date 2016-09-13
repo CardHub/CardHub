@@ -1,4 +1,5 @@
 'use strict';
+/* globals FB */
 
 /**
  * @ngdoc overview
@@ -64,9 +65,9 @@ angular
   .factory('Config', function() {
     return {
       apiUrl: 'https://cardhub.tk/api'
-    }
+    };
   })
-  .run(function($window, UserAuth, Config, $http) {
+  .run(function($window, UserAuth) {
     $window.fbAsyncInit = function() {
       FB.init({
         appId: '346992402310773',
