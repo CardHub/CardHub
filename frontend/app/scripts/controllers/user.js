@@ -13,10 +13,12 @@ angular.module('frontendApp')
 
     // dummy variable
     $scope.user = {
-      '_id' : '10205718660725416',
+      '_id' : '12131313',
+      'facebookId' : '10205718660725416',
       'created_at': '2016-09-11T09:12:24.208Z',
       'updated_at': '2016-09-11T09:12:24.208Z',
       'name' : 'Xiao Hei',
+      'email' : 'ggwp@abc.com',
       'deck' : [
         {
           '_id' : '121212',

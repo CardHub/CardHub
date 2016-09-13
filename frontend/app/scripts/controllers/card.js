@@ -18,7 +18,7 @@ angular.module('frontendApp')
         'created_at': '2016-09-11T09:12:24.208Z',
         'updated_at': '2016-09-11T09:12:24.208Z',
         'name' : 'CS3216 Presentation dscdsvsvvvvvvvvvvvvvvvvvvffffffffffffffffffffffdddddddddddddddddd',
-        'owner' : 'asdasdoadkos',
+        'owner' : '10205718660725416',
         '__v': 0,
         'isDeleted': false,
         'public': false,
@@ -27,6 +27,11 @@ angular.module('frontendApp')
             '_id': '143141',
             'front' : 'CS3216 Presentation',
             'back' : 'Notes'
+          },
+          {
+            '_id': '1122334',
+            'front' : 'CS5234 Problem Sets',
+            'back' : 'Big Leg List'
           }
         ],
         'tags' : [
