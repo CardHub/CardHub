@@ -4,3 +4,24 @@
 		<div layout="column" layout-align="center" class="deck-title" ng-click="viewDeck(displayedDecks[$index]._id)">{{displayedDecks[$index].name | limitTo:55}}</div>
 	</div>
 </div>
+
+<div class="lock-size" layout="row" layout-align="center center">
+      <md-fab-speed-dial class="md-fab-bottom-right md-scale" md-direction="up" md-open=false>
+        <md-fab-trigger>
+          <md-button aria-label="menu" class="md-fab">
+            <md-icon md-font-set="md">menu</md-icon>
+          </md-button>
+        </md-fab-trigger>
+       <md-fab-actions>
+          <md-button aria-label="Delete" class="md-fab md-raised md-mini">
+            <md-icon md-font-set="md" class="action-item">remove</md-icon>
+          </md-button>
+          <md-button aria-label="Edit" class="md-fab md-raised md-mini">
+            <md-icon md-font-set="md" class="action-item">create</md-icon>
+          </md-button>
+          <md-button aria-label="Add" class="md-fab md-raised md-mini">
+            <md-icon md-font-set="md" class="action-item">add</md-icon>
+          </md-button>
+        </md-fab-actions>
+      </md-fab-speed-dial>
+    </div>
