@@ -1,13 +1,15 @@
-<div layout="column" layout-align="center center">
-  <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
-    <div ng-class='{"{{deck.tags[0].name+"-deck-deckview"}}": isCardFront}' ng-click="isCardFront=!isCardFront" class="card-cardview">
-      <div class="preview-wrapper">
-        <h4 align="center" class="card-preview card-front-view" ng-if="isCardFront">{{ card.front }}</h4>
-        <p align="center" class="card-preview card-back-view" ng-if="!isCardFront">{{ card.back }}</p>
+<div layout="column" layout-align="center center" layout-margin>
+  <div class="flip">
+    <div class="card" ng-class="{'flipped':!isCardFront}" ng-click="isCardFront=!isCardFront">
+      <div class="face front" ng-class='"{{deck.tags[0].name+"-deck-deckview"}}"' layout="column" layout-align="center center" layout-padding>
+        {{ card.front }}
+      </div>
+      <div class="face back" layout="column" layout-align="center center" layout-padding>
+        {{ card.back }}
       </div>
     </div>
   </div>
-  <div layout="row" layout-align="end center">
+  <div layout="row" layout-align="center">
     <md-button> Edit </md-button>
     <md-button> Delete </md-button>
   </div>

@@ -1,0 +1,57 @@
+//============================================================
+// Transforms
+//============================================================
+
+@mixin transform($arguments...) {
+      -ms-transform: $arguments; // IE9
+          transform: $arguments;
+  -webkit-transform: $arguments;
+}
+
+@mixin transform-origin($arguments...) {
+      -ms-transform-origin: $arguments; // IE9
+          transform-origin: $arguments;
+  -webkit-transform-origin: $arguments;
+}
+
+@mixin rotate($arguments...) {
+      -ms-transform: rotate($arguments); // IE9
+          transform: rotate($arguments);
+  -webkit-transform: rotate($arguments);
+}
+
+@mixin backface-visibility ($arguments) {
+     -moz-backface-visibility: $arguments;
+      -ms-backface-visibility: $arguments;
+       -o-backface-visibility: $arguments;
+          backface-visibility: $arguments;
+  -webkit-backface-visibility: $arguments;
+}
+
+@mixin perspective($val) {
+  -moz-perspective: $val;
+  -ms-perspective: $val;
+  perspective: $val;
+  -webkit-perspective: $val;
+}
+
+@mixin transform-style($val) {
+  -moz-transform-style: $val;
+  -ms-transform-style: $val;
+  transform-style: $val;
+  -webkit-transform-style: $val;
+}
+
+//============================================================
+// Animations
+//============================================================
+
+@mixin transition($arguments...) {
+            transition: $arguments;
+    -webkit-transition: $arguments;
+}
+
+@mixin animation($arguments) {
+          animation: $arguments;
+  -webkit-animation: $arguments;
+}
