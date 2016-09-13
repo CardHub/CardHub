@@ -102,5 +102,5 @@ angular.module('frontendApp')
     $scope.viewUserProfile = function(userId) {
       $scope.toggleLeft();
       $state.go('main.user', {id: userId});
-    }
+    };
   });

@@ -77,12 +77,26 @@ angular
       controller: 'DeckCtrl',
       title: 'Deck'
     }).state({
+      name: 'main.createDeck',
+      url: '/createDeck',
+      parent: 'main',
+      templateUrl: 'views/createDeck.html',
+      controller: 'CreateDeckCtrl',
+      title: 'CreateDeck'
+    }).state({
       name: 'main.card',
       url: '/card/:deckId/:cardId',
       parent: 'main',
       templateUrl: 'views/card.html',
       controller: 'CardCtrl',
       title: 'Card'
+    }).state({
+      name: 'main.createCard',
+      url: '/deck/:deckId/createCard',
+      parent: 'main',
+      templateUrl: 'views/createCard.html',
+      controller: 'CreateCardCtrl',
+      title: 'CreateCard'
     }).state({
       name: 'main.user',
       url: '/user/:id',

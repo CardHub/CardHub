@@ -201,4 +201,8 @@ angular.module('frontendApp')
     $scope.viewDeck = function(deckId) {
       $state.go('main.deck', {id: deckId});
     };
+
+    $scope.addDeck = function() {
+      $state.go('main.createDeck');
+    };
   });
