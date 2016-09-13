@@ -6,20 +6,23 @@
 </div>
 
 <div class="lock-size" layout="row" layout-align="center center">
-      <md-fab-speed-dial class="md-fab-bottom-right md-scale" md-direction="up">
+      <md-fab-speed-dial class="md-fab-bottom-right md-scale" md-direction="up" md-open="actions.isOpen" ng-mouseenter="actions.isOpen=true" ng-mouseleave="actions.isOpen=false">
         <md-fab-trigger>
-          <md-button aria-label="menu" class="action md-fab">
-            <md-icon md-font-set="md">menu</md-icon>
+          <md-button aria-label="Actions" class="action md-fab">
+            <md-icon md-font-set="md">create</md-icon>
           </md-button>
         </md-fab-trigger>
        <md-fab-actions>
           <md-button aria-label="Delete" class="md-fab md-raised md-mini">
+          	<md-tooltip md-direction="left" md-visible="tooltipVisible" md-autohide="false">Delete</md-tooltip>
             <md-icon md-font-set="md" class="action-item">remove</md-icon>
           </md-button>
           <md-button aria-label="Edit" class="md-fab md-raised md-mini">
-            <md-icon md-font-set="md" class="action-item">create</md-icon>
+          	<md-tooltip md-direction="left" md-visible="tooltipVisible" md-autohide="false">Change</md-tooltip>
+            <md-icon md-font-set="md" class="action-item">change_history</md-icon>
           </md-button>
           <md-button aria-label="Add" class="md-fab md-raised md-mini">
+          	<md-tooltip md-direction="left" md-visible="tooltipVisible" md-autohide="false">Add</md-tooltip>
             <md-icon md-font-set="md" class="action-item">add</md-icon>
           </md-button>
         </md-fab-actions>
