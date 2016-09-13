@@ -11,9 +11,9 @@
 angular.module('frontendApp')
   .controller('LoginCtrl', function($scope, LoadingHelper, UserAuth, apiHelper, $state) {
     $scope.login = function() {
-      LoadingHelper.show();
       FB.login(function(response) {
         if (response.status === 'connected') {
+          LoadingHelper.show();
           var token = response.authResponse.accessToken;
           apiHelper.login({
             token: token
