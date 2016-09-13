@@ -1,23 +1,39 @@
-.card-cardview {
+.flip {
+  @include perspective(800);
   width: 500px;
-  height: 300px;
-}
+  height: 350px;
+  position: relative;
 
-.preview-wrapper {
-  text-align: center; 
-  display: table;
-  height: 90%;
-  width:100%;
-  .card-preview {
-    display: table-cell; 
-    vertical-align: middle;
+  .card {
+    width: 100%;
+    height: 100%;
+    @include transform-style(preserve-3d);
+    transition: 0.5s;
+
+    .face {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      @include backface-visibility(hidden);
+      z-index: 2;
+      text-align: center;
+    }
+
+    .front {
+      position: absolute;
+      z-index: 1;
+      color: #ffffff;
+      cursor: pointer;
+    }
+
+    .back {
+      @include transform(rotatey(-180deg));
+      background: white;
+      color: #000000;
+      cursor: pointer;
+    }
   }
 }
-
-.card-front-view {
-  color: #ffffff;
-}
-
-.card-back-view {
-  color: #000000;
+.flip .card.flipped {
+  @include transform(rotatey(-180deg));
 }
