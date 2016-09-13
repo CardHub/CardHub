@@ -3,12 +3,17 @@ var jwt = require('jsonwebtoken');
 var config = require('../config/config');
 
 module.exports = function(sequelize, DataTypes) {
-  var User = sequelize.define("User", {
+  var User = sequelize.define('User', {
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     facebookId: DataTypes.STRING,
     avatar: DataTypes.STRING
   }, {
+    classMethods: {
+      associate: function(models) {
+        User.hasMany(models.Deck);
+      }
+    },
     instanceMethods: {
       generateJwt: function() {
         var expiry = new Date();

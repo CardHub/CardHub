@@ -1,20 +1,29 @@
 var jwt = require('jsonwebtoken');
-var ObjectId = require('mongodb').ObjectId;
 var config = require('../config/config');
-var Deck = require('../models/Deck');
+var models = require('../models');
+var User = models.User;
+var Deck = models.Deck;
+var Tag = models.Tag;
 
 // Get all decks of the current user.
 exports.index = function(req, res) {
-  var user = req.user;
-  var query = Deck.find({
-    owner: user._id
-  }).sort({
-    updated_at: -1
-  }).exec();
-
-  query.then(function(decks) {
-    res.send(decks);
-  }).fail(function(err) {
+  Deck.findAll({
+    order: [
+      ['updatedAt', 'DESC']
+    ],
+    attributes: ['id', 'name', 'isPublic', 'isDeleted', 'UserId'],
+    where: {
+      UserId: req.user.id
+    },
+    include: [{
+        attributes: ['id', 'name'],
+        model: Tag,
+        as: 'Tags',
+        through: {attributes: []}
+    }]
+  }).then(function(decks) {
+    res.json(decks);
+  }).catch(function(err) {
     res.status(500).json({
       message: err.message
     });
@@ -29,13 +38,27 @@ exports.create = function(req, res) {
     });
   }
   var deckData = getDeckDataFromRequest(req);
-  var newDeck = new Deck(deckData);
-  var promise = newDeck.save();
-  promise.then(function(deck) {
-    return res.json(deck);
-  }).fail(function(error) {
-    return res.status(500).json({
-      message: error.message
+  Deck.create({
+    name: deckData.name,
+    isPublic: deckData.isPublic,
+    isDeleted: deckData.isDeleted,
+    UserId: req.user.id
+  }).then(function(deck) {
+    var count = deckData.tags.length;
+    deckData.tags.forEach(function(tag) {
+      Tag.findOrCreate({where: {UserId: req.user.id, name: tag.name}})
+      .spread(function(newTag, created) {
+        deck.addTag(newTag);
+        count--;
+        // Return the result when all finished.
+        if (count === 0) {
+          res.json(deck);
+        }
+      });
+    });
+  }).catch(function(err) {
+    res.status(500).json({
+      message: err.message
     });
   });
 };
@@ -46,12 +69,7 @@ exports.show = function(req, res) {
   //    a. If it's private, check the request user and see if he ownes the deck.
   //    b. If it's public, just return the deck.
   // 2. No match, response with empty result.
-  if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
-    res.status(400).json({
-      message: "Invalid deck id."
-    });
-    return;
-  }
+
 
   var query = Deck.findById(req.params.id).exec();
   query.then(function(deck) {
@@ -162,17 +180,7 @@ function verifyToken(token) {
 
 // A simple verify function to validate data.
 function verifyDeckData(data) {
-  if (!('name' in data) || !('tags' in data) || !('cards' in data)) {
-    return false;
-  }
-  // Check tags
-  var tags = data.tags;
-  if (!tags.every(item => 'name' in item)) {
-    return false;
-  }
-  // Check cards
-  var cards = data.cards;
-  if (!cards.every(item => 'front' in item && 'back' in item)) {
+  if (!('name' in data) || !('tags' in data) || !('isPublic' in data)) {
     return false;
   }
 
@@ -180,11 +188,12 @@ function verifyDeckData(data) {
 }
 
 function getDeckDataFromRequest(req) {
-  var deckName = req.body.name;
+  var payload = req.body;
+  var deckName = payload.name;
   // Remove duplicate tags
   var tagSet = new Set();
-  req.body.tags.forEach(function(item) {
-    tagSet.add(item.name);
+  payload.tags.forEach(function(item) {
+    tagSet.add(item);
   });
   var deckTags = [];
   tagSet.forEach(function(item) {
@@ -192,21 +201,13 @@ function getDeckDataFromRequest(req) {
       name: item
     });
   });
-  var deckCards = req.body.cards.map(function(item) {
-    return {
-      front: item.front,
-      back: item.back
-    };
-  });
-  var isDeleted = req.body.isDeleted || false;
-  var deckVisibility = req.body.public || true;
+  var isDeleted = payload.isDeleted || false;
+  var deckVisibility = payload.isPublic || false;
   var deckData = {
     name: deckName,
     tags: deckTags,
-    owner: req.user._id,
-    cards: deckCards,
     isDeleted: isDeleted,
-    public: deckVisibility
+    isPublic: deckVisibility
   };
   return deckData;
 }
