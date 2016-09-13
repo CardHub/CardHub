@@ -8,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('CardCtrl', function ($scope, $stateParams) {
+  .controller('CardCtrl', function ($scope, $stateParams, UserAuth) {
     $scope.deckId = $stateParams.deckId;
     $scope.cardId = $stateParams.cardId;
 
@@ -36,6 +36,9 @@ angular.module('frontendApp')
           }
         ]
     };
+    
+    // check if current user is the owner
+    $scope.isOwner = (UserAuth.getCurrentUser().fbId === $scope.deck.owner);
 
     $scope.card = [];
     for (var i = 0; i < $scope.deck.cards.length; i++) {
