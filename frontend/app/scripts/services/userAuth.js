@@ -2,7 +2,7 @@
 /* globals FB */
 
 angular.module('frontendApp')
-  .service('UserAuth', function($rootScope, $window, localStorageService) {
+  .service('UserAuth', function($rootScope, $window, localStorageService, jwtHelper) {
     var KEY_USER = 'USER';
     var KEY_USER_TOKEN = 'USER_TOKEN';
 
@@ -22,6 +22,10 @@ angular.module('frontendApp')
       localStorageService.set(KEY_USER_TOKEN, token);
     };
 
+    this.getToken = function() {
+      return localStorageService.get(KEY_USER_TOKEN);
+    };
+
     this.saveCurrentUser = function(user) {
       user.userPhoto = 'https://graph.facebook.com/' + user.fbId +'/picture?type=large';
       localStorageService.set(KEY_USER, user);
@@ -33,5 +37,11 @@ angular.module('frontendApp')
 
     this.getCurrentUser = function() {
       return localStorageService.get(KEY_USER);
+    };
+
+    this.isUserLogin = function() {
+      var token = this.getToken();
+      var user = this.getCurrentUser();
+      return user && !jwtHelper.isTokenExpired(token) || false;
     };
   });
