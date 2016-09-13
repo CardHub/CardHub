@@ -79,10 +79,8 @@ angular
 
     function notAuthenticate($q, UserAuth, $state, $timeout) {
       if (!UserAuth.isUserLogin()) {
-        console.log('not login;');
         return $q.when();
       } else {
-        console.log('not login;');
         $timeout(function() {
           $state.go('main.home');
         });
