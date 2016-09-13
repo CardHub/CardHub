@@ -165,6 +165,9 @@ angular.module('frontendApp')
     $scope.deckFilter = $stateParams.filterTag;
 
     $scope.updateDeck = function(deckFilter, deckDeleted) {
+      function checkHasTag(tag) {
+        return tag.name === deckFilter;
+      }
       $scope.displayedDecks = [];
       for (var i=0;i < $scope.decks.length;i++) {
         var deck = $scope.decks[i];
@@ -172,9 +175,7 @@ angular.module('frontendApp')
           if (deckDeleted || deckFilter === undefined || deckFilter === '') {
             $scope.displayedDecks.push(deck);
           } else {
-            var hasTag = deck.tags.some(function(tag) {
-              return tag.name === deckFilter;
-            });
+            var hasTag = deck.tags.some(checkHasTag);
             if (hasTag) {
               $scope.displayedDecks.push(deck);
             }

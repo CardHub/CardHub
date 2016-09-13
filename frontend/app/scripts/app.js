@@ -26,6 +26,29 @@ angular
     localStorageServiceProvider.setPrefix('CARDHUB_');
   })
   .config(function($stateProvider, $urlRouterProvider) {
+    function authenticate($q, UserAuth, $state, $timeout) {
+      if (UserAuth.isUserLogin()) {
+        // Resolve the promise successfully
+        return $q.when();
+      } else {
+        $timeout(function() {
+          $state.go('login');
+        });
+        return $q.reject();
+      }
+    }
+
+    function notAuthenticate($q, UserAuth, $state, $timeout) {
+      if (!UserAuth.isUserLogin()) {
+        return $q.when();
+      } else {
+        $timeout(function() {
+          $state.go('main.home');
+        });
+        return $q.reject();
+      }
+    }
+
     $stateProvider.state({
       name: 'login',
       url: '/login',
@@ -64,29 +87,6 @@ angular
 
     $urlRouterProvider.when('', '/home');
     $urlRouterProvider.otherwise('/login');
-
-    function authenticate($q, UserAuth, $state, $timeout) {
-      if (UserAuth.isUserLogin()) {
-        // Resolve the promise successfully
-        return $q.when();
-      } else {
-        $timeout(function() {
-          $state.go('login');
-        });
-        return $q.reject();
-      }
-    }
-
-    function notAuthenticate($q, UserAuth, $state, $timeout) {
-      if (!UserAuth.isUserLogin()) {
-        return $q.when();
-      } else {
-        $timeout(function() {
-          $state.go('main.home');
-        });
-        return $q.reject();
-      }
-    }
   })
   .factory('Config', function() {
     return {
