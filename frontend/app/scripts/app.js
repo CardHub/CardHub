@@ -16,7 +16,8 @@ angular
     'ui.router',
     'ngSanitize',
     'ngMaterial',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'angular-jwt'
   ])
   .config(function($mdIconProvider) {
     $mdIconProvider.fontSet('md', 'material-icons');
@@ -29,13 +30,15 @@ angular
       name: 'login',
       url: '/login',
       templateUrl: 'views/login.html',
-      controller: 'LoginCtrl'
+      controller: 'LoginCtrl',
+      resolve: { authenticate: notAuthenticate }
     }).state({
       name: 'main',
       abstract: true,
       url: '',
       templateUrl: 'views/main.html',
-      controller: 'MainCtrl'
+      controller: 'MainCtrl',
+      resolve: { authenticate: authenticate }
     }).state({
       name: 'main.home',
       url: '/home/:filterTag',
@@ -59,8 +62,33 @@ angular
       title: 'Card'
     });
 
-    $urlRouterProvider.when('', '/home/');
-    $urlRouterProvider.otherwise('/home/');
+    $urlRouterProvider.when('', '/home');
+    $urlRouterProvider.otherwise('/login');
+
+    function authenticate($q, UserAuth, $state, $timeout) {
+      if (UserAuth.isUserLogin()) {
+        // Resolve the promise successfully
+        return $q.when();
+      } else {
+        $timeout(function() {
+          $state.go('login');
+        });
+        return $q.reject();
+      }
+    }
+
+    function notAuthenticate($q, UserAuth, $state, $timeout) {
+      if (!UserAuth.isUserLogin()) {
+        console.log('not login;');
+        return $q.when();
+      } else {
+        console.log('not login;');
+        $timeout(function() {
+          $state.go('main.home');
+        });
+        return $q.reject();
+      }
+    }
   })
   .factory('Config', function() {
     return {
