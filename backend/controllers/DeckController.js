@@ -69,32 +69,34 @@ exports.show = function(req, res) {
   //    a. If it's private, check the request user and see if he ownes the deck.
   //    b. If it's public, just return the deck.
   // 2. No match, response with empty result.
-
-
-  var query = Deck.findById(req.params.id).exec();
-  query.then(function(deck) {
+  Deck.findOne({
+    where: {
+      id: req.params.id
+    },
+    attributes: ['id', 'name', 'isPublic', 'isDeleted', 'UserId'],
+    include: [{
+        attributes: ['id', 'name'],
+        model: Tag,
+        as: 'Tags',
+        through: {attributes: []}
+    }]
+  }).then(function(deck) {
     if (!deck) {
       return res.json({});
     }
 
-    if (deck.public) {
-      return res.json(deck);
+    if (deck.isPublic && deck.UserId !== req.user.id) {
+      var result = deck.toJSON();
+      delete result.Tags; // Remove tags from non-current user deck.
+      return res.json(result);
     }
 
-    var userToken = getToken(req);
-    if (!userToken) {
+    if (!deck.isPublic && deck.UserId !== req.user.id) {
       return res.json({});
     }
 
-    var result = verifyToken(userToken);
-    if (!result || !deck.owner.equals(result._id)) {
-      // Access without logging in, or the user does not own this deck,
-      // treat it as not found.
-      return res.json({});
-    }
-
-    res.send(deck);
-  }).fail(function(err) {
+    res.json(deck);
+  }).catch(function(err) {
     res.status(500).json({
       message: err.message
     });

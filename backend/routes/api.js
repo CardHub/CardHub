@@ -24,7 +24,7 @@ router.get('/me', verifyToken, function(req, res) {
 
 router.get('/deck', verifyToken, DeckCtrl.index);
 router.post('/deck', verifyToken, DeckCtrl.create);
-// router.get('/deck/:id', DeckCtrl.show);
+router.get('/deck/:id', verifyToken, DeckCtrl.show);
 // router.put('/deck/:id', verifyToken, DeckCtrl.update);
 // router.delete('/deck/:id', verifyToken, DeckCtrl.destroy);
 

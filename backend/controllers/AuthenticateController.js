@@ -31,9 +31,6 @@ exports.authenticate = function (req, res) {
         }
       })
       .spread(function (user, created) {
-        console.log(user.get({
-          plain: true
-        }));
         res.json(user.generateJwt());
       })
       .catch(function(err) {
