@@ -16,7 +16,7 @@ angular.module('frontendApp')
       },
       responseError: function(rejection) {
         if (rejection.status === 401) {
-          console.log('ooooops');
+          // TODO: Should redirect to login view.
         }
         return $q.reject(rejection);
       }

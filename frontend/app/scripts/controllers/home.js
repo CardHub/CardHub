@@ -182,7 +182,6 @@ angular.module('frontendApp')
         }
       }
     };
-    console.log($scope.deckFilter);
     if ($scope.deckFilter) {
       if ($scope.deckFilter !== 'deleted') {
         $scope.updateDeck($scope.deckFilter, false);
