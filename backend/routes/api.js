@@ -7,6 +7,7 @@ var AuthCtrl = require('../controllers/AuthenticateController');
 var DeckCtrl = require('../controllers/DeckController');
 var TagCtrl = require('../controllers/TagController');
 var CardCtrl = require('../controllers/CardController');
+var UserCtrl = require('../controllers/UserController');
 
 // Set up token authenticate
 var verifyToken = jwt({secret: config.secret});
@@ -23,6 +24,8 @@ router.post('/authenticate', AuthCtrl.authenticate);
 router.get('/me', verifyToken, function(req, res) {
   res.send(req.user);
 });
+
+router.get('/user/:id', verifyToken, UserCtrl.show);
 
 router.get('/deck', verifyToken, DeckCtrl.index);
 router.post('/deck', verifyToken, DeckCtrl.create);

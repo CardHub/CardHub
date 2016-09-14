@@ -23,7 +23,7 @@ module.exports = function(sequelize, DataTypes) {
           id: this.id,
           email: this.email,
           name: this.name,
-          fbId: this.facebookId,
+          facebookId: this.facebookId,
           avatar: this.avatar,
           exp: parseInt(expiry.getTime() / 1000),
         }, config.secret);
