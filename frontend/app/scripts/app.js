@@ -27,29 +27,6 @@ angular
     localStorageServiceProvider.setPrefix('CARDHUB_');
   })
   .config(function($stateProvider, $urlRouterProvider) {
-    function authenticate($q, UserAuth, $state, $timeout) {
-      if (UserAuth.isUserLogin()) {
-        // Resolve the promise successfully
-        return $q.when();
-      } else {
-        $timeout(function() {
-          $state.go('login');
-        });
-        return $q.reject();
-      }
-    }
-
-    function notAuthenticate($q, UserAuth, $state, $timeout) {
-      if (!UserAuth.isUserLogin()) {
-        return $q.when();
-      } else {
-        $timeout(function() {
-          $state.go('main.home');
-        });
-        return $q.reject();
-      }
-    }
-
     $stateProvider.state({
       name: 'login',
       url: '/login',
@@ -60,63 +37,72 @@ angular
       abstract: true,
       url: '/main',
       templateUrl: 'views/main.html',
-      controller: 'MainCtrl'
+      controller: 'MainCtrl',
+      auth: true
     }).state({
       name: 'main.home',
       url: '/home/:filterTag',
       parent: 'main',
       templateUrl: 'views/home.html',
       controller: 'HomeCtrl',
-      title: 'Home'
+      title: 'Home',
+      auth: true
     }).state({
       name: 'main.deck',
       url: '/deck/:id',
       parent: 'main',
       templateUrl: 'views/deck.html',
       controller: 'DeckCtrl',
-      title: 'Deck'
+      title: 'Deck',
+      auth: true
     }).state({
       name: 'main.createDeck',
       url: '/createDeck',
       parent: 'main',
       templateUrl: 'views/createDeck.html',
       controller: 'CreateDeckCtrl',
-      title: 'CreateDeck'
+      title: 'CreateDeck',
+      auth: true
     }).state({
       name: 'main.editDeck',
       url: '/edit/deck/:id',
       parent: 'main',
       templateUrl: 'views/editDeck.html',
       controller: 'EditDeckCtrl',
-      title: 'EditDeck'
+      title: 'EditDeck',
+      auth: true
     }).state({
       name: 'main.card',
       url: '/card/:deckId/:cardId',
       parent: 'main',
       templateUrl: 'views/card.html',
       controller: 'CardCtrl',
-      title: 'Card'
+      title: 'Card',
+      auth: true
     }).state({
       name: 'main.createCard',
       url: '/deck/:deckId/createCard',
       parent: 'main',
       templateUrl: 'views/createCard.html',
       controller: 'CreateCardCtrl',
-      title: 'CreateCard'
+      title: 'CreateCard',
+      auth: true
     }).state({
       name: 'main.editCard',
       url: '/edit/deck/:deckId/card/:cardId',
       parent: 'main',
       templateUrl: 'views/editCard.html',
       controller: 'EditCardCtrl',
-      title: 'EditCard'
+      title: 'EditCard',
+      auth: true
     }).state({
       name: 'main.user',
       url: '/user/:id',
       parent: 'main',
       templateUrl: 'views/user.html',
       controller: 'UserCtrl',
-      title: 'User'
+      title: 'User',
+      auth: true
     });
     $urlRouterProvider.when('/main', '/main/home/');
     $urlRouterProvider.otherwise('/login');
@@ -126,7 +112,7 @@ angular
       apiUrl: 'https://cardhub.tk/api'
     };
   })
-  .run(function($window, UserAuth) {
+  .run(function($window, UserAuth, $location, $rootScope) {
     $window.fbAsyncInit = function() {
       FB.init({
         appId: '346992402310773',
@@ -147,10 +133,26 @@ angular
       js.src = '//connect.facebook.net/en_US/sdk.js';
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+
+    $rootScope.$on('$stateChangeStart',
+      function(event, toState, toParams, fromState, fromParams, options){
+        if (toState.auth) {
+          if (!UserAuth.isUserLogin()) {
+            event.preventDefault();
+            $location.url('/login');
+          }
+        }
+
+        if (toState.name === 'login') {
+          if (UserAuth.isUserLogin()) {
+            event.preventDefault();
+          }
+        }
+    });
   })
   .run(function($rootScope, $state) {
     $rootScope.$on( '$stateChangeSuccess', function(event, to, toParams, from, fromParams ){
       from.params = fromParams;
       $state.previous = from;
-    });
+    });  
   });

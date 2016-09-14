@@ -9,11 +9,6 @@
  */
 angular.module('frontendApp')
   .controller('HomeCtrl', function ($scope, $state, $stateParams) {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
     // dummy data
     $scope.decks = [
     	{
