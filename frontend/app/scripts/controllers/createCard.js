@@ -19,5 +19,6 @@ angular.module('frontendApp')
     $scope.create = function(cardData) {
     	console.log(cardData);
       // connect with backend API, pass cardData, if successful, then direct to create another card?
+      $state.go('main.deck', {id : $scope.deckId});
     };
   });

@@ -8,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('CardCtrl', function ($scope, $stateParams, UserAuth) {
+  .controller('CardCtrl', function ($scope, $stateParams, $state, UserAuth) {
     $scope.deckId = $stateParams.deckId;
     $scope.cardId = $stateParams.cardId;
 
@@ -54,4 +54,8 @@ angular.module('frontendApp')
     }
 
     $scope.isCardFront = true;
+
+    $scope.editCard = function() {
+      $state.go('main.editCard', {deckId: $scope.deckId, cardId: $scope.cardId});
+    };
   });

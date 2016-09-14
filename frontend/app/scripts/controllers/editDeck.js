@@ -10,7 +10,9 @@
 angular.module('frontendApp')
   .controller('EditDeckCtrl', function ($scope, $state, $stateParams, UserAuth) {
   	$scope.deckId = $stateParams.id;
-  	
+
+  	// retrieve deck info based on deckId, dummy variable here:
+
   	// redirect to the main page if current user is not the creater of the given deck, 
   	if (UserAuth.getCurrentUser()._id !== $scope.deckId) {
   		// $state.go('main.home');
