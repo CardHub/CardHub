@@ -5,6 +5,7 @@ var config = require('../config/config');
 var models  = require('../models');
 var AuthCtrl = require('../controllers/AuthenticateController');
 var DeckCtrl = require('../controllers/DeckController');
+var TagCtrl = require('../controllers/TagController');
 
 // Set up token authenticate
 var verifyToken = jwt({secret: config.secret});
@@ -25,8 +26,13 @@ router.get('/me', verifyToken, function(req, res) {
 router.get('/deck', verifyToken, DeckCtrl.index);
 router.post('/deck', verifyToken, DeckCtrl.create);
 router.get('/deck/:id', verifyToken, DeckCtrl.show);
-// router.put('/deck/:id', verifyToken, DeckCtrl.update);
-// router.delete('/deck/:id', verifyToken, DeckCtrl.destroy);
+router.put('/deck/:id', verifyToken, DeckCtrl.update);
+router.delete('/deck/:id', verifyToken, DeckCtrl.destroy);
 
+router.get('/tag', verifyToken, TagCtrl.index);
+router.post('/tag', verifyToken, TagCtrl.create);
+router.get('/tag/:id', verifyToken, TagCtrl.show);
+router.put('/tag/:id', verifyToken, TagCtrl.update);
+router.delete('/tag/:id', verifyToken, TagCtrl.destroy);
 
 module.exports = router;
