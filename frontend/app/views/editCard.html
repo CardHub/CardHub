@@ -1,0 +1,16 @@
+<form ng-submit="update(cardData)" name="cardForm">
+  <div layout="column" layout-align="center center" >
+  <md-input-container>
+    <label>Front</label>
+    <input name="front" ng-model="cardData.front" required>
+    <div ng-messages="cardForm.front.$error" ng-show="cardForm.front.$dirty">
+      <div ng-message="required">This is required!</div>
+    </div>
+  </md-input-container>
+  <md-input-container>
+    <label>Back</label>
+    <input name="back" ng-model="cardData.back">
+  </md-input-container>
+  <input type="submit" value="Update" />
+  </div>
+</form>

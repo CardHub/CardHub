@@ -12,7 +12,7 @@ angular.module('frontendApp')
     $scope.create = function(deck) {
       console.log(deck);
       // add deck to backend, then create card in the callback
-      var response = {"deckId" : "dummyDeck123"};
-      $state.go('main.createCard', {deckId: response.deckId});
+      var dummyResponse = {'deckId': 'dummyDeck123'};
+      $state.go('main.createCard', {deckId: dummyResponse.deckId});
     };
   });

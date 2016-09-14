@@ -84,6 +84,13 @@ angular
       controller: 'CreateDeckCtrl',
       title: 'CreateDeck'
     }).state({
+      name: 'main.editDeck',
+      url: '/edit/deck/:id',
+      parent: 'main',
+      templateUrl: 'views/editDeck.html',
+      controller: 'EditDeckCtrl',
+      title: 'EditDeck'
+    }).state({
       name: 'main.card',
       url: '/card/:deckId/:cardId',
       parent: 'main',
@@ -97,6 +104,13 @@ angular
       templateUrl: 'views/createCard.html',
       controller: 'CreateCardCtrl',
       title: 'CreateCard'
+    }).state({
+      name: 'main.editCard',
+      url: '/edit/deck/:deckId/card/:cardId',
+      parent: 'main',
+      templateUrl: 'views/editCard.html',
+      controller: 'EditCardCtrl',
+      title: 'EditCard'
     }).state({
       name: 'main.user',
       url: '/user/:id',
