@@ -22,10 +22,27 @@ module.exports = function(sequelize, DataTypes) {
           }
         });
 
+        Deck.hasMany(models.Card);
+
         Deck.belongsToMany(models.Tag, {
           as: 'Tags',
           through: 'deck_tags',
           foreignKey: 'deckId'
+        });
+      }
+    },
+    instanceMethods: {
+      fork: function() {
+        var self = this;
+        return new Promise(function(resolve, reject) {
+          self.getCards().then(function(cards) {
+            resolve({
+              deck: self.toJSON(),
+              cards: cards
+            });
+          }).catch(function(err) {
+            reject(err);
+          });
         });
       }
     }

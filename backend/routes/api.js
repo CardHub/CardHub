@@ -6,6 +6,7 @@ var models  = require('../models');
 var AuthCtrl = require('../controllers/AuthenticateController');
 var DeckCtrl = require('../controllers/DeckController');
 var TagCtrl = require('../controllers/TagController');
+var CardCtrl = require('../controllers/CardController');
 
 // Set up token authenticate
 var verifyToken = jwt({secret: config.secret});
@@ -28,6 +29,14 @@ router.post('/deck', verifyToken, DeckCtrl.create);
 router.get('/deck/:id', verifyToken, DeckCtrl.show);
 router.put('/deck/:id', verifyToken, DeckCtrl.update);
 router.delete('/deck/:id', verifyToken, DeckCtrl.destroy);
+
+router.get('/forkDeck/:id', verifyToken, DeckCtrl.fork);
+
+router.get('/deck/:id/card', verifyToken, CardCtrl.index);
+router.post('/deck/:id/card', verifyToken, CardCtrl.create);
+router.get('/deck/:id/card/:cardId', verifyToken, CardCtrl.show);
+router.put('/deck/:id/card/:cardId', verifyToken, CardCtrl.update);
+router.delete('/deck/:id/card/:cardId', verifyToken, CardCtrl.destroy);
 
 router.get('/tag', verifyToken, TagCtrl.index);
 router.post('/tag', verifyToken, TagCtrl.create);

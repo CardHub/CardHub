@@ -42,7 +42,7 @@ exports.create = function(req, res) {
   });
 };
 
-// Show a specific deck
+// Show a specific tag
 exports.show = function(req, res) {
   Tag.findOne({
     where: {

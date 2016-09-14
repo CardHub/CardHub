@@ -4,6 +4,7 @@ var models = require('../models');
 var User = models.User;
 var Deck = models.Deck;
 var Tag = models.Tag;
+var Card = models.Card;
 
 // Get all decks of the current user.
 exports.index = function(req, res) {
@@ -54,14 +55,14 @@ exports.create = function(req, res) {
           name: tag.name
         }
       })
-        .spread(function(newTag, created) {
-          deck.addTag(newTag);
-          count--;
-          // Return the result when all finished.
-          if (count === 0) {
-            res.json(deck);
-          }
-        });
+      .spread(function(newTag, created) {
+        deck.addTag(newTag);
+        count--;
+        // Return the result when all finished.
+        if (count === 0) {
+          res.json(deck);
+        }
+      });
     });
   }).catch(function(err) {
     res.status(500).json({
@@ -94,6 +95,11 @@ exports.show = function(req, res) {
     }]
   }).then(function(deck) {
     if (!deck) {
+      return res.json({});
+    }
+
+    // Don't show others deleted decks.
+    if (deck.isDeleted && deck.UserId !== req.user.id) {
       return res.json({});
     }
 
@@ -189,6 +195,53 @@ exports.destroy = function(req, res) {
     .catch(function(err) {
       resError(res, err);
     });
+};
+
+exports.fork = function(req, res) {
+  Deck.findOne({
+    where: {
+      id: req.params.id,
+      isPublic: true,
+      isDeleted: false,
+      UserId: {
+        $ne: req.user.id
+      }
+    }
+  }).then(function(deck) {
+    if (!deck) {
+      res.json({
+        success: false,
+        message: 'Error forking the deck.'
+      });
+    } else {
+      deck.fork().then(data => {
+        Deck.create({
+          name: data.deck.name,
+          isPublic: true,
+          isDeleted: false,
+          UserId: req.user.id
+        })
+        .then(function(newDeck) {
+          var addCards = [];
+
+          data.cards.forEach(function(card) {
+            addCards.push(
+              Card.create({
+                front: card.front,
+                back: card.back,
+                DeckId: newDeck.id
+              })
+            );
+          });
+          Promise.all(addCards).then(function(result) {
+            res.json(result);
+          }, function(err) {
+            resError(res, err);
+          });
+        });
+      });
+    }
+  });
 };
 
 function resError(res, err) {
