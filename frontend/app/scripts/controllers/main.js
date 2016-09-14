@@ -9,13 +9,6 @@
  */
 angular.module('frontendApp')
   .controller('MainCtrl', function ($rootScope,$scope, $timeout, $mdSidenav, $state, UserAuth) {
-    $rootScope.$on( '$stateChangeStart', function(event, to, toParams, from, fromParams ){
-    // Add {fromParams} to {from}
-    from.params = fromParams;
-
-    // Assign {from} to {previous} in $state
-    $state.previous = from;
-    });
     $scope.personalFilters = [
     {
         'title': 'All',
@@ -56,10 +49,6 @@ angular.module('frontendApp')
       }
     ];
 
-    //To be replaced by FB data
-    //$scope.userPhoto = '/../../images/user_photo.jpg';
-    //$scope.userName = 'Luo Xiao Hei';
-
     // Default state
     $scope.currentState = function() {
       return $state.current;
@@ -81,12 +70,7 @@ angular.module('frontendApp')
         $scope.deckDeleted = false;
       }
       $scope.toggleLeft();
-      // $scope.$broadcast('changeFilterEvent', {
-      //   deckFilter: $scope.deckFilter,
-      //   deckDeleted: $scope.deckDeleted
-      // });
       $state.go('main.home', {filterTag: $scope.deckFilter});
-      // $scope.goTo('/home','main.home');
     };
 
     function buildToggler(componentId) {

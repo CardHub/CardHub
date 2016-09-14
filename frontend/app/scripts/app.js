@@ -46,6 +46,11 @@ angular
       templateUrl: 'views/home.html',
       controller: 'HomeCtrl',
       title: 'Home',
+      resolve:{
+        'userDeckListData':function(DeckApi){
+          return DeckApi.getUserDeckList();
+        }
+      },
       auth: true
     }).state({
       name: 'main.deck',
