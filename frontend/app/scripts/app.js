@@ -30,15 +30,13 @@ angular
       name: 'login',
       url: '/login',
       templateUrl: 'views/login.html',
-      controller: 'LoginCtrl',
-      resolve: { authenticate: notAuthenticate }
+      controller: 'LoginCtrl'
     }).state({
       name: 'main',
       abstract: true,
       url: '',
       templateUrl: 'views/main.html',
-      controller: 'MainCtrl',
-      resolve: { authenticate: authenticate }
+      controller: 'MainCtrl'
     }).state({
       name: 'main.home',
       url: '/home/:filterTag',
