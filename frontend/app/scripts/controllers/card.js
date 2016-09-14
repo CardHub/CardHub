@@ -43,7 +43,8 @@ angular.module('frontendApp')
     };
     
     // check if current user is the owner
-    $scope.isOwner = (UserAuth.getCurrentUser().fbId === $scope.deck.owner);
+    // $scope.isOwner = (UserAuth.getCurrentUser().fbId === $scope.deck.owner);
+    $scope.isOwner = true;
 
     $scope.card = [];
     for (var i = 0; i < $scope.deck.cards.length; i++) {

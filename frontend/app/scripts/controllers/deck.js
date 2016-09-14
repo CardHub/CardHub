@@ -37,8 +37,8 @@ angular.module('frontendApp')
     };
 
     // check if current user is the owner
-    $scope.isOwner = (UserAuth.getCurrentUser().fbId === $scope.deck.owner);
-
+    // $scope.isOwner = (UserAuth.getCurrentUser().fbId === $scope.deck.owner);
+    $scope.isOwner = true;
 
     $scope.viewCard = function(deckId, cardId) {
       $state.go('main.card', {deckId: deckId, cardId: cardId});
