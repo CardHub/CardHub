@@ -1,4 +1,4 @@
-<form name="deckForm" novalidate  flex-offset-gt-sm="25" flex-gt-sm="50">
+<form name="deckForm" novalidate ng-submit="deckForm.$valid && update(deck)" flex-offset-gt-sm="25" flex-gt-sm="50">
   <label>Deck Name</label>
   <input ng-model="deck.name" required>
   <div  ng-init="deck.isPublic=false">

@@ -1,7 +1,7 @@
-<form name="deckForm" layout="column" ng-cloak class="md-inline-form" novalidate  flex-offset-gt-sm="25" flex-gt-sm="50">
+<form novalidate ng-submit="deckForm.$valid && create(deck)" name="deckForm" layout="column" ng-cloak class="md-inline-form" flex-offset-gt-sm="25" flex-gt-sm="50">
   <md-input-container class="md-block" flex-gt-sm>
     <label>Deck name</label>
-    <input name="name" ng-model="deck.name" required md-maxlength="55">
+    <input type="text" name="name" ng-model="deck.name" required md-maxlength="55">
     <div ng-messages="deckForm.name.$error">
       <div ng-message="required">This is required!</div>
       <div ng-message="md-maxlength">Please limit to 55 characters!</div>
