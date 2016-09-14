@@ -148,6 +148,10 @@ angular
             if (fromState.name) {
               // not inital visit to this view
               event.preventDefault();
+            } else {
+              // Initial visit, has logined, and come to login page.
+              // redirect to main.
+              $location.url('/main/home/');
             }
           }
         }
