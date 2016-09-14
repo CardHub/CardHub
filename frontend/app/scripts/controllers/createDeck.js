@@ -9,6 +9,7 @@
  */
 angular.module('frontendApp')
   .controller('CreateDeckCtrl', function ($scope, $state) {
+  	$scope.tags = ['study','work','life'];
     $scope.create = function(deck) {
       console.log(deck);
       // add deck to backend, then create card in the callback

@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngMaterial',
     'LocalStorageModule',
-    'angular-jwt'
+    'angular-jwt',
+    'ngMessages'
   ])
   .config(function($mdIconProvider) {
     $mdIconProvider.fontSet('md', 'material-icons');

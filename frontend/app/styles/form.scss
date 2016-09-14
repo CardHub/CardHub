@@ -1,0 +1,12 @@
+form {
+	background-color: white;
+  	padding: 20px;
+	button.md-button.md-ink-ripple {
+		background-color: $color-action;
+		color: white;
+	}
+	.md-button:not([disabled]):hover {
+		background-color: $color-action;
+		color: white;
+	}
+}

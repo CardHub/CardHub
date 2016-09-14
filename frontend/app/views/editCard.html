@@ -1,5 +1,5 @@
-<form ng-submit="update(cardData)" name="cardForm">
-  <div layout="column" layout-align="center center" >
+<form ng-submit="update(cardData)" name="cardForm" ng-cloak class="md-inline-form"flex-offset-gt-sm="25" flex-gt-sm="50">
+  <div layout="column">
   <md-input-container>
     <label>Front</label>
     <input name="front" ng-model="cardData.front" required>
@@ -11,6 +11,6 @@
     <label>Back</label>
     <input name="back" ng-model="cardData.back">
   </md-input-container>
-  <input type="submit" value="Update" />
+  <md-button type="submit">Update</md-button>
   </div>
 </form>
