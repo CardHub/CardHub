@@ -57,7 +57,7 @@ angular
     }).state({
       name: 'main',
       abstract: true,
-      url: '',
+      url: '/main',
       templateUrl: 'views/main.html',
       controller: 'MainCtrl'
     }).state({
@@ -118,7 +118,7 @@ angular
       title: 'User'
     });
 
-    $urlRouterProvider.when('', '/home');
+    $urlRouterProvider.when('/main', '/main/home/');
     $urlRouterProvider.otherwise('/login');
   })
   .factory('Config', function() {
