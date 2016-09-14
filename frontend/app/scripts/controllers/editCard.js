@@ -22,5 +22,6 @@ angular.module('frontendApp')
     $scope.update = function(cardData) {
     	console.log(cardData);
       // connect with backend API, update with cardData
+      $state.go('main.card', {deckId: $scope.deckId, cardId: $scope.cardId});
     };
   });

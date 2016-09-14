@@ -43,4 +43,8 @@ angular.module('frontendApp')
     $scope.viewCard = function(deckId, cardId) {
       $state.go('main.card', {deckId: deckId, cardId: cardId});
     };
+
+    $scope.createCard = function() {
+      $state.go('main.createCard', {deckId: $scope.deckId});
+    };
   });
