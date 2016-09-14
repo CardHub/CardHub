@@ -98,4 +98,9 @@ angular.module('frontendApp')
     };
 
     $scope.currentUser = UserAuth.getCurrentUser();
+
+    $scope.viewUserProfile = function(userId) {
+      $scope.toggleLeft();
+      $state.go('main.user', {id: userId});
+    };
   });

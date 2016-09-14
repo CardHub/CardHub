@@ -26,6 +26,29 @@ angular
     localStorageServiceProvider.setPrefix('CARDHUB_');
   })
   .config(function($stateProvider, $urlRouterProvider) {
+    function authenticate($q, UserAuth, $state, $timeout) {
+      if (UserAuth.isUserLogin()) {
+        // Resolve the promise successfully
+        return $q.when();
+      } else {
+        $timeout(function() {
+          $state.go('login');
+        });
+        return $q.reject();
+      }
+    }
+
+    function notAuthenticate($q, UserAuth, $state, $timeout) {
+      if (!UserAuth.isUserLogin()) {
+        return $q.when();
+      } else {
+        $timeout(function() {
+          $state.go('main.home');
+        });
+        return $q.reject();
+      }
+    }
+
     $stateProvider.state({
       name: 'login',
       url: '/login',
@@ -52,39 +75,51 @@ angular
       controller: 'DeckCtrl',
       title: 'Deck'
     }).state({
+      name: 'main.createDeck',
+      url: '/createDeck',
+      parent: 'main',
+      templateUrl: 'views/createDeck.html',
+      controller: 'CreateDeckCtrl',
+      title: 'CreateDeck'
+    }).state({
+      name: 'main.editDeck',
+      url: '/edit/deck/:id',
+      parent: 'main',
+      templateUrl: 'views/editDeck.html',
+      controller: 'EditDeckCtrl',
+      title: 'EditDeck'
+    }).state({
       name: 'main.card',
       url: '/card/:deckId/:cardId',
       parent: 'main',
       templateUrl: 'views/card.html',
       controller: 'CardCtrl',
       title: 'Card'
+    }).state({
+      name: 'main.createCard',
+      url: '/deck/:deckId/createCard',
+      parent: 'main',
+      templateUrl: 'views/createCard.html',
+      controller: 'CreateCardCtrl',
+      title: 'CreateCard'
+    }).state({
+      name: 'main.editCard',
+      url: '/edit/deck/:deckId/card/:cardId',
+      parent: 'main',
+      templateUrl: 'views/editCard.html',
+      controller: 'EditCardCtrl',
+      title: 'EditCard'
+    }).state({
+      name: 'main.user',
+      url: '/user/:id',
+      parent: 'main',
+      templateUrl: 'views/user.html',
+      controller: 'UserCtrl',
+      title: 'User'
     });
 
     $urlRouterProvider.when('', '/home');
     $urlRouterProvider.otherwise('/login');
-
-    function authenticate($q, UserAuth, $state, $timeout) {
-      if (UserAuth.isUserLogin()) {
-        // Resolve the promise successfully
-        return $q.when();
-      } else {
-        $timeout(function() {
-          $state.go('login');
-        });
-        return $q.reject();
-      }
-    }
-
-    function notAuthenticate($q, UserAuth, $state, $timeout) {
-      if (!UserAuth.isUserLogin()) {
-        return $q.when();
-      } else {
-        $timeout(function() {
-          $state.go('main.home');
-        });
-        return $q.reject();
-      }
-    }
   })
   .factory('Config', function() {
     return {

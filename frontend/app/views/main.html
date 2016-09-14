@@ -4,7 +4,7 @@
   <md-sidenav class="md-sidenav-left" md-component-id="left" md-whiteframe="2">
     <md-list ng-cloak class="side-nav">
       <md-list-item class="user-photo">
-        <img ng-src="{{currentUser.userPhoto}}"class="md-avatar">
+        <img ng-src="{{currentUser.userPhoto}}" ng-click="viewUserProfile(currentUser._id)" class="md-avatar">
       </md-list-item>
       <md-list-item class="user-name">
         <p>Hey, {{currentUser.name}}</p>

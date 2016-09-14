@@ -1,0 +1,9 @@
+<form name="deckForm">
+  <label>Deck Name</label>
+  <input ng-model="deck.name" required>
+  <div  ng-init="deck.isPublic=false">
+    <input type="radio" ng-model="deck.isPublic" value="true" /> <label>Public</label>
+    <input type="radio" ng-model="deck.isPublic" value="false" /> <label>Private</label>
+  </div>
+  <input type="submit" ng-click="update(deck)" value="Update" />
+</form>

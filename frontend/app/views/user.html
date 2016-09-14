@@ -1,0 +1,17 @@
+<div layout="column" layout-align="center center" layout-margin>
+  <div layout="row" layout-align="center center" layout-margin>
+    <img ng-src="https://graph.facebook.com/{{user.facebookId}}/picture?type=large" class="md-avatar">
+    <div layout="column" layout-align="center center" layout-margin>
+      <span>{{user.name}}</span>
+      <span>{{user.email}}</span>
+    </div>
+  </div>
+
+  <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
+    <div ng-repeat="deck in user.deck" ng-class=user.deck[$index].tags[0].name+"-deck-homeview" class="deck-homeview">
+      <div layout="column" layout-align="center" class="deck-title" ng-click="viewDeck(user.deck[$index]._id)">
+        {{user.deck[$index].name | limitTo:55}}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<form name="deckForm">
+  <label>Deck Name</label>
+  <input ng-model="deck.name" required>
+  <div  ng-init="deck.isPublic=false">
+    <input type="radio" ng-model="deck.isPublic" value="true" /> <label>Public</label>
+    <input type="radio" ng-model="deck.isPublic" value="false" /> <label>Private</label>
+  </div>
+  <input type="submit" ng-click="create(deck)" value="Create" />
+</form>
+
+<!-- <form ng-submit="create(deck)" name="deckForm">
+  <div layout="column" layout-align="center center" >
+  <md-input-container>
+    <label>Deck Name</label>
+    <input name="name" ng-model="deck.name" required>
+    <div ng-messages="deckForm.name.$error" ng-show="deckForm.name.$dirty">
+      <div ng-message="required">This is required!</div>
+    </div>
+  </md-input-container>
+  <md-input-container>
+    <md-radio-button ng-model="deck.isPublic" ng-value="true" aria-label="Green">
+      Public
+    </md-radio-button>
+    <md-radio-button ng-model="deck.isPublic" ng-value="false" aria-label="Green">
+      Private
+    </md-radio-button>
+  </md-input-container>
+  <input type="submit" value="Create" />
+  </div>
+</form> -->
