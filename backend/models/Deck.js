@@ -1,35 +1,52 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+'use strict';
+var config = require('../config/config');
 
-var DeckSchema = new Schema({
-  name: String,
-  tags: [{
-    name: String
-  }],
-  owner: mongoose.Schema.Types.ObjectId,
-  cards: [{
-    front: String,
-    back: String
-  }],
-  public: { type: Boolean, default: true},
-  isDeleted: { type: Boolean, default: false },
-  created_at: Date,
-  updated_at: Date
-});
+module.exports = function(sequelize, DataTypes) {
+  var Deck = sequelize.define('Deck', {
+    name: DataTypes.STRING,
+    isPublic: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
+    isDeleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
+  }, {
+    classMethods: {
+      associate: function(models) {
+        Deck.belongsTo(models.User, {
+          onDelete: 'CASCADE',
+          foreignKey: {
+            allowNull: false
+          }
+        });
 
-DeckSchema.pre('save', function(next) {
-  // get the current date
-  var currentDate = new Date();
+        Deck.hasMany(models.Card);
 
-  // change the updated_at field to current date
-  this.updated_at = currentDate;
+        Deck.belongsToMany(models.Tag, {
+          as: 'Tags',
+          through: 'deck_tags',
+          foreignKey: 'deckId'
+        });
+      }
+    },
+    instanceMethods: {
+      fork: function() {
+        var self = this;
+        return new Promise(function(resolve, reject) {
+          self.getCards().then(function(cards) {
+            resolve({
+              deck: self.toJSON(),
+              cards: cards
+            });
+          }).catch(function(err) {
+            reject(err);
+          });
+        });
+      }
+    }
+  });
 
-  // if created_at doesn't exist, add to that field
-  if (!this.created_at)
-    this.created_at = currentDate;
-
-  next();
-});
-
-// set up a mongoose model and pass it using module.exports
-module.exports = mongoose.model('Deck', DeckSchema);
+  return Deck;
+};

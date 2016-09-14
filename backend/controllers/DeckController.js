@@ -1,20 +1,32 @@
 var jwt = require('jsonwebtoken');
-var ObjectId = require('mongodb').ObjectId;
 var config = require('../config/config');
-var Deck = require('../models/Deck');
+var models = require('../models');
+var User = models.User;
+var Deck = models.Deck;
+var Tag = models.Tag;
+var Card = models.Card;
 
 // Get all decks of the current user.
 exports.index = function(req, res) {
-  var user = req.user;
-  var query = Deck.find({
-    owner: user._id
-  }).sort({
-    updated_at: -1
-  }).exec();
-
-  query.then(function(decks) {
-    res.send(decks);
-  }).fail(function(err) {
+  Deck.findAll({
+    order: [
+      ['updatedAt', 'DESC']
+    ],
+    attributes: ['id', 'name', 'isPublic', 'isDeleted', 'UserId'],
+    where: {
+      UserId: req.user.id
+    },
+    include: [{
+      attributes: ['id', 'name'],
+      model: Tag,
+      as: 'Tags',
+      through: {
+        attributes: []
+      }
+    }]
+  }).then(function(decks) {
+    res.json(decks);
+  }).catch(function(err) {
     res.status(500).json({
       message: err.message
     });
@@ -29,13 +41,32 @@ exports.create = function(req, res) {
     });
   }
   var deckData = getDeckDataFromRequest(req);
-  var newDeck = new Deck(deckData);
-  var promise = newDeck.save();
-  promise.then(function(deck) {
-    return res.json(deck);
-  }).fail(function(error) {
-    return res.status(500).json({
-      message: error.message
+  Deck.create({
+    name: deckData.name,
+    isPublic: deckData.isPublic,
+    isDeleted: deckData.isDeleted,
+    UserId: req.user.id
+  }).then(function(deck) {
+    var count = deckData.tags.length;
+    deckData.tags.forEach(function(tag) {
+      Tag.findOrCreate({
+        where: {
+          UserId: req.user.id,
+          name: tag.name
+        }
+      })
+      .spread(function(newTag, created) {
+        deck.addTag(newTag);
+        count--;
+        // Return the result when all finished.
+        if (count === 0) {
+          res.json(deck);
+        }
+      });
+    });
+  }).catch(function(err) {
+    res.status(500).json({
+      message: err.message
     });
   });
 };
@@ -46,37 +77,44 @@ exports.show = function(req, res) {
   //    a. If it's private, check the request user and see if he ownes the deck.
   //    b. If it's public, just return the deck.
   // 2. No match, response with empty result.
-  if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
-    res.status(400).json({
-      message: "Invalid deck id."
-    });
-    return;
-  }
-
-  var query = Deck.findById(req.params.id).exec();
-  query.then(function(deck) {
+  Deck.findOne({
+    where: {
+      id: req.params.id
+    },
+    attributes: ['id', 'name', 'isPublic', 'isDeleted', 'UserId'],
+    include: [{
+      attributes: ['id', 'name'],
+      model: Tag,
+      as: 'Tags',
+      through: {
+        attributes: []
+      }
+    }, {
+      attributes: ['id', 'name', 'facebookId'],
+      model: User
+    }]
+  }).then(function(deck) {
     if (!deck) {
       return res.json({});
     }
 
-    if (deck.public) {
-      return res.json(deck);
-    }
-
-    var userToken = getToken(req);
-    if (!userToken) {
+    // Don't show others deleted decks.
+    if (deck.isDeleted && deck.UserId !== req.user.id) {
       return res.json({});
     }
 
-    var result = verifyToken(userToken);
-    if (!result || !deck.owner.equals(result._id)) {
-      // Access without logging in, or the user does not own this deck,
-      // treat it as not found.
+    if (deck.isPublic && deck.UserId !== req.user.id) {
+      var result = deck.toJSON();
+      delete result.Tags; // Remove tags from non-current user deck.
+      return res.json(result);
+    }
+
+    if (!deck.isPublic && deck.UserId !== req.user.id) {
       return res.json({});
     }
 
-    res.send(deck);
-  }).fail(function(err) {
+    res.json(deck);
+  }).catch(function(err) {
     res.status(500).json({
       message: err.message
     });
@@ -85,64 +123,132 @@ exports.show = function(req, res) {
 
 
 exports.update = function(req, res) {
-  if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
-    res.status(400).json({
-      message: "Invalid deck id."
-    });
-    return;
-  }
+  Deck.findOne(
+    {
+      where: {
+        id: req.params.id,
+        UserId: req.user.id
+      },
+      attributes: ['id', 'name', 'isPublic', 'isDeleted', 'UserId'],
+      include: [{
+        attributes: ['id', 'name'],
+        model: Tag,
+        as: 'Tags',
+        through: {
+          attributes: []
+        }
+      }]
+    })
+    .then(function(result) {
+      if (!result) {
+        res.json({});
+      }
 
-  // Make sure the user owns the document before update it.
-  var query = Deck.findById(req.params.id).exec();
-  query.then(function(deck) {
-    if (!deck || !deck.owner.equals(req.user._id)) {
-      return res.status(401).json({
-        message: 'No permission for the operation.'
+      var promise = new Promise(function(resolve, reject) {
+        if (req.body.Tags) {
+          // Find Tags
+          Tag.findAll({
+            where: {
+              UserId: req.user.id,
+              id: {
+                $in: req.body.Tags
+              }
+            }
+          }).then(function(foundTags) {
+            if (foundTags.length !== 0) {
+              result.setTags(foundTags);
+            }
+            delete req.body.Tags;
+            resolve(result);
+          }).catch(function(err) {
+            reject(err);
+          });
+        } else {
+          resolve(result);
+        }
       });
-    }
-    // Verify the deck is valid.
-    if (!verifyDeckData(req.body)) {
-      return res.status(400).json({
-        message: 'Invalid deck data.'
-      });
-    }
-    var deckData = getDeckDataFromRequest(req);
-    deckData.updated_at = Date.now();
-    // Update the deck.
-    var query = Deck.findByIdAndUpdate(req.params.id, deckData, {'new': true}).exec();
-    query.then(function(deck) {
-      return res.json(deck);
+      return promise;
+    })
+    .then(function(result) {
+      return result.update(
+        req.body
+      );
+    })
+    .then(function(result) {
+      res.json(result);
+    })
+    .catch(function(err) {
+      resError(res, err);
     });
-  }).fail(function(err) {
-    res.status(500).json({
-      message: err.message
-    });
-  });
 };
 
 exports.destroy = function(req, res) {
-  if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
-    res.status(400).json({
-      message: "Invalid deck id."
+  Deck.destroy({
+    where: {
+      id: req.params.id,
+      UserId: req.user.id
+    }
+  })
+    .then(function(result) {
+      res.json(result);
+    })
+    .catch(function(err) {
+      resError(res, err);
     });
-    return;
-  }
-  var query = Deck.findById(req.params.id).exec();
-  query.then(function(deck) {
-    Deck.findByIdAndRemove(req.params.id, function(err) {
-      if (err) {
-        return res.status(500).json({
-          message: error.message
-        });
+};
+
+exports.fork = function(req, res) {
+  Deck.findOne({
+    where: {
+      id: req.params.id,
+      isPublic: true,
+      isDeleted: false,
+      UserId: {
+        $ne: req.user.id
       }
-      res.status(200).end();
-    });
-  }).fail(function(err) {
-    res.status(500).json({
-      message: err.message
-    });
+    }
+  }).then(function(deck) {
+    if (!deck) {
+      res.json({
+        success: false,
+        message: 'Error forking the deck.'
+      });
+    } else {
+      deck.fork().then(data => {
+        Deck.create({
+          name: data.deck.name,
+          isPublic: true,
+          isDeleted: false,
+          UserId: req.user.id
+        })
+        .then(function(newDeck) {
+          var addCards = [];
+
+          data.cards.forEach(function(card) {
+            addCards.push(
+              Card.create({
+                front: card.front,
+                back: card.back,
+                DeckId: newDeck.id
+              })
+            );
+          });
+          Promise.all(addCards).then(function(result) {
+            res.json(result);
+          }, function(err) {
+            resError(res, err);
+          });
+        });
+      });
+    }
   });
 };
+
+function resError(res, err) {
+  return res.status(500).json({
+    message: err.message
+  });
+}
 
 function getToken(req) {
   if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
@@ -162,17 +268,7 @@ function verifyToken(token) {
 
 // A simple verify function to validate data.
 function verifyDeckData(data) {
-  if (!('name' in data) || !('tags' in data) || !('cards' in data)) {
-    return false;
-  }
-  // Check tags
-  var tags = data.tags;
-  if (!tags.every(item => 'name' in item)) {
-    return false;
-  }
-  // Check cards
-  var cards = data.cards;
-  if (!cards.every(item => 'front' in item && 'back' in item)) {
+  if (!('name' in data) || !('tags' in data) || !('isPublic' in data)) {
     return false;
   }
 
@@ -180,11 +276,12 @@ function verifyDeckData(data) {
 }
 
 function getDeckDataFromRequest(req) {
-  var deckName = req.body.name;
+  var payload = req.body;
+  var deckName = payload.name;
   // Remove duplicate tags
   var tagSet = new Set();
-  req.body.tags.forEach(function(item) {
-    tagSet.add(item.name);
+  payload.tags.forEach(function(item) {
+    tagSet.add(item);
   });
   var deckTags = [];
   tagSet.forEach(function(item) {
@@ -192,21 +289,13 @@ function getDeckDataFromRequest(req) {
       name: item
     });
   });
-  var deckCards = req.body.cards.map(function(item) {
-    return {
-      front: item.front,
-      back: item.back
-    };
-  });
-  var isDeleted = req.body.isDeleted || false;
-  var deckVisibility = req.body.public || true;
+  var isDeleted = payload.isDeleted || false;
+  var deckVisibility = payload.isPublic || false;
   var deckData = {
     name: deckName,
     tags: deckTags,
-    owner: req.user._id,
-    cards: deckCards,
     isDeleted: isDeleted,
-    public: deckVisibility
+    isPublic: deckVisibility
   };
   return deckData;
 }
