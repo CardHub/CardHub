@@ -9,13 +9,6 @@
  */
 angular.module('frontendApp')
   .controller('MainCtrl', function ($rootScope,$scope, $timeout, $mdSidenav, $state, UserAuth) {
-    $rootScope.$on( '$stateChangeStart', function(event, to, toParams, from, fromParams ){
-    // Add {fromParams} to {from}
-    from.params = fromParams;
-
-    // Assign {from} to {previous} in $state
-    $state.previous = from;
-    });
     $scope.personalFilters = [
     {
         'title': 'All',
