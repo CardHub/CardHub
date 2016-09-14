@@ -48,14 +48,18 @@ exports.create = function(req, res) {
     UserId: req.user.id
   }).then(function(deck) {
     var count = deckData.tags.length;
+    // Return the result if no tag specified
+    if (count === 0) {
+      return res.json(deck);
+    }
     deckData.tags.forEach(function(tag) {
-      Tag.findOrCreate({
+      Tag.findOne({
         where: {
           UserId: req.user.id,
           name: tag.name
         }
       })
-      .spread(function(newTag, created) {
+      .then(function(newTag) {
         deck.addTag(newTag);
         count--;
         // Return the result when all finished.
@@ -89,6 +93,9 @@ exports.show = function(req, res) {
       through: {
         attributes: []
       }
+    }, {
+      attributes: ['id', 'front', 'back'],
+      model: Card
     }, {
       attributes: ['id', 'name', 'facebookId'],
       model: User
