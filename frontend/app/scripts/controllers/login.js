@@ -9,7 +9,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('LoginCtrl', function($scope, LoadingHelper, UserAuth, apiHelper, $state) {
+  .controller('LoginCtrl', function($scope, LoadingHelper, UserAuth, apiHelper, $state, jwtHelper) {
     $scope.login = function() {
       FB.login(function(response) {
         if (response.status === 'connected') {
@@ -19,12 +19,9 @@ angular.module('frontendApp')
             token: token
           })
           .then(function(res) {
-            var token = res.data;
-            UserAuth.saveToken(token);
-            return apiHelper.me();
-          })
-          .then(function(res) {
-            UserAuth.saveCurrentUser(res.data);
+            var tokenPayload = jwtHelper.decodeToken(res.data);
+            UserAuth.saveToken(res.data);
+            UserAuth.saveCurrentUser(tokenPayload);
             LoadingHelper.hide();
             $state.go('main.home');
           })

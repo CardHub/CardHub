@@ -27,7 +27,6 @@ angular.module('frontendApp')
     };
 
     this.saveCurrentUser = function(user) {
-      user.userPhoto = 'https://graph.facebook.com/' + user.fbId +'/picture?type=large';
       localStorageService.set(KEY_USER, user);
     };
 
@@ -41,7 +40,13 @@ angular.module('frontendApp')
 
     this.isUserLogin = function() {
       var token = this.getToken();
+      if (!token) {
+        return false;
+      }
       var user = this.getCurrentUser();
-      return user && !jwtHelper.isTokenExpired(token) || false;
+      if (!user) {
+        return false;
+      }
+      return !jwtHelper.isTokenExpired(token);
     };
   });
