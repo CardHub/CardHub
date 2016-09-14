@@ -1,3 +1,11 @@
+<form layout="column" ng-cloak class="md-inline-form">
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Deck name (up to 55 characters)</label>
+    <input ng-model="deck.name" type="text" required md-maxlength="55">
+  </md-input-container>
+</div>
+
+<!--
 <form name="deckForm">
   <label>Deck Name</label>
   <input ng-model="deck.name" required>
@@ -7,6 +15,7 @@
   </div>
   <input type="submit" ng-click="create(deck)" value="Create" />
 </form>
+-->
 
 <!-- <form ng-submit="create(deck)" name="deckForm">
   <div layout="column" layout-align="center center" >
