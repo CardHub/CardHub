@@ -5,5 +5,8 @@
     <input type="radio" ng-model="deck.isPublic" value="true" /> <label>Public</label>
     <input type="radio" ng-model="deck.isPublic" value="false" /> <label>Private</label>
   </div>
-  <input type="submit" ng-click="update(deck)" value="Update" />
+  <div layout="row" layout-align="center">
+    <md-button class="cancel">Cancel</md-button>
+  	<input type="submit" ng-click="update(deck)" value="Update" />
+  </div>
 </form>
