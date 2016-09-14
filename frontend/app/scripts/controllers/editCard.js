@@ -19,6 +19,10 @@ angular.module('frontendApp')
   		// $state.go('main.home');
   	}
 
+    $scope.cancel = function() {
+      $state.go( $state.previous.name, $state.previous.params );
+    };
+
     $scope.update = function(cardData) {
     	console.log(cardData);
       // connect with backend API, update with cardData

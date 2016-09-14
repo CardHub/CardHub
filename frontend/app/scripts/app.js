@@ -118,7 +118,6 @@ angular
       controller: 'UserCtrl',
       title: 'User'
     });
-
     $urlRouterProvider.when('/main', '/main/home/');
     $urlRouterProvider.otherwise('/login');
   })
@@ -148,4 +147,10 @@ angular
       js.src = '//connect.facebook.net/en_US/sdk.js';
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+  })
+  .run(function($rootScope, $state) {
+    $rootScope.$on( '$stateChangeSuccess', function(event, to, toParams, from, fromParams ){
+      from.params = fromParams;
+      $state.previous = from;
+    });
   });

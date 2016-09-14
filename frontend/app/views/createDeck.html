@@ -8,7 +8,7 @@
     </div>
   </md-input-container>
   <md-input-container class="md-block" flex-gt-sm >
-    <md-checkbox ng-model="deck.isPublic" aria-label="isPublic">Public deck</md-checkbox>
+    <md-checkbox ng-model="deck.isPublic" ng-init="deck.isPublic=false" ng-true-value="true" ng-false-value="false" aria-label="isPublic">Public deck</md-checkbox>
   </md-input-container>
   <md-input-container class="md-block" flex-gt-sm>
     <label>Tag</label>
@@ -22,7 +22,7 @@
     </div>
   </md-input-container>
   <div layout="row" layout-align="center">
-    <md-button class="cancel">Cancel</md-button>
+    <md-button class="cancel" ng-click="cancel()">Cancel</md-button>
     <md-button type="submit">Add deck</md-button>
   </div>
 </form>

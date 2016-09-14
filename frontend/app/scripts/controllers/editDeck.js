@@ -18,6 +18,10 @@ angular.module('frontendApp')
   		// $state.go('main.home');
   	}
 
+    $scope.cancel = function() {
+      $state.go( $state.previous.name, $state.previous.params );
+    };
+
     $scope.update = function(deck) {
       console.log(deck);
       // update deck with backend, redirect in the callback
