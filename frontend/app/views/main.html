@@ -4,7 +4,7 @@
   <md-sidenav class="md-sidenav-left" md-component-id="left" md-whiteframe="2">
     <md-list ng-cloak class="side-nav">
       <md-list-item class="user-photo">
-        <img ng-src="{{currentUser.userPhoto}}" ng-click="viewUserProfile(currentUser._id)" class="md-avatar">
+        <img ng-src="{{currentUser.avatar}}" ng-click="viewUserProfile(currentUser.id)" class="md-avatar">
       </md-list-item>
       <md-list-item class="user-name">
         <p>Hey, {{currentUser.name}}</p>
@@ -36,7 +36,7 @@
       <span flex></span>
     </div>
   </md-toolbar>
-  <md-content flex layout-padding>
-    <ui-view style="width: 100%;"></ui-view>
+  <md-content flex>
+    <ui-view style="width: 100%;" autoscroll="true"></ui-view>
   </md-content>
 </div>

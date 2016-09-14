@@ -41,9 +41,9 @@ angular.module('frontendApp')
           }
         ]
     };
-    
+
     // check if current user is the owner
-    // $scope.isOwner = (UserAuth.getCurrentUser().fbId === $scope.deck.owner);
+    // $scope.isOwner = (UserAuth.getCurrentUser().facebookId === $scope.deck.owner);
     $scope.isOwner = true;
 
     $scope.card = [];

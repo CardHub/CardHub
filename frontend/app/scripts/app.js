@@ -150,14 +150,27 @@ angular
 
         if (toState.name === 'login') {
           if (UserAuth.isUserLogin()) {
-            event.preventDefault();
+            if (fromState.name) {
+              // not inital visit to this view
+              event.preventDefault();
+            } else {
+              // Initial visit, has logined, and come to login page.
+              // redirect to main.
+              $location.url('/main/home/');
+            }
           }
         }
     });
   })
   .run(function($rootScope, $state) {
-    $rootScope.$on( '$stateChangeSuccess', function(event, to, toParams, from, fromParams ){
-      from.params = fromParams;
-      $state.previous = from;
-    });  
+    $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams ){
+      if (from.name) {
+        from.params = fromParams;
+        $state.previous = from;
+      } else {
+        // direct visit
+        // go back to home
+        $state.previous = $state.get('main.home');
+      }
+    });
   });
