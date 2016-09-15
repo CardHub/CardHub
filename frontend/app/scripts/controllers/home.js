@@ -24,22 +24,36 @@ angular.module('frontendApp')
   function createDeck(newDeck) {
     apiHelper.deck.create(newDeck).then(function(res) {
       console.log(res.data);
-      showToast(true);
+      showToast(true,'Deck creation success!');
       getDeck();
     })
     .catch(function(err) {
-      showToast(false);
+      showToast(false,'Failed to create deck. Please try again.');
       console.log(err);
     });
   }
 
-  function showToast(success) {
-    var msg, theme;
+  function deleteDecks(decks) {
+    var payload = {isDeleted:"true"};
+    for (var i=0; i<decks.length; i++) {
+      apiHelper.deck.update(decks[i].id,payload).then(function(res) {
+        console.log(res.data);
+        getDeck();
+        showToast(true,'Deleted selected deck!');
+      })
+      .catch(function(err) {
+        console.log(err);
+        success=false;
+        showToast(false,'Failed delete deck. Please try again.');
+      });
+    }  
+  }
+
+  function showToast(success,msg) {
+    var theme;
     if (success) {
-      msg = 'Success!';
       theme = 'success-toast';
     } else {
-      msg = 'Failed. Please try again.';
       theme = 'failure-toast';
     }
     $mdToast.show(
@@ -155,6 +169,12 @@ angular.module('frontendApp')
     //hide checkboxes
     $scope.deleting = false;
     $scope.changing = false;
+    selected = [];
+    if (selected.length>0) {
+      //$scope.toggleAll();
+      $scope.isSelected = false;
+    }
+
     $mdDialog.show({
       controller: CreateDeckCtrl,
       templateUrl: 'views/createDeck.html',
@@ -202,6 +222,7 @@ angular.module('frontendApp')
         selected.push(deck);
       }
     } else if ($scope.changing) {
+      //go to update
 
     }
   };
@@ -223,26 +244,22 @@ angular.module('frontendApp')
     $scope.changing=false; 
   };
 
-  /*$scope.showDeleteOptions = function() {
-    $mdBottomSheet.show({
-      templateUrl: 'views/deleteBottomSheet.html',
-      controller: DeleteBottomSheetCtrl,
-      disableParentScroll: false,
-      disableBackdrop: true,
-      clickOutsideToClose: false,
-      locals: {
-        displayedDecks: $scope.displayedDecks
-      }
-    }).then(function(clickedItem) {
-      
-    });
+  $scope.cancelDelete = function() {
+    $scope.deleting = false;
+  }
+  $scope.deleteDecks = function() {
+    if(selected.length===0) {
+      showToast(false, 'Please select deck to delete.');
+    } else {
+      deleteDecks(selected);
+      selected = [];
+      $scope.deleting = false;
+    }
   };
 
-  function DeleteBottomSheetCtrl($scope,$mdBottomSheet) {
-    $scope.selectAll = function() {
-    };
-    $scope.delete = function() {
-    };
+  $scope.showUpdateOptions = function() {
+    changing=true; 
+    deleting=false;
+    selected=[];
   }
-*/
 });
