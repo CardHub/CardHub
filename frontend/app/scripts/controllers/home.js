@@ -86,8 +86,9 @@ angular.module('frontendApp')
     
   $scope.decks = [];
   $scope.displayedDecks = $scope.decks;
-  $scope.selectedTag = '';
+  $scope.selectedTag= '';
   $scope.deckFilter = $stateParams.filterTag;
+  var tags = ['study','work','life'];
 
   $scope.updateDeckView = function(deckFilter, deckDeleted) {      
     function checkHasTag(tag) {
@@ -135,7 +136,11 @@ angular.module('frontendApp')
       parent: angular.element(document.body),
       targetEvent: event,
       clickOutsideToClose:true,
-      fullscreen: true 
+      fullscreen: true ,
+      locals: {
+        tags: tags,
+        currentTag:$scope.deckFilter
+      }
     })
     .then(function(newDeck){
       createDeck(newDeck);
@@ -143,12 +148,13 @@ angular.module('frontendApp')
     });
   };
 
-  function CreateDeckCtrl($scope,$mdDialog) {
-    $scope.tags = ['study','work','life'];
+  function CreateDeckCtrl($scope,$mdDialog,tags,currentTag) {
+    $scope.tags = tags;
     $scope.title = 'Create new deck';
     $scope.submitBtn = 'Add deck';
     $scope.deck = {
-      isPublic : false
+      isPublic : false,
+      tag: currentTag
     };
     $scope.cancel = function() {
       $mdDialog.cancel();
@@ -175,7 +181,8 @@ angular.module('frontendApp')
       clickOutsideToClose:true,
       fullscreen: true,
       locals: {
-        selectedDeck: deck
+        selectedDeck: deck,
+        tags: tags
       } 
     })
     .then(function(updatedDeck){
@@ -184,9 +191,9 @@ angular.module('frontendApp')
     });
   };
 
-  function ChangeDeckCtrl($scope,$mdDialog,selectedDeck) {
+  function ChangeDeckCtrl($scope,$mdDialog,selectedDeck,tags) {
     console.log(selectedDeck);
-    $scope.tags = ['study','work','life'];
+    $scope.tags = tags;
     $scope.title = 'Change selected deck';
     $scope.submitBtn = 'Update deck';
     $scope.deck = {
@@ -218,6 +225,7 @@ angular.module('frontendApp')
 
   $scope.cancelChange = function() {
     $scope.changing=false;
+    selected=[];
   }
 
   //Select decks
@@ -261,6 +269,7 @@ angular.module('frontendApp')
 
   $scope.cancelDelete = function() {
     $scope.deleting = false;
+    selected=[];
   }
 
   $scope.deleteDecks = function() {
