@@ -9,11 +9,12 @@
  */
 angular.module('frontendApp')
   .controller('HomeCtrl', function ($scope, $state, $stateParams, $mdDialog, $mdToast, $mdBottomSheet, apiHelper) {
+  
   function getDeck() {
     apiHelper.deck.get().then(function(res) {
       $scope.decks = res.data;
       console.log(res);
-      $scope.updateDeck($scope.deckFilter, $scope.deckDeleted);
+      $scope.updateDeckView($scope.deckFilter, $scope.deckDeleted);
     }).catch(function(err) {
       console.log(err);
     });
@@ -24,7 +25,7 @@ angular.module('frontendApp')
   function createDeck(newDeck) {
     apiHelper.deck.create(newDeck).then(function(res) {
       console.log(res.data);
-      showToast(true,'Deck creation success!');
+      showToast(true,'Success creating deck!');
       getDeck();
     })
     .catch(function(err) {
@@ -39,14 +40,32 @@ angular.module('frontendApp')
       apiHelper.deck.update(decks[i].id,payload).then(function(res) {
         console.log(res.data);
         getDeck();
-        showToast(true,'Deleted selected deck!');
+        showToast(true,'Success deleting selected deck!');
       })
       .catch(function(err) {
         console.log(err);
         success=false;
-        showToast(false,'Failed delete deck. Please try again.');
+        showToast(false,'Failed to delete deck. Please try again.');
       });
     }  
+  }
+
+  function updateDeck(changedDeck) {
+    console.log(changedDeck);
+    var payload = {
+      name: changedDeck.name,
+      isPublic: changedDeck.isPublic
+    }
+    apiHelper.deck.update(changedDeck.id,changedDeck).then(function(res) {
+      console.log(res.data);
+      getDeck();
+      showToast(true,'Success updating deck!');
+    })
+    .catch(function(err) {
+      console.log(err);
+      showToast(false,'Failed to update deck. Please try again.');
+    });
+     
   }
 
   function showToast(success,msg) {
@@ -64,75 +83,13 @@ angular.module('frontendApp')
         .hideDelay(3000)
     );
   }
-    /*$scope.apiExample = {
-      getDeck: function() {
-        apiHelper.deck.get().then(function(res) {
-          $scope.decks = res.data;
-          console.log(res);
-          $scope.updateDeck($scope.deckFilter, $scope.deckDeleted);
-        }).catch(function(err) {
-          console.log(err);
-        });
-      },
-      getTag: function() {
-        apiHelper.tag.get().then(function(res) {
-          $scope.tags = res.data;
-          console.log(res.data);
-        }).catch(function(err) {
-          console.log(err);
-        });
-      },
-      createDeck: function() {
-        var newDeck = {name: "test deck",tags: ["work"],isPublic: true,isDeleted: false};
-        apiHelper.deck.create(newDeck).then(function(res) {
-          console.log(res.data);
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-      },
-      createTag: function() {
-        var newTag = {name: "new tag"};
-        apiHelper.tag.create(newDeck).then(function(res) {
-          console.log(res.data);
-          if (!res.data) {
-            // empty response means duplicate tag name.
-          }
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-      },
-      showDeck: function() {
-        apiHelper.deck.show(1).then(function(res) {
-          console.log(res.data);
-          if (!res.data) {
-            // empty response means couldn't show the deck (private or deleted tags from other user)
-          }
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-      },
-      showTag: function() {
-        apiHelper.tag.show(1).then(function(res) {
-          console.log(res.data);
-          if (!res.data) {
-            // empty response means couldn't show the tag (private or deleted tags from other user)
-          }
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-      }
-    };*/
-
+    
   $scope.decks = [];
   $scope.displayedDecks = $scope.decks;
   $scope.selectedTag = '';
   $scope.deckFilter = $stateParams.filterTag;
 
-  $scope.updateDeck = function(deckFilter, deckDeleted) {      
+  $scope.updateDeckView = function(deckFilter, deckDeleted) {      
     function checkHasTag(tag) {
       return tag.name === deckFilter;
     }
@@ -153,28 +110,25 @@ angular.module('frontendApp')
   };
   if ($scope.deckFilter) {
     if ($scope.deckFilter !== 'deleted') {
-      $scope.updateDeck($scope.deckFilter, false);
+      $scope.updateDeckView($scope.deckFilter, false);
     } else {
-      $scope.updateDeck($scope.deckFilter, true);
+      $scope.updateDeckView($scope.deckFilter, true);
     }
   } else {
-    $scope.updateDeck($scope.deckFilter, false);
+    $scope.updateDeckView($scope.deckFilter, false);
   }
 
   $scope.viewDeck = function(deckId) {
     $state.go('main.deck', {id: deckId});
   };
 
+  //Add new deck dialog
   $scope.addDeck = function(event) {
     //hide checkboxes
     $scope.deleting = false;
     $scope.changing = false;
     selected = [];
-    if (selected.length>0) {
-      //$scope.toggleAll();
-      $scope.isSelected = false;
-    }
-
+  
     $mdDialog.show({
       controller: CreateDeckCtrl,
       templateUrl: 'views/createDeck.html',
@@ -191,6 +145,11 @@ angular.module('frontendApp')
 
   function CreateDeckCtrl($scope,$mdDialog) {
     $scope.tags = ['study','work','life'];
+    $scope.title = 'Create new deck';
+    $scope.submitBtn = 'Add deck';
+    $scope.deck = {
+      isPublic : false
+    };
     $scope.cancel = function() {
       $mdDialog.cancel();
     };
@@ -205,6 +164,63 @@ angular.module('frontendApp')
     };
   }
 
+  //Change deck dialog
+  function changeDeck(deck) {
+    $scope.changing = false;
+    selected = [];
+    $mdDialog.show({
+      controller: ChangeDeckCtrl,
+      templateUrl: 'views/createDeck.html',
+      parent: angular.element(document.body),
+      clickOutsideToClose:true,
+      fullscreen: true,
+      locals: {
+        selectedDeck: deck
+      } 
+    })
+    .then(function(updatedDeck){
+      updateDeck(updatedDeck);
+    }, function() {
+    });
+  };
+
+  function ChangeDeckCtrl($scope,$mdDialog,selectedDeck) {
+    console.log(selectedDeck);
+    $scope.tags = ['study','work','life'];
+    $scope.title = 'Change selected deck';
+    $scope.submitBtn = 'Update deck';
+    $scope.deck = {
+      name : selectedDeck.name,
+      tag : selectedDeck.Tags[0].name,
+      isPublic : selectedDeck.isPublic
+    };
+    console.log(selectedDeck.Tags[0].name);
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+    $scope.create = function(deck) {
+      var updatedDeck = {
+        id: selectedDeck.id,
+        name: deck.name,
+        Tags: [deck.tag],
+        isPublic: deck.isPublic,
+        isDeleted: false
+      };
+      $mdDialog.hide(updatedDeck);
+    };
+  }
+
+  $scope.showUpdateOptions = function() {
+    $scope.changing=true; 
+    $scope.deleting=false;
+    selected=[];
+  }
+
+  $scope.cancelChange = function() {
+    $scope.changing=false;
+  }
+
+  //Select decks
   var selected = [];
 
   $scope.isSelected = function(deck) {
@@ -213,17 +229,16 @@ angular.module('frontendApp')
 
   $scope.select = function(deck) {
     if ($scope.deleting) {
-      //toggle
+      //toggle selected/not selected
       var idx = selected.indexOf(deck);
       if (idx > -1) {
         selected.splice(idx, 1);
-      }
-      else {
+      } else {
         selected.push(deck);
       }
     } else if ($scope.changing) {
       //go to update
-
+      changeDeck(deck);
     }
   };
 
@@ -247,6 +262,7 @@ angular.module('frontendApp')
   $scope.cancelDelete = function() {
     $scope.deleting = false;
   }
+
   $scope.deleteDecks = function() {
     if(selected.length===0) {
       showToast(false, 'Please select deck to delete.');
@@ -257,9 +273,4 @@ angular.module('frontendApp')
     }
   };
 
-  $scope.showUpdateOptions = function() {
-    changing=true; 
-    deleting=false;
-    selected=[];
-  }
 });

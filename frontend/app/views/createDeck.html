@@ -2,7 +2,7 @@
   <form novalidate ng-submit="deckForm.$valid && create(deck)" name="deckForm" layout="column" ng-cloak >
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h3>Create new deck</h3>
+        <h3>{{title}}</h3>
       </div>
     </md-toolbar>
     <md-dialog-content>
@@ -15,12 +15,12 @@
         </div>
       </md-input-container>
       <md-input-container class="md-block" flex-gt-sm >
-        <md-checkbox ng-model="deck.isPublic" ng-init="deck.isPublic=false" ng-true-value="true" ng-false-value="false" aria-label="isPublic">Public deck</md-checkbox>
+        <md-checkbox ng-model="deck.isPublic">Public deck</md-checkbox>
       </md-input-container>
       <md-input-container class="md-block" flex-gt-sm>
         <label>Tag</label>
         <md-select name="tag" ng-model="deck.tag" required>
-          <md-option ng-repeat="tag in tags" value="{{tag}}">
+          <md-option ng-repeat="tag in tags" ng-selected="tag===deck.tag" value="{{tag}}">
             {{tag}}
           </md-option>
         </md-select>
@@ -30,7 +30,7 @@
       </md-input-container>
       <div layout="row" layout-align="center">
         <md-button class="cancel" ng-click="cancel()">Cancel</md-button>
-        <md-button type="submit">Add deck</md-button>
+        <md-button type="submit">{{submitBtn}}</md-button>
       </div>
     </md-dialog-content>
   </form>

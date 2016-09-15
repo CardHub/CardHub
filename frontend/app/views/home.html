@@ -29,13 +29,16 @@
   </md-fab-speed-dial>
 </div>
 
-<div class="bottom-sheet" ng-hide="!deleting">
- <div layout="row" layout-align="center center" ng-cloak>
+<div class="bottom-sheet">
+ <div layout="row" layout-align="center center" ng-cloak ng-hide="!deleting">
     <md-button ng-click="toggleAll()">
       <div ng-show="isAllSelected()">Unselect All</div>
       <div ng-hide="isAllSelected()">Select All</div>
     </md-button>
     <md-button ng-click="deleteDecks()">Delete</md-button>
     <md-button ng-click="cancelDelete()">Cancel</md-button>
+  </div>
+  <div layout="row" layout-align="center center" ng-cloak ng-hide="!changing">
+    <md-button ng-click="cancelChange()">Cancel</md-button>
   </div>
 </div>

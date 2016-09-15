@@ -1,6 +1,69 @@
 'use strict';
 
 angular.module('frontendApp').service('Util',function() {
+
+  /*$scope.apiExample = {
+      getDeck: function() {
+        apiHelper.deck.get().then(function(res) {
+          $scope.decks = res.data;
+          console.log(res);
+          $scope.updateDeckView($scope.deckFilter, $scope.deckDeleted);
+        }).catch(function(err) {
+          console.log(err);
+        });
+      },
+      getTag: function() {
+        apiHelper.tag.get().then(function(res) {
+          $scope.tags = res.data;
+          console.log(res.data);
+        }).catch(function(err) {
+          console.log(err);
+        });
+      },
+      createDeck: function() {
+        var newDeck = {name: "test deck",tags: ["work"],isPublic: true,isDeleted: false};
+        apiHelper.deck.create(newDeck).then(function(res) {
+          console.log(res.data);
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+      },
+      createTag: function() {
+        var newTag = {name: "new tag"};
+        apiHelper.tag.create(newDeck).then(function(res) {
+          console.log(res.data);
+          if (!res.data) {
+            // empty response means duplicate tag name.
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+      },
+      showDeck: function() {
+        apiHelper.deck.show(1).then(function(res) {
+          console.log(res.data);
+          if (!res.data) {
+            // empty response means couldn't show the deck (private or deleted tags from other user)
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+      },
+      showTag: function() {
+        apiHelper.tag.show(1).then(function(res) {
+          console.log(res.data);
+          if (!res.data) {
+            // empty response means couldn't show the tag (private or deleted tags from other user)
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+      }
+    };*/
 	var mockUserDeckList = [
   	{
       '_id' : '121212',
