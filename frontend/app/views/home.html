@@ -1,29 +1,40 @@
 <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
 	<div ng-repeat="deck in displayedDecks" ng-class=displayedDecks[$index].Tags[0].name+"-deck-homeview" class="deck-homeview">
-		<div layout="column" layout-align="center" class="deck-title" ng-click="viewDeck(displayedDecks[$index]._id)">{{displayedDecks[$index].name | limitTo:55}}</div>
+    <md-checkbox class="deck-select" aria-label="select deck" ng-disabled="!deleting&&!changing" ng-checked="isSelected(deck)" ng-click="select(deck)"></md-checkbox>
+		<div layout="column" layout-align="center center" class="deck-title" ng-click="viewDeck(displayedDecks[$index]._id)">{{displayedDecks[$index].name | limitTo:55}}</div>
 	</div>
 </div>
 
 <div class="lock-size" layout="row" layout-align="center center">
-      <md-fab-speed-dial class="md-fab-bottom-right md-scale" md-direction="up" md-open="actions.isOpen" ng-mouseenter="actions.isOpen=true" ng-mouseleave="actions.isOpen=false">
-        <md-fab-trigger>
-          <md-button aria-label="Actions" class="action md-fab">
-            <md-icon md-font-set="md">create</md-icon>
-          </md-button>
-        </md-fab-trigger>
-       <md-fab-actions>
-       		<div class="action-tooltip">Delete</div>
-          <md-button aria-label="Delete" class="md-fab md-raised md-mini">
-            <md-icon md-font-set="md" class="action-item">remove</md-icon>
-          </md-button>
-          <div class="action-tooltip">Change</div>
-          <md-button aria-label="Edit" class="md-fab md-raised md-mini">
-            <md-icon md-font-set="md" class="action-item">change_history</md-icon>
-          </md-button>
-          <div class="action-tooltip">Add</div>
-          <md-button aria-label="Add" ng-click="addDeck($event)" class="md-fab md-raised md-mini">
-            <md-icon md-font-set="md" class="action-item">add</md-icon>
-          </md-button>
-        </md-fab-actions>
-      </md-fab-speed-dial>
-    </div>
+  <md-fab-speed-dial class="md-fab-bottom-right md-scale" md-direction="up" md-open="actions.isOpen" ng-mouseenter="actions.isOpen=true" ng-mouseleave="actions.isOpen=false">
+    <md-fab-trigger>
+      <md-button aria-label="Actions" class="action md-fab">
+        <md-icon md-font-set="md">create</md-icon>
+      </md-button>
+    </md-fab-trigger>
+   <md-fab-actions>
+   		<div class="action-tooltip">Delete</div>
+      <md-button aria-label="Delete" ng-click="showDeleteOptions()" class="md-fab md-raised md-mini">
+        <md-icon md-font-set="md" class="action-item">remove</md-icon>
+      </md-button>
+      <div class="action-tooltip">Change</div>
+      <md-button aria-label="Edit" ng-click="changing=true; deleting=false; showDeleteOptions()" class="md-fab md-raised md-mini">
+        <md-icon md-font-set="md" class="action-item">change_history</md-icon>
+      </md-button>
+      <div class="action-tooltip">Add</div>
+      <md-button aria-label="Add" ng-click="addDeck($event)" class="md-fab md-raised md-mini">
+        <md-icon md-font-set="md" class="action-item">add</md-icon>
+      </md-button>
+    </md-fab-actions>
+  </md-fab-speed-dial>
+</div>
+
+<div class="bottom-sheet" ng-hide="!deleting">
+ <div layout="row" layout-align="center center" ng-cloak>
+    <md-button ng-click="toggleAll()">
+      <div ng-show="isAllSelected()">Unselect</div>
+      <div ng-hide="isAllSelected()">Select All</div>
+    </md-button>
+    <md-button ng-click="deleteDecks()">Delete</md-button>
+  </div>
+</div>

@@ -22,3 +22,18 @@ form {
 md-dialog {
 	min-width: 40%;
 }
+
+md-checkbox:not(.md-checked) .md-icon {
+	//border-color: $color-action;
+}
+
+md-checkbox .md-icon {
+	border-radius: 50%;
+	border-color: $color-action;
+}
+
+md-checkbox.md-checked .md-icon {
+  background-color: $color-action;
+  border-radius: 50%;
+}
+
