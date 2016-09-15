@@ -55,7 +55,7 @@ angular
       controller: 'DeckCtrl',
       title: 'Deck',
       auth: true
-    }).state({
+    })/*.state({
       name: 'main.createDeck',
       url: '/createDeck',
       parent: 'main',
@@ -63,7 +63,7 @@ angular
       controller: 'CreateDeckCtrl',
       title: 'CreateDeck',
       auth: true
-    }).state({
+    })*/.state({
       name: 'main.editDeck',
       url: '/edit/deck/:id',
       parent: 'main',

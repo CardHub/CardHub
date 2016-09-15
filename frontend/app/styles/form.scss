@@ -1,6 +1,8 @@
 form {
 	background-color: white;
-  	padding: 20px;
+	md-dialog-content {
+		padding: 20px;
+	}
 	button.md-button.md-ink-ripple {
 		padding-left: 20px;
 		padding-right: 20px;
@@ -15,4 +17,8 @@ form {
 		background-color: $color-action;
 		color: white;
 	}
+}
+
+md-dialog {
+	min-width: 40%;
 }

@@ -1,61 +1,37 @@
-<form novalidate ng-submit="deckForm.$valid && create(deck)" name="deckForm" layout="column" ng-cloak class="md-inline-form" flex-offset-gt-sm="25" flex-gt-sm="50">
-  <md-input-container class="md-block" flex-gt-sm>
-    <label>Deck name</label>
-    <input type="text" name="name" ng-model="deck.name" required md-maxlength="55">
-    <div ng-messages="deckForm.name.$error">
-      <div ng-message="required">This is required!</div>
-      <div ng-message="md-maxlength">Please limit to 55 characters!</div>
-    </div>
-  </md-input-container>
-  <md-input-container class="md-block" flex-gt-sm >
-    <md-checkbox ng-model="deck.isPublic" ng-init="deck.isPublic=false" ng-true-value="true" ng-false-value="false" aria-label="isPublic">Public deck</md-checkbox>
-  </md-input-container>
-  <md-input-container class="md-block" flex-gt-sm>
-    <label>Tag</label>
-    <md-select name="tag" ng-model="deck.tag" required>
-      <md-option ng-repeat="tag in tags" value="{{tag}}">
-        {{tag}}
-      </md-option>
-    </md-select>
-    <div ng-messages="deckForm.tag.$error">
-      <div ng-message="required">This is required!</div>
-    </div>
-  </md-input-container>
-  <div layout="row" layout-align="center">
-    <md-button class="cancel" ng-click="cancel()">Cancel</md-button>
-    <md-button type="submit">Add deck</md-button>
-  </div>
-</form>
-
-<!--
-<form name="deckForm">
-  <label>Deck Name</label>
-  <input ng-model="deck.name" required>
-  <div  ng-init="deck.isPublic=false">
-    <input type="radio" ng-model="deck.isPublic" value="true" /> <label>Public</label>
-    <input type="radio" ng-model="deck.isPublic" value="false" /> <label>Private</label>
-  </div>
-  <input type="submit" ng-click="create(deck)" value="Create" />
-</form>
--->
-
-<!-- <form ng-submit="create(deck)" name="deckForm">
-  <div layout="column" layout-align="center center" >
-  <md-input-container>
-    <label>Deck Name</label>
-    <input name="name" ng-model="deck.name" required>
-    <div ng-messages="deckForm.name.$error" ng-show="deckForm.name.$dirty">
-      <div ng-message="required">This is required!</div>
-    </div>
-  </md-input-container>
-  <md-input-container>
-    <md-radio-button ng-model="deck.isPublic" ng-value="true" aria-label="Green">
-      Public
-    </md-radio-button>
-    <md-radio-button ng-model="deck.isPublic" ng-value="false" aria-label="Green">
-      Private
-    </md-radio-button>
-  </md-input-container>
-  <input type="submit" value="Create" />
-  </div>
-</form> -->
+<md-dialog aria-label="create deck" >
+  <form novalidate ng-submit="deckForm.$valid && create(deck)" name="deckForm" layout="column" ng-cloak >
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h3>Create new deck</h3>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Deck name</label>
+        <input type="text" name="name" ng-model="deck.name" required md-maxlength="55">
+        <div ng-messages="deckForm.name.$error">
+          <div ng-message="required">This is required!</div>
+          <div ng-message="md-maxlength">Please limit to 55 characters!</div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm >
+        <md-checkbox ng-model="deck.isPublic" ng-init="deck.isPublic=false" ng-true-value="true" ng-false-value="false" aria-label="isPublic">Public deck</md-checkbox>
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Tag</label>
+        <md-select name="tag" ng-model="deck.tag" required>
+          <md-option ng-repeat="tag in tags" value="{{tag}}">
+            {{tag}}
+          </md-option>
+        </md-select>
+        <div ng-messages="deckForm.tag.$error">
+          <div ng-message="required">This is required!</div>
+        </div>
+      </md-input-container>
+      <div layout="row" layout-align="center">
+        <md-button class="cancel" ng-click="cancel()">Cancel</md-button>
+        <md-button type="submit">Add deck</md-button>
+      </div>
+    </md-dialog-content>
+  </form>
+</md-dialog>
