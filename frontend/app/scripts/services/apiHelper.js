@@ -32,4 +32,28 @@ angular.module('frontendApp')
     this.me = function() {
       return $http.get(Config.apiUrl + '/me');
     };
+
+    this.tag = {
+      get: function() {
+        return $http.get(Config.apiUrl + '/tag');
+      },
+      create: function(data) {
+        return $http.post(Config.apiUrl + '/tag', data);
+      },
+      show: function(id) {
+        return $http.get(Config.apiUrl + '/tag/' + id);
+      }
+    };
+
+    this.deck = {
+      get: function() {
+        return $http.get(Config.apiUrl + '/deck');
+      },
+      create: function(data) {
+        return $http.post(Config.apiUrl + '/deck', data);
+      },
+      show: function(id) {
+        return $http.get(Config.apiUrl + '/deck/' + id);
+      }
+    }
   });
