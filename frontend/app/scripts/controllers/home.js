@@ -8,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('HomeCtrl', function ($scope, $state, $stateParams, $mdDialog,apiHelper) {
+  .controller('HomeCtrl', function ($scope, $state, $stateParams, $mdDialog, $mdToast, apiHelper) {
   function getDeck() {
     apiHelper.deck.get().then(function(res) {
       $scope.decks = res.data;
@@ -17,19 +17,39 @@ angular.module('frontendApp')
     }).catch(function(err) {
       console.log(err);
     });
-  };
+  }
 
   getDeck();
 
   function createDeck(newDeck) {
     apiHelper.deck.create(newDeck).then(function(res) {
       console.log(res.data);
+      showToast(true);
       getDeck();
     })
     .catch(function(err) {
+      showToast(false);
       console.log(err);
     });
-  };
+  }
+
+  function showToast(success) {
+    var msg, theme;
+    if (success) {
+      msg = 'Success!';
+      theme = 'success-toast';
+    } else {
+      msg = 'Failed. Please try again.';
+      theme = 'failure-toast';
+    }
+    $mdToast.show(
+      $mdToast.simple()
+        .textContent(msg)
+        .position('top right')
+        .theme(theme)
+        .hideDelay(3000)
+    );
+  }
     /*$scope.apiExample = {
       getDeck: function() {
         apiHelper.deck.get().then(function(res) {
@@ -143,10 +163,11 @@ angular.module('frontendApp')
     .then(function(newDeck){
       createDeck(newDeck);
     }, function() {
+      showToast(false);
     });
   };
 
-  function CreateDeckCtrl($scope,$mdDialog,apiHelper) {
+  function CreateDeckCtrl($scope,$mdDialog) {
     $scope.tags = ['study','work','life'];
     $scope.cancel = function() {
       $mdDialog.cancel();
@@ -159,6 +180,6 @@ angular.module('frontendApp')
         isDeleted: false
       };
       $mdDialog.hide(newDeck);
-    }
+    };
   }
 });

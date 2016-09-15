@@ -26,6 +26,10 @@ angular
   .config(function(localStorageServiceProvider) {
     localStorageServiceProvider.setPrefix('CARDHUB_');
   })
+  .config(function($mdThemingProvider) {
+    $mdThemingProvider.theme('failure-toast');
+    $mdThemingProvider.theme('success-toast');
+  })
   .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state({
       name: 'login',

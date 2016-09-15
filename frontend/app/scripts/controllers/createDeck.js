@@ -21,7 +21,7 @@ angular.module('frontendApp')
         isPublic: deck.isPublic,
         isDeleted: false
       };
-      apiHelper.deck.create(deck).then(function(res) {
+      apiHelper.deck.create(newDeck).then(function(res) {
         console.log(res.data);
       })
       .catch(function(err) {
