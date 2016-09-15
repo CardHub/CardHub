@@ -14,7 +14,8 @@ angular.module('frontendApp')
       getDeck: function() {
         apiHelper.deck.get().then(function(res) {
           $scope.decks = res.data;
-          console.log(res.data);
+          console.log(res);
+          $scope.updateDeck($scope.deckFilter, $scope.deckDeleted);
         }).catch(function(err) {
           console.log(err);
         });
@@ -76,8 +77,9 @@ angular.module('frontendApp')
     $scope.displayedDecks = $scope.decks;
     $scope.selectedTag = '';
     $scope.deckFilter = $stateParams.filterTag;
+    $scope.apiExample.getDeck();
 
-    $scope.updateDeck = function(deckFilter, deckDeleted) {
+    $scope.updateDeck = function(deckFilter, deckDeleted) {      
       function checkHasTag(tag) {
         return tag.name === deckFilter;
       }
@@ -88,7 +90,7 @@ angular.module('frontendApp')
           if (deckDeleted || deckFilter === undefined || deckFilter === '') {
             $scope.displayedDecks.push(deck);
           } else {
-            var hasTag = deck.tags.some(checkHasTag);
+            var hasTag = deck.Tags.some(checkHasTag);
             if (hasTag) {
               $scope.displayedDecks.push(deck);
             }
