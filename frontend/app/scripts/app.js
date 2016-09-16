@@ -26,6 +26,10 @@ angular
   .config(function(localStorageServiceProvider) {
     localStorageServiceProvider.setPrefix('CARDHUB_');
   })
+  .config(function($mdThemingProvider) {
+    $mdThemingProvider.theme('failure-toast');
+    $mdThemingProvider.theme('success-toast');
+  })
   .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state({
       name: 'login',
@@ -55,7 +59,7 @@ angular
       controller: 'DeckCtrl',
       title: 'Deck',
       auth: true
-    }).state({
+    })/*.state({
       name: 'main.createDeck',
       url: '/createDeck',
       parent: 'main',
@@ -63,7 +67,7 @@ angular
       controller: 'CreateDeckCtrl',
       title: 'CreateDeck',
       auth: true
-    }).state({
+    })*/.state({
       name: 'main.editDeck',
       url: '/edit/deck/:id',
       parent: 'main',

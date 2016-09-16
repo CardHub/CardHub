@@ -54,6 +54,9 @@ angular.module('frontendApp')
       },
       show: function(id) {
         return $http.get(Config.apiUrl + '/deck/' + id);
+      },
+      update: function(id,data) {
+        return $http.put(Config.apiUrl + '/deck/' + id, data);
       }
-    }
+    };
   });

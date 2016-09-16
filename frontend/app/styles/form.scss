@@ -1,6 +1,8 @@
 form {
 	background-color: white;
-  	padding: 20px;
+	md-dialog-content {
+		padding: 20px;
+	}
 	button.md-button.md-ink-ripple {
 		padding-left: 20px;
 		padding-right: 20px;
@@ -16,3 +18,22 @@ form {
 		color: white;
 	}
 }
+
+md-dialog {
+	min-width: 40%;
+}
+
+md-checkbox:not(.md-checked) .md-icon {
+	//border-color: $color-action;
+}
+
+md-checkbox .md-icon {
+	border-radius: 50%;
+	border-color: $color-action;
+}
+
+md-checkbox.md-checked .md-icon {
+  background-color: $color-action;
+  border-radius: 50%;
+}
+

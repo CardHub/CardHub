@@ -42,3 +42,11 @@ md-content {
     stroke: white;
   }
 }
+
+md-toast.md-success-toast-theme .md-toast-content {
+  background-color: green;
+}
+
+md-toast.md-failure-toast-theme .md-toast-content {
+  background-color: red;
+}

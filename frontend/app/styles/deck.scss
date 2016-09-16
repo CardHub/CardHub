@@ -5,15 +5,16 @@
   background-repeat: no-repeat;
 }
 .deck-title {
+  margin-top: -45px;
   margin-left: 24%;
   width: 70%;
   max-width: 70%;
   height: 100%;
-  padding-bottom: 5px;
   font-size: $mobile-large-text;
   color: $color-text;
   text-align: center;
   word-wrap: break-word;
+  word-break: break-word;
 }
 
 .study-deck-homeview {
@@ -39,6 +40,23 @@
 }
 .life-deck-deckview {
   background-color: $color-life;
+}
+
+md-checkbox.deck-select {
+  margin: 10px;
+}
+
+md-checkbox[disabled]:not(.md-checked) .md-icon {
+  border-color: transparent;
+}
+
+.bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: $color-action;
+  color: white;
+  font-size: 10px;
 }
 
 @media screen and (max-width: 768px) {
