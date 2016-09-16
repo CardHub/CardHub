@@ -16,7 +16,8 @@ angular.module('frontendApp')
       },
       responseError: function(rejection) {
         if (rejection.status === 401) {
-          // TODO: Should redirect to login view.
+          alert('Session expired, redirect to login page.')
+          $location.url('/login');
         }
         return $q.reject(rejection);
       }
