@@ -50,24 +50,25 @@ exports.create = function(req, res) {
     var count = deckData.tags.length;
     // Return the result if no tag specified
     if (count === 0) {
-      return res.json(deck);
-    }
-    deckData.tags.forEach(function(tag) {
-      Tag.findOne({
-        where: {
-          UserId: req.user.id,
-          name: tag.name
-        }
-      })
-      .then(function(newTag) {
-        deck.addTag(newTag);
-        count--;
-        // Return the result when all finished.
-        if (count === 0) {
-          res.json(deck);
-        }
+      res.json(deck);
+    } else {
+      deckData.tags.forEach(function(tag) {
+        Tag.findOne({
+          where: {
+            UserId: req.user.id,
+            name: tag.name
+          }
+        })
+        .then(function(newTag) {
+          deck.addTag(newTag);
+          count--;
+          // Return the result when all finished.
+          if (count === 0) {
+            res.json(deck);
+          }
+        });
       });
-    });
+    }
   }).catch(function(err) {
     res.status(500).json({
       message: err.message
@@ -149,32 +150,32 @@ exports.update = function(req, res) {
     .then(function(result) {
       if (!result) {
         res.json({});
-      }
-
-      var promise = new Promise(function(resolve, reject) {
-        if (req.body.Tags) {
-          // Find Tags
-          Tag.findAll({
-            where: {
-              UserId: req.user.id,
-              id: {
-                $in: req.body.Tags
+      } else {
+        var promise = new Promise(function(resolve, reject) {
+          if (req.body.Tags) {
+            // Find Tags
+            Tag.findAll({
+              where: {
+                UserId: req.user.id,
+                id: {
+                  $in: req.body.Tags
+                }
               }
-            }
-          }).then(function(foundTags) {
-            if (foundTags.length !== 0) {
-              result.setTags(foundTags);
-            }
-            delete req.body.Tags;
+            }).then(function(foundTags) {
+              if (foundTags.length !== 0) {
+                result.setTags(foundTags);
+              }
+              delete req.body.Tags;
+              resolve(result);
+            }).catch(function(err) {
+              reject(err);
+            });
+          } else {
             resolve(result);
-          }).catch(function(err) {
-            reject(err);
-          });
-        } else {
-          resolve(result);
-        }
-      });
-      return promise;
+          }
+        });
+        return promise;
+      }
     })
     .then(function(result) {
       return result.update(
