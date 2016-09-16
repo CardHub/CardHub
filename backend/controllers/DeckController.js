@@ -280,7 +280,7 @@ function verifyToken(token) {
 
 // A simple verify function to validate data.
 function verifyDeckData(data) {
-  if (!('name' in data) || !('tags' in data) || !('isPublic' in data) || !('color' in data) ) {
+  if (!('name' in data) || !('tags' in data) || !('isPublic' in data)) {
     return false;
   }
 
