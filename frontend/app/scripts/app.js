@@ -59,22 +59,6 @@ angular
       controller: 'DeckCtrl',
       title: 'Deck',
       auth: true
-    })/*.state({
-      name: 'main.createDeck',
-      url: '/createDeck',
-      parent: 'main',
-      templateUrl: 'views/createDeck.html',
-      controller: 'CreateDeckCtrl',
-      title: 'CreateDeck',
-      auth: true
-    })*/.state({
-      name: 'main.editDeck',
-      url: '/edit/deck/:id',
-      parent: 'main',
-      templateUrl: 'views/editDeck.html',
-      controller: 'EditDeckCtrl',
-      title: 'EditDeck',
-      auth: true
     }).state({
       name: 'main.card',
       url: '/card/:deckId/:cardId',
@@ -82,22 +66,6 @@ angular
       templateUrl: 'views/card.html',
       controller: 'CardCtrl',
       title: 'Card',
-      auth: true
-    }).state({
-      name: 'main.createCard',
-      url: '/deck/:deckId/createCard',
-      parent: 'main',
-      templateUrl: 'views/createCard.html',
-      controller: 'CreateCardCtrl',
-      title: 'CreateCard',
-      auth: true
-    }).state({
-      name: 'main.editCard',
-      url: '/edit/deck/:deckId/card/:cardId',
-      parent: 'main',
-      templateUrl: 'views/editCard.html',
-      controller: 'EditCardCtrl',
-      title: 'EditCard',
       auth: true
     }).state({
       name: 'main.user',

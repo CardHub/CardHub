@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('frontendApp')
-  .factory('BearerAuthInterceptor', function($window, $q, localStorageService, Config) {
+  .factory('BearerAuthInterceptor', function($window, $q, $location, localStorageService, Config) {
     return {
       request: function(config) {
         if(config.url.indexOf(Config.apiUrl) === -1) {
@@ -16,7 +16,7 @@ angular.module('frontendApp')
       },
       responseError: function(rejection) {
         if (rejection.status === 401) {
-          alert('Session expired, redirect to login page.')
+          window.alert('Session expired, redirect to login page.');
           $location.url('/login');
         }
         return $q.reject(rejection);
@@ -58,6 +58,18 @@ angular.module('frontendApp')
       },
       update: function(id,data) {
         return $http.put(Config.apiUrl + '/deck/' + id, data);
+      }
+    };
+
+    this.card = {
+      create: function(deckId, data) {
+        return $http.post(Config.apiUrl + '/deck/' + deckId + '/card', data);
+      },
+      show: function(deckId, cardId) {
+        return $http.get(Config.apiUrl + '/deck/' + deckId + '/card/' + cardId);
+      },
+      update: function(deckId, cardId, data) {
+        return $http.put(Config.apiUrl + '/deck/' + deckId + '/card/' + cardId, data);
       }
     };
   });

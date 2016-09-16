@@ -1,7 +1,7 @@
 <div layout="column" layout-align="center center" layout-margin>
   <div class="flip">
     <div class="card" ng-class="{'flipped':!isCardFront}" ng-click="isCardFront=!isCardFront">
-      <div class="face front" ng-class='"{{deck.tags[0].name+"-deck-deckview"}}"' layout="column" layout-align="center center" layout-padding>
+      <div class="face front" ng-class=deck.Tags[0].name+"-deck-deckview" layout="column" layout-align="center center" layout-padding>
         {{ card.front }}
       </div>
       <div class="face back" layout="column" layout-align="center center" layout-padding>
@@ -10,7 +10,7 @@
     </div>
   </div>
   <div ng-if="isOwner" layout="row" layout-align="center">
-    <md-button ng-click="editCard()"> Edit </md-button>
+    <md-button ng-click="showEditCardDialog()"> Edit </md-button>
     <md-button> Delete </md-button>
   </div>
 </div>
