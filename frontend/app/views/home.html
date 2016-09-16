@@ -1,7 +1,7 @@
 <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
 	<div ng-repeat="deck in displayedDecks" ng-class=displayedDecks[$index].Tags[0].name+"-deck-homeview" class="deck-homeview">
     <md-checkbox class="deck-select" aria-label="select deck" ng-disabled="!deleting&&!changing" ng-checked="isSelected(deck)" ng-click="select(deck)"></md-checkbox>
-		<div layout="column" layout-align="center center" class="deck-title" ng-click="viewDeck(displayedDecks[$index]._id)">{{displayedDecks[$index].name | limitTo:55}}</div>
+		<div layout="column" layout-align="center center" class="deck-title" ng-click="viewDeck(displayedDecks[$index].id)">{{displayedDecks[$index].name | limitTo:55}}</div>
 	</div>
 </div>
 
