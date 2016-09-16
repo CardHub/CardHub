@@ -11,19 +11,19 @@ angular.module('frontendApp')
   .controller('DeckCtrl', function ($scope, $state, $stateParams, $mdDialog, UserAuth, apiHelper) {
     $scope.deckId = $stateParams.id;
     $scope.deck = {};
+    $scope.isOwner = false;
 
     function getCards() {
       apiHelper.deck.show($scope.deckId).then(function(res) {
         console.log(res.data);
         $scope.deck = res.data;
+        // check if current user is the owner
+        $scope.isOwner = (UserAuth.getCurrentUser().id === $scope.deck.UserId);
       }).catch(function(err) {
         console.log(err);
       });
     }
     getCards();
-
-    // check if current user is the owner
-    $scope.isOwner = (UserAuth.getCurrentUser().fbId === $scope.deck.UserId);
 
     $scope.viewCard = function(deckId, cardId) {
       $state.go('main.card', {deckId: deckId, cardId: cardId});
