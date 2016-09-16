@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('frontendApp')
-  .factory('BearerAuthInterceptor', function($window, $q, $location, localStorageService, Config) {
+  .factory('BearerAuthInterceptor', function($window, $q, $location, localStorageService, Config, UserAuth) {
     return {
       request: function(config) {
         if(config.url.indexOf(Config.apiUrl) === -1) {
@@ -17,6 +17,7 @@ angular.module('frontendApp')
       responseError: function(rejection) {
         if (rejection.status === 401) {
           window.alert('Session expired, redirect to login page.');
+          UserAuth.clearUserData();
           $location.url('/login');
         }
         return $q.reject(rejection);
