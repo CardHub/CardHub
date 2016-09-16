@@ -1,6 +1,7 @@
 var graph = require('fbgraph');
 var models = require('../models');
 var User = models.User;
+var Tag = models.Tag;
 
 exports.authenticate = function (req, res) {
   if (!req.body.token) {
@@ -31,7 +32,21 @@ exports.authenticate = function (req, res) {
         }
       })
       .spread(function (user, created) {
-        res.json(user.generateJwt());
+        if (created) {
+          // For new users, bootstrap 3 tags for them.
+          var defaultTags = ['work', 'study', 'life'];
+          var createTagsArray = defaultTags.map(tag => {
+            return Tag.create({
+              name: tag,
+              UserId: user.id
+            });
+          });
+          Promise.all(createTagsArray).then(function() {
+            res.json(user.generateJwt());
+          });
+        } else {
+          res.json(user.generateJwt());
+        }
       })
       .catch(function(err) {
         return res.status(500).json({
