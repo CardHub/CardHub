@@ -29,9 +29,12 @@
 }
 
 .deck-deckview {
-  width: 240px;
-  height: 240px;
+  width: 180px;
+  height: 180px;
   background-size: 100%;
+  -webkit-box-shadow: 2px 2px 2px 1px rgba(166,164,166,1);
+  -moz-box-shadow: 2px 2px 2px 1px rgba(166,164,166,1);
+  box-shadow: 2px 2px 2px 1px rgba(166,164,166,1);
 }
 .study-deck-deckview {
   background-color: $color-study;
@@ -41,6 +44,14 @@
 }
 .life-deck-deckview {
   background-color: $color-life;
+}
+
+.card-preview {
+  word-wrap: break-word;
+  word-break: break-word;
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
 }
 
 md-checkbox.deck-select {

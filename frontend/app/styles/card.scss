@@ -17,6 +17,9 @@
       @include backface-visibility(hidden);
       z-index: 2;
       text-align: center;
+      -webkit-box-shadow: 2px 2px 2px 1px rgba(166,164,166,1);
+      -moz-box-shadow: 2px 2px 2px 1px rgba(166,164,166,1);
+      box-shadow: 2px 2px 2px 1px rgba(166,164,166,1);
     }
 
     .front {
