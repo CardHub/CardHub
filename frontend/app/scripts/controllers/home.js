@@ -34,38 +34,32 @@ angular.module('frontendApp')
     });
   }
 
+  function updateDeck(id, payload, acting, act) {
+    apiHelper.deck.update(id,payload).then(function(res) {
+      console.log(res.data);
+      getDeck();
+      showToast(true,'Success ' + acting + ' selected deck!');
+    })
+    .catch(function(err) {
+      console.log(err);
+      showToast(false,'Failed to ' + act + ' deck. Please try again.');
+    });
+  }
+
   function deleteDecks(decks) {
     var payload = {isDeleted:"true"};
     for (var i=0; i<decks.length; i++) {
-      apiHelper.deck.update(decks[i].id,payload).then(function(res) {
-        console.log(res.data);
-        getDeck();
-        showToast(true,'Success deleting selected deck!');
-      })
-      .catch(function(err) {
-        console.log(err);
-        success=false;
-        showToast(false,'Failed to delete deck. Please try again.');
-      });
+      updateDeck(decks[i].id,payload,'deleting','delete');
     }  
   }
 
-  function updateDeck(changedDeck) {
+  function changeDeck(changedDeck) {
     console.log(changedDeck);
     var payload = {
       name: changedDeck.name,
       isPublic: changedDeck.isPublic
-    }
-    apiHelper.deck.update(changedDeck.id,changedDeck).then(function(res) {
-      console.log(res.data);
-      getDeck();
-      showToast(true,'Success updating deck!');
-    })
-    .catch(function(err) {
-      console.log(err);
-      showToast(false,'Failed to update deck. Please try again.');
-    });
-     
+    };
+    updateDeck(changedDeck.id,payload,'updating','update');   
   }
 
   function showToast(success,msg) {
@@ -124,7 +118,7 @@ angular.module('frontendApp')
   };
 
   //Add new deck dialog
-  $scope.addDeck = function(event) {
+  $scope.showAddDeckDialog = function(event) {
     //hide checkboxes
     $scope.deleting = false;
     $scope.changing = false;
@@ -171,7 +165,7 @@ angular.module('frontendApp')
   }
 
   //Change deck dialog
-  function changeDeck(deck) {
+  function showChangeDeckDialog(deck) {
     $scope.changing = false;
     selected = [];
     $mdDialog.show({
@@ -186,10 +180,10 @@ angular.module('frontendApp')
       } 
     })
     .then(function(updatedDeck){
-      updateDeck(updatedDeck);
+      changeDeck(updatedDeck);
     }, function() {
     });
-  };
+  }
 
   function ChangeDeckCtrl($scope,$mdDialog,selectedDeck,tags) {
     console.log(selectedDeck);
@@ -221,12 +215,12 @@ angular.module('frontendApp')
     $scope.changing=true; 
     $scope.deleting=false;
     selected=[];
-  }
+  };
 
   $scope.cancelChange = function() {
     $scope.changing=false;
     selected=[];
-  }
+  };
 
   //Select decks
   var selected = [];
@@ -246,7 +240,7 @@ angular.module('frontendApp')
       }
     } else if ($scope.changing) {
       //go to update
-      changeDeck(deck);
+      showChangeDeckDialog(deck);
     }
   };
 
@@ -270,7 +264,7 @@ angular.module('frontendApp')
   $scope.cancelDelete = function() {
     $scope.deleting = false;
     selected=[];
-  }
+  };
 
   $scope.deleteDecks = function() {
     if(selected.length===0) {
