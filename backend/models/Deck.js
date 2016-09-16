@@ -11,6 +11,18 @@ module.exports = function(sequelize, DataTypes) {
     isDeleted: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+    color: {
+      type: DataTypes.STRING,
+      defaultValue: "#91A7D0"
+    },
+    isForked: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    forkedFrom: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     classMethods: {

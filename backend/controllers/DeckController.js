@@ -12,7 +12,7 @@ exports.index = function(req, res) {
     order: [
       ['updatedAt', 'DESC']
     ],
-    attributes: ['id', 'name', 'isPublic', 'isDeleted', 'UserId'],
+    attributes: ['id', 'name', 'color', 'isForked', 'forkedFrom', 'isPublic', 'isDeleted', 'UserId'],
     where: {
       UserId: req.user.id
     },
@@ -45,6 +45,7 @@ exports.create = function(req, res) {
     name: deckData.name,
     isPublic: deckData.isPublic,
     isDeleted: deckData.isDeleted,
+    color: deckData.color,
     UserId: req.user.id
   }).then(function(deck) {
     var count = deckData.tags.length;
@@ -86,7 +87,7 @@ exports.show = function(req, res) {
     where: {
       id: req.params.id
     },
-    attributes: ['id', 'name', 'isPublic', 'isDeleted', 'UserId'],
+    attributes: ['id', 'name', 'isPublic', 'color', 'isForked', 'forkedFrom', 'isDeleted', 'UserId'],
     include: [{
       attributes: ['id', 'name'],
       model: Tag,
@@ -137,7 +138,7 @@ exports.update = function(req, res) {
         id: req.params.id,
         UserId: req.user.id
       },
-      attributes: ['id', 'name', 'isPublic', 'isDeleted', 'UserId'],
+      attributes: ['id', 'name', 'isPublic', 'color', 'isDeleted', 'UserId'],
       include: [{
         attributes: ['id', 'name'],
         model: Tag,
@@ -227,6 +228,9 @@ exports.fork = function(req, res) {
           name: data.deck.name,
           isPublic: true,
           isDeleted: false,
+          color: data.deck.color,
+          isForked:true,
+          forkedFrom: data.deck.UserId,
           UserId: req.user.id
         })
         .then(function(newDeck) {
@@ -241,8 +245,8 @@ exports.fork = function(req, res) {
               })
             );
           });
-          Promise.all(addCards).then(function(result) {
-            res.json(result);
+          Promise.all(addCards).then(function() {
+            res.json(newDeck);
           }, function(err) {
             resError(res, err);
           });
@@ -276,7 +280,7 @@ function verifyToken(token) {
 
 // A simple verify function to validate data.
 function verifyDeckData(data) {
-  if (!('name' in data) || !('tags' in data) || !('isPublic' in data)) {
+  if (!('name' in data) || !('tags' in data) || !('isPublic' in data) || !('color' in data) ) {
     return false;
   }
 
@@ -299,10 +303,12 @@ function getDeckDataFromRequest(req) {
   });
   var isDeleted = payload.isDeleted || false;
   var deckVisibility = payload.isPublic || false;
+  var color = payload.color || "#91A7D0";
   var deckData = {
     name: deckName,
     tags: deckTags,
     isDeleted: isDeleted,
+    color: color,
     isPublic: deckVisibility
   };
   return deckData;

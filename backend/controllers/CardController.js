@@ -13,7 +13,7 @@ exports.index = function(req, res) {
     where: {
       id: deckId
     },
-    attributes: ['id', 'name', 'isPublic', 'isDeleted', 'UserId'],
+    attributes: ['id', 'name', 'color', 'isForked', 'forkedFrom', 'isPublic', 'isDeleted', 'UserId'],
     include: [{
       attributes: ['id', 'name'],
       model: Tag,
