@@ -36,7 +36,10 @@ angular.module('frontendApp')
         parent: angular.element(document.body),
         targetEvent: event,
         clickOutsideToClose: true,
-        fullscreen: true 
+        fullscreen: true,
+        locals: {
+          deckName: $scope.deck.name
+        }
       })
       .then(function(newCard){
         console.log(newCard);
@@ -52,7 +55,8 @@ angular.module('frontendApp')
       });
     };
 
-    function CreateCardCtrl($scope,$mdDialog) {
+    function CreateCardCtrl($scope, $mdDialog, deckName) {
+      $scope.deckName = deckName;
       $scope.cancel = function() {
         $mdDialog.cancel();
       };
