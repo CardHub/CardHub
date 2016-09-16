@@ -59,4 +59,16 @@ angular.module('frontendApp')
         return $http.put(Config.apiUrl + '/deck/' + id, data);
       }
     };
+
+    this.card = {
+      create: function(deckId, data) {
+        return $http.post(Config.apiUrl + '/deck/' + deckId + '/card', data);
+      },
+      show: function(deckId, cardId) {
+        return $http.get(Config.apiUrl + '/deck/' + deckId + '/card/' + cardId);
+      },
+      update: function(deckId, cardId, data) {
+        return $http.put(Config.apiUrl + '/deck/' + deckId + '/card/' + cardId, data);
+      }
+    };
   });
