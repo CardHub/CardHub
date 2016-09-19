@@ -32,7 +32,10 @@ angular.module('frontendApp')
         console.log(newCard);
         apiHelper.card.create(deckId, newCard).then(function(res) {
           console.log(res.data);
-          deferred.resolve({status: "success"});
+          deferred.resolve({
+            status: "success",
+            cardId: res.data.id
+          });
         })
         .catch(function(err) {
           console.log(err);

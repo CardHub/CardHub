@@ -37,7 +37,7 @@ angular.module('frontendApp')
     $scope.createCard = function(event) {
       cardUtil.showAddCardDialog($scope.deckId, $scope.deck.name, event).then(function(res) {
         if (res.status === "success") {
-          getCardInDeck();
+          $state.go('main.card', {deckId: $scope.deckId, cardId: res.cardId});
         } else {
           console.log(res.error);
         }

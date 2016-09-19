@@ -77,7 +77,7 @@ angular.module('frontendApp')
             scope.selected = [];
             scope.deleting = false;
           }
-        }
+        };
       },
       templateUrl: 'views/pageUtil.html'
     };

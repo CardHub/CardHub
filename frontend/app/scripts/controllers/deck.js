@@ -60,7 +60,7 @@ angular.module('frontendApp')
       } else if ($scope.changing) {
         cardUtil.showEditCardDialog($scope.deckId, card, event).then(function(res) {
           if (res.status === "success") {
-            getCardInDeck();
+            getCards();
           } else {
             console.log(res.error);
           }
