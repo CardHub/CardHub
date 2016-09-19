@@ -55,6 +55,7 @@
     pointer-events: none;
     border: none;
     border-radius: 8px;
+    vertical-align: middle;
   }
   .material-icons {
     width: 25px;
@@ -63,6 +64,17 @@
   .metadata-accessibility-icon {
     transform: translateX(-25px);
   }
+
+  .metadata-title-icon {
+    margin-left: 4px;
+    margin-top: -10px;
+  }
+  .metadata-title-text {
+    margin-left: -4px;
+  }
+}
+.metadata-wrapper > div {
+  margin: 5px;
 }
 
 .card-preview {

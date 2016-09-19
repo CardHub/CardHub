@@ -2,31 +2,31 @@
   <div layout-margin layout-wrap layout="row" layout-align="center center">
     <div layout="column" layout-align="center start" class="metadata-wrapper">
     <!-- icons here are dummied, refer to https://material.angularjs.org/latest/api/directive/mdIcon for customized icons -->
-      <div layout="row">
-        <i class="material-icons">Title</i>
-        <div>{{ deck.name | limitTo:30}}</div>
+      <div layout="row" layout-align="start center">
+        <i class="material-icons metadata-title-icon">T</i>
+        <div class="metadata-title-text">{{ deck.name | limitTo:30}}</div>
       </div>
       <div layout="row" layout-align="start center">
         <i class="material-icons metadata-accessibility-icon">clock_outline</i>
         <div ng-if="deck.isPublic">Public Deck</div>
         <div ng-if="!deck.isPublic">Private Deck</div>
       </div>
-      <div ng-if="deck.isForked" layout="row">
-        <i class="material-icons">Fork</i>
+      <div ng-if="deck.isForked" layout="row" layout-align="start center"> 
+        <i class="material-icons">lightbulb_outline</i>
         <div>Forked from {{deck.forkedFrom | limitTo:40}}</div>
       </div>
 
-      <div layout="row">
+      <!-- <div layout="row" layout-align="start center">
         <i class="material-icons">query_builder</i>
         <div>{{ deck.createdAt }}</div>
       </div>
-      <div layout="row">
+      <div layout="row" layout-align="start center">
         <i class="material-icons">query_builder</i>
         <div>{{ deck.updatedAt }}</div>
-      </div>
+      </div> -->
 
-      <div layout="row">
-        <i class="material-icons">Tag</i>
+      <div layout="row" layout-align="start center">
+        <i class="material-icons">label_outline</i>
         <button ng-repeat="tag in deck.Tags" class="metadata-tag">{{ tag.name }}</button>
       </div>
     </div>
