@@ -9,48 +9,18 @@
  */
 angular.module('frontendApp')
   .controller('MainCtrl', function ($rootScope,$scope, $timeout, $mdSidenav, $state, UserAuth, apiHelper) {
-    $scope.personalFilters = [
-      {
-        'title': 'All'
-      },
-      {
-        'title': 'Study',
-        'color': 'study',
-        'name': 'study'
-      },
-      {
-        'title': 'Work',
-        'color': 'work',
-        'name': 'work'
-      },
-      {
-        'title': 'Life',
-        'color': 'life',
-        'name': 'life'
-      },
-      {
-        'title': 'Deleted',
-        'color': 'white',
-        'name': 'deleted'
-      }
-    ];
 
     $scope.tagFilters = {};
 
-  //get user tags
-  apiHelper.tag.get().then(function(res) {
-    $scope.tagFilters = res.data;
-    console.log($scope.tagFilters);
-  }).catch(function(err) {
-    console.log(err);
-  });
+    //get user tags
+    apiHelper.tag.get().then(function(res) {
+      $scope.tagFilters = res.data;
+      console.log($scope.tagFilters);
+    }).catch(function(err) {
+      console.log(err);
+    });
 
     $scope.publicStates = [
-      {
-        'name': 'Starred',
-        'icon': 'stars',
-        'state': 'main.deck'
-      },
       {
         'name': 'Explore',
         'icon': 'explore',

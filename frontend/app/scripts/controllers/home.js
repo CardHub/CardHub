@@ -39,6 +39,8 @@ angular.module('frontendApp')
   getDeck();
 
   function createDeck(newDeck) {
+    console.log("new deck");
+    console.log(newDeck);
     apiHelper.deck.create(newDeck).then(function(res) {
       console.log(res.data);
       showToast(true,'Success creating deck!');
@@ -70,13 +72,14 @@ angular.module('frontendApp')
   }
 
   function changeDeck(changedDeck) {
-    console.log(changedDeck);
-    console.log(tagMap);
-    console.log(tagMap[changedDeck.Tags[0]]);
+    var tagIds = [];
+    for (var i=0; i<changedDeck.Tags.length; i++) {
+      tagIds.push(tagMap[changedDeck.Tags[i]]);
+    }
     var payload = {
       name: changedDeck.name,
       isPublic: changedDeck.isPublic,
-      Tags: [tagMap[changedDeck.Tags[0]]]
+      Tags: tagIds
     };
     updateDeck(changedDeck.id,payload,'updating','update');   
   }
@@ -101,7 +104,6 @@ angular.module('frontendApp')
   $scope.displayedDecks = $scope.decks;
   $scope.selectedTag= '';
   $scope.deckFilter = $stateParams.filterTag;
-  var tags = ['study','work','life'];
 
   $scope.updateDeckView = function(deckFilter, deckDeleted) {      
     function checkHasTag(tag) {
@@ -151,7 +153,7 @@ angular.module('frontendApp')
       clickOutsideToClose:true,
       fullscreen: true ,
       locals: {
-        tags: tags,
+        tags: $scope.tagFilters,
         currentTag:$scope.deckFilter
       }
     })
@@ -167,7 +169,7 @@ angular.module('frontendApp')
     $scope.submitBtn = 'Add deck';
     $scope.deck = {
       isPublic : false,
-      tag: currentTag
+      tag: [currentTag]
     };
     $scope.cancel = function() {
       $mdDialog.cancel();
@@ -175,7 +177,7 @@ angular.module('frontendApp')
     $scope.create = function(deck) {
       var newDeck = {
         name: deck.name,
-        tags: [deck.tag],
+        tags: deck.tag,
         isPublic: deck.isPublic,
         isDeleted: false
       };
@@ -195,7 +197,7 @@ angular.module('frontendApp')
       fullscreen: true,
       locals: {
         selectedDeck: deck,
-        tags: tags
+        tags: $scope.tagFilters
       } 
     })
     .then(function(updatedDeck){
@@ -209,9 +211,13 @@ angular.module('frontendApp')
     $scope.tags = tags;
     $scope.title = 'Change selected deck';
     $scope.submitBtn = 'Update deck';
+    var tagNames = [];
+    for (var i=0; i<selectedDeck.Tags.length; i++) {
+      tagNames.push(selectedDeck.Tags[i].name);
+    }
     $scope.deck = {
       name : selectedDeck.name,
-      tag : selectedDeck.Tags[0].name,
+      tag : tagNames,
       isPublic : selectedDeck.isPublic
     };
     console.log(selectedDeck.Tags[0].name);
@@ -222,7 +228,7 @@ angular.module('frontendApp')
       var updatedDeck = {
         id: selectedDeck.id,
         name: deck.name,
-        Tags: [deck.tag],
+        Tags: deck.tag,
         isPublic: deck.isPublic,
         isDeleted: false
       };
