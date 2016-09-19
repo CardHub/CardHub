@@ -1,4 +1,36 @@
 <!-- <div layout="column" layout-align="top center"> -->
+  <div layout-margin layout-wrap layout="row" layout-align="center center">
+    <div layout="column" layout-align="center start" class="metadata-wrapper">
+    <!-- icons here are dummied, refer to https://material.angularjs.org/latest/api/directive/mdIcon for customized icons -->
+      <div layout="row">
+        <i class="material-icons">Title</i>
+        <div>{{ deck.name | limitTo:30}}</div>
+      </div>
+      <div layout="row" layout-align="start center">
+        <i class="material-icons metadata-accessibility-icon">clock_outline</i>
+        <div ng-if="deck.isPublic">Public Deck</div>
+        <div ng-if="!deck.isPublic">Private Deck</div>
+      </div>
+      <div ng-if="deck.isForked" layout="row">
+        <i class="material-icons">Fork</i>
+        <div>Forked from {{deck.forkedFrom | limitTo:40}}</div>
+      </div>
+
+      <div layout="row">
+        <i class="material-icons">query_builder</i>
+        <div>{{ deck.createdAt }}</div>
+      </div>
+      <div layout="row">
+        <i class="material-icons">query_builder</i>
+        <div>{{ deck.updatedAt }}</div>
+      </div>
+
+      <div layout="row">
+        <i class="material-icons">Tag</i>
+        <button ng-repeat="tag in deck.Tags" class="metadata-tag">{{ tag.name }}</button>
+      </div>
+    </div>
+  </div>
   <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
     <!-- tag color here is dummied to the first one in the list -->
     <div ng-repeat="card in deck.Cards" ng-class=deck.Tags[0].name+"-deck-deckview" ng-click="viewCard(deck.id, card.id)" class="deck-deckview">

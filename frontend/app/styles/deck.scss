@@ -46,6 +46,25 @@
   background-color: $color-life;
 }
 
+.metadata-wrapper {
+  background-color: #FFFFFF;
+  padding: 20px;
+  .metadata-tag {
+    background-color: $color-main;
+    padding: 5px 10px;
+    pointer-events: none;
+    border: none;
+    border-radius: 8px;
+  }
+  .material-icons {
+    width: 25px;
+    margin-right: 25px;
+  }
+  .metadata-accessibility-icon {
+    transform: translateX(-25px);
+  }
+}
+
 .card-preview {
   word-wrap: break-word;
   word-break: break-word;
