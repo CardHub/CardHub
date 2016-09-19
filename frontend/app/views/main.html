@@ -10,9 +10,19 @@
         <p>Hey, {{currentUser.name}}</p>
       </md-list-item>
       <md-subheader class="md-no-sticky">Personal</md-subheader>
-      <md-list-item ng-click="changeFilter(filter.name)" ng-repeat="filter in personalFilters" class="nav-item">
-        <div class="md-avatar" ng-class="filter.color"></div>
-        <p>{{filter.title}}</p>
+      <md-list-item ng-click="changeFilter()"class="nav-item">
+        <p>All</p>
+      </md-list-item>
+      <md-list-item ng-click="changeFilter(filter.name)" ng-repeat="filter in tagFilters" class="nav-item">
+        <i class="material-icons">label_outline</i>
+        <p>{{filter.name}}</p>
+      </md-list-item>
+      <md-list-item ng-click="showEditTagsDialog()"class="nav-item">
+        <i class="material-icons">edit</i>
+        <p>Edit tags</p>
+      </md-list-item>
+      <md-list-item ng-click="changeFilter('deleted')"class="nav-item">
+        <p>Deleted</p>
       </md-list-item>
       <md-subheader class="md-no-sticky">Public</md-subheader>
       <md-list-item ng-click="goTo(state.state)" ng-repeat="state in publicStates">

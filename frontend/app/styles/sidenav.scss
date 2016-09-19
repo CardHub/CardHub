@@ -4,7 +4,7 @@
 
 md-list-item.user-photo {
   background-color: $color-main;
-  padding-top: 60px;
+  padding-top: 30px;
 }
 
 md-list-item .md-avatar {
@@ -28,10 +28,6 @@ md-list-item .md-avatar {
 md-list-item.nav-item {
   p {
     font-size: $mobile-small-text;
-  }
-  .md-avatar {
-    max-width: 16px;
-    max-height: 16px;
   }
 }
 

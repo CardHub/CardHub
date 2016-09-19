@@ -39,6 +39,8 @@ angular.module('frontendApp')
   getDeck();
 
   function createDeck(newDeck) {
+    console.log("new deck");
+    console.log(newDeck);
     apiHelper.deck.create(newDeck).then(function(res) {
       console.log(res.data);
       showToast(true,'Success creating deck!');
@@ -70,13 +72,15 @@ angular.module('frontendApp')
   }
 
   function changeDeck(changedDeck) {
-    console.log(changedDeck);
-    console.log(tagMap);
-    console.log(tagMap[changedDeck.Tags[0]]);
+    var tagIds = [];
+    for (var i=0; i<changedDeck.Tags.length; i++) {
+      tagIds.push(tagMap[changedDeck.Tags[i]]);
+    }
     var payload = {
       name: changedDeck.name,
       isPublic: changedDeck.isPublic,
-      Tags: [tagMap[changedDeck.Tags[0]]]
+      Tags: tagIds,
+      color: changedDeck.color
     };
     updateDeck(changedDeck.id,payload,'updating','update');   
   }
@@ -101,7 +105,7 @@ angular.module('frontendApp')
   $scope.displayedDecks = $scope.decks;
   $scope.selectedTag= '';
   $scope.deckFilter = $stateParams.filterTag;
-  var tags = ['study','work','life'];
+  var colors = ['BEC6D5','F6CAC9','F4B794','E3EAA5','C3DDD6','D1C3D5','D1C2AB'];
 
   $scope.updateDeckView = function(deckFilter, deckDeleted) {      
     function checkHasTag(tag) {
@@ -151,8 +155,9 @@ angular.module('frontendApp')
       clickOutsideToClose:true,
       fullscreen: true ,
       locals: {
-        tags: tags,
-        currentTag:$scope.deckFilter
+        tags: $scope.tagFilters,
+        currentTag:$scope.deckFilter,
+        colors: colors
       }
     })
     .then(function(newDeck){
@@ -161,13 +166,18 @@ angular.module('frontendApp')
     });
   };
 
-  function CreateDeckCtrl($scope,$mdDialog,tags,currentTag) {
+  function CreateDeckCtrl($scope,$mdDialog,tags,currentTag,colors) {
     $scope.tags = tags;
     $scope.title = 'Create new deck';
     $scope.submitBtn = 'Add deck';
+    $scope.colors = colors;
     $scope.deck = {
       isPublic : false,
-      tag: currentTag
+      tag: [currentTag],
+      color: colors[0]
+    };
+    $scope.updateColor = function(selected) {
+      $scope.deck.color=selected;
     };
     $scope.cancel = function() {
       $mdDialog.cancel();
@@ -175,9 +185,10 @@ angular.module('frontendApp')
     $scope.create = function(deck) {
       var newDeck = {
         name: deck.name,
-        tags: [deck.tag],
+        tags: deck.tag,
         isPublic: deck.isPublic,
-        isDeleted: false
+        isDeleted: false,
+        color: deck.color
       };
       $mdDialog.hide(newDeck);
     };
@@ -195,7 +206,8 @@ angular.module('frontendApp')
       fullscreen: true,
       locals: {
         selectedDeck: deck,
-        tags: tags
+        tags: $scope.tagFilters,
+        colors: colors
       } 
     })
     .then(function(updatedDeck){
@@ -204,17 +216,25 @@ angular.module('frontendApp')
     });
   }
 
-  function ChangeDeckCtrl($scope,$mdDialog,selectedDeck,tags) {
+  function ChangeDeckCtrl($scope,$mdDialog,selectedDeck,tags,colors) {
     console.log(selectedDeck);
     $scope.tags = tags;
     $scope.title = 'Change selected deck';
     $scope.submitBtn = 'Update deck';
+    $scope.colors = colors;
+    var tagNames = [];
+    for (var i=0; i<selectedDeck.Tags.length; i++) {
+      tagNames.push(selectedDeck.Tags[i].name);
+    }
     $scope.deck = {
       name : selectedDeck.name,
-      tag : selectedDeck.Tags[0].name,
-      isPublic : selectedDeck.isPublic
+      tag : tagNames,
+      isPublic : selectedDeck.isPublic,
+      color: selectedDeck.color
     };
-    console.log(selectedDeck.Tags[0].name);
+    $scope.updateColor = function(selected) {
+      $scope.deck.color=selected;
+    };
     $scope.cancel = function() {
       $mdDialog.cancel();
     };
@@ -222,9 +242,10 @@ angular.module('frontendApp')
       var updatedDeck = {
         id: selectedDeck.id,
         name: deck.name,
-        Tags: [deck.tag],
+        Tags: deck.tag,
         isPublic: deck.isPublic,
-        isDeleted: false
+        isDeleted: false,
+        color: deck.color
       };
       $mdDialog.hide(updatedDeck);
     };

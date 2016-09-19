@@ -19,14 +19,18 @@
       </md-input-container>
       <md-input-container class="md-block" flex-gt-sm>
         <label>Tag</label>
-        <md-select name="tag" ng-model="deck.tag" required>
-          <md-option ng-repeat="tag in tags" ng-selected="tag===deck.tag" value="{{tag}}">
-            {{tag}}
+        <md-select multiple name="tag" ng-model="deck.tag" required>
+          <md-option ng-repeat="tag in tags" value="{{tag.name}}">
+            {{tag.name}}
           </md-option>
         </md-select>
         <div ng-messages="deckForm.tag.$error">
           <div ng-message="required">This is required!</div>
         </div>
+      </md-input-container>
+      <md-input-container layout-align="center center">
+        <div>Color</div>
+        <md-checkbox md-no-ink ng-repeat="color in colors" class="color-select {{color}}" aria-label="color" ng-click="updateColor(color)" ng-checked="deck.color===color"></md-checkbox>
       </md-input-container>
       <div layout="row" layout-align="center">
         <md-button class="cancel" ng-click="cancel()">Cancel</md-button>
