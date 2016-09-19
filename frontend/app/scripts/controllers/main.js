@@ -8,11 +8,10 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('MainCtrl', function ($rootScope,$scope, $timeout, $mdSidenav, $state, UserAuth) {
+  .controller('MainCtrl', function ($rootScope,$scope, $timeout, $mdSidenav, $state, UserAuth, apiHelper) {
     $scope.personalFilters = [
-    {
-        'title': 'All',
-        'color': 'white',
+      {
+        'title': 'All'
       },
       {
         'title': 'Study',
@@ -35,6 +34,16 @@ angular.module('frontendApp')
         'name': 'deleted'
       }
     ];
+
+    $scope.tagFilters = {};
+
+  //get user tags
+  apiHelper.tag.get().then(function(res) {
+    $scope.tagFilters = res.data;
+    console.log($scope.tagFilters);
+  }).catch(function(err) {
+    console.log(err);
+  });
 
     $scope.publicStates = [
       {
