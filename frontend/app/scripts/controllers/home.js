@@ -20,6 +20,22 @@ angular.module('frontendApp')
     });
   }
 
+  var tagMap = {};
+
+  //get user tags
+  apiHelper.tag.get().then(function(res) {
+    tagMap = {};
+    console.log(res.data);
+    for(var i=0; i<res.data.length; i++){
+      var tagName = res.data[i].name;
+      tagMap[tagName] = res.data[i].id;
+    }
+    console.log(tagMap);
+  }).catch(function(err) {
+    console.log(err);
+  });
+
+
   getDeck();
 
   function createDeck(newDeck) {
@@ -55,9 +71,12 @@ angular.module('frontendApp')
 
   function changeDeck(changedDeck) {
     console.log(changedDeck);
+    console.log(tagMap);
+    console.log(tagMap[changedDeck.Tags[0]]);
     var payload = {
       name: changedDeck.name,
-      isPublic: changedDeck.isPublic
+      isPublic: changedDeck.isPublic,
+      Tags: [tagMap[changedDeck.Tags[0]]]
     };
     updateDeck(changedDeck.id,payload,'updating','update');   
   }
