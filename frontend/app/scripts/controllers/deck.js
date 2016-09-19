@@ -71,6 +71,7 @@ angular.module('frontendApp')
     $scope.deleteCards = function() {
       for (var i=0; i<$scope.selected.length; i++) {
         console.log("delete " + $scope.selected[i].id + " from deck " + $scope.deckId);
+        apiHelper.card.delete($scope.deckId, $scope.selected[i].id);
       }
     };
   });

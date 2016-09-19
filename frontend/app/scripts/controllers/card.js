@@ -56,6 +56,9 @@ angular.module('frontendApp')
 
     $scope.deleteCard = function() {
       console.log("call delete card " + $scope.cardId + " from deck " + $scope.deckId + " in API");
-      $state.go('main.deck', {id: $scope.deckId});
+      apiHelper.card.delete($scope.deckId, $scope.cardId).then(function(res) {
+        console.log(res.data);
+        $state.go('main.deck', {id: $scope.deckId});
+      });
     };
   });

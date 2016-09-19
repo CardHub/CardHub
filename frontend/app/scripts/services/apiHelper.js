@@ -71,6 +71,9 @@ angular.module('frontendApp')
       },
       update: function(deckId, cardId, data) {
         return $http.put(Config.apiUrl + '/deck/' + deckId + '/card/' + cardId, data);
+      },
+      delete: function(deckId, cardId) {
+        return $http.delete(Config.apiUrl + '/deck/' + deckId + '/card/' + cardId);
       }
     };
   });
