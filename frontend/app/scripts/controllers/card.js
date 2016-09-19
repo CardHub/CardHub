@@ -8,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('CardCtrl', function ($scope, $stateParams, $state, $mdDialog, UserAuth, apiHelper) {
+  .controller('CardCtrl', function ($scope, $stateParams, $state, $mdDialog, UserAuth, apiHelper, cardUtil) {
     $scope.deckId = $stateParams.deckId;
     $scope.cardId = $stateParams.cardId;
 
@@ -34,44 +34,23 @@ angular.module('frontendApp')
     }
     getCardInDeck();
 
-    $scope.showAddNewCardDialog = function(event) {
-      console.log("show adding new card dialog");
-    }
-
-    $scope.showEditCardDialog = function(event) {
-      $mdDialog.show({
-        controller: EditCardCtrl,
-        templateUrl: 'views/editCard.html',
-        parent: angular.element(document.body),
-        targetEvent: event,
-        clickOutsideToClose: true,
-        fullscreen: true,
-        locals: {
-          // deckName: $scope.deck.name
-        }
-      })
-      .then(function(newCard){
-        apiHelper.card.update($scope.deckId, $scope.cardId, newCard).then(function(res) {
-          console.log(res.data);
+    $scope.createCard = function(event) {
+      cardUtil.showAddCardDialog($scope.deckId, $scope.deck.name, event).then(function(res) {
+        if (res.status === "success") {
           getCardInDeck();
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-      }, function() {
+        } else {
+          console.log(res.error);
+        }
       });
     };
 
-    function EditCardCtrl($scope, $mdDialog) {
-      $scope.cancel = function() {
-        $mdDialog.cancel();
-      };
-      $scope.update = function(card) {
-        var newCard = {
-          front: card.front,
-          back: card.back
-        };
-        $mdDialog.hide(newCard);
-      };
-    }
+    $scope.updateCard = function(event) {
+      cardUtil.showEditCardDialog($scope.deckId, $scope.card, event).then(function(res) {
+        if (res.status === "success") {
+          getCardInDeck();
+        } else {
+          console.log(res.error);
+        }
+      });
+    };
   });

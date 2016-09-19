@@ -2,14 +2,14 @@
   <div layout="column">
   <md-input-container>
     <label>Front</label>
-    <input name="front" ng-model="cardData.front" required>
+    <input name="front" ng-model="cardData.front" placeholder="{{card.front}}" required>
     <div ng-messages="cardForm.front.$error" ng-show="cardForm.front.$dirty">
       <div ng-message="required">This is required!</div>
     </div>
   </md-input-container>
   <md-input-container>
     <label>Back</label>
-    <input name="back" ng-model="cardData.back">
+    <input name="back" ng-model="cardData.back" placeholder="{{card.back}}">
   </md-input-container>
   <div layout="row" layout-align="center">
     <md-button class="cancel" ng-click="cancel()">Cancel</md-button>

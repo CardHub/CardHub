@@ -1,4 +1,4 @@
-<page-util is-owner=isOwner is-single-item=false deleting=deleting changing=changing selected=selected displayed=deck.Cards add-fn=showAddCardDialog(event) del-fn=deleteCards()></page-util>
+<page-util is-owner=isOwner is-single-item=false deleting=deleting changing=changing selected=selected displayed=deck.Cards add-fn=createCard(event) del-fn=deleteCards()></page-util>
 <!-- <div layout="column" layout-align="top center"> -->
   <div layout-margin layout-wrap layout="row" layout-align="center center">
     <!-- <div>{{selected[0]}}</div> -->
@@ -36,7 +36,7 @@
   <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
     <!-- tag color here is dummied to the first one in the list -->
     <div ng-repeat="card in deck.Cards" ng-class=deck.Tags[0].name+"-deck-deckview" ng-click="viewCard(deck.id, card.id)" class="deck-deckview">
-      <md-checkbox class="card-select" aria-label="select deck" ng-disabled="!deleting&&!changing" ng-checked="isSelected(card)" ng-click="select(card); $event.stopPropagation();"></md-checkbox>
+      <md-checkbox class="card-select" aria-label="select deck" ng-disabled="!deleting&&!changing" ng-checked="isSelected(card)" ng-click="select(card, $event); $event.stopPropagation();"></md-checkbox>
       <div align="center" class="card-preview">{{ card.front | limitTo:55}}</div>
     </div>
   </div>
