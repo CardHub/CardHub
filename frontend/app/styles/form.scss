@@ -37,3 +37,58 @@ md-checkbox.md-checked .md-icon {
   border-radius: 50%;
 }
 
+md-checkbox.color-select {
+	div.md-icon {
+		height: 32px;
+		width: 32px;
+		border-color: transparent;
+	}
+	.md-checked {
+		background-color:transparent;
+		.md-icon:after {
+    	border-width: 0;
+		}
+	}
+	&.F6CAC9 { //red
+		div.md-icon {
+			background-color: #F6CAC9;
+		}
+	}
+	&.F4B794 { //orange
+		div.md-icon {
+			background-color: #F4B794;
+		}
+	}
+	&.D1C2AB { //yellow
+		div.md-icon {
+			background-color: #D1C2AB;
+		}
+	}
+	&.E3EAA5 { //green
+		div.md-icon {
+			background-color: #E3EAA5;
+		}
+	}
+	&.C3DDD6 { //blue
+		div.md-icon {
+			background-color: #C3DDD6;
+		}
+	}
+	&.BEC6D5 { //indigo
+		div.md-icon {
+			background-color: #BEC6D5;
+		}
+	}	
+	&.D1C3D5 { //purple
+		div.md-icon {
+			background-color: #D1C3D5;
+		}
+	}
+
+}
+
+md-checkbox.color-select.md-checked .md-icon:after {
+	margin-left: 6px;
+	margin-top: 5px;
+}
+

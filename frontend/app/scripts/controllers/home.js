@@ -104,6 +104,7 @@ angular.module('frontendApp')
   $scope.displayedDecks = $scope.decks;
   $scope.selectedTag= '';
   $scope.deckFilter = $stateParams.filterTag;
+  var colors = ['BEC6D5','F6CAC9','F4B794','E3EAA5','C3DDD6','D1C3D5','D1C2AB'];
 
   $scope.updateDeckView = function(deckFilter, deckDeleted) {      
     function checkHasTag(tag) {
@@ -154,7 +155,8 @@ angular.module('frontendApp')
       fullscreen: true ,
       locals: {
         tags: $scope.tagFilters,
-        currentTag:$scope.deckFilter
+        currentTag:$scope.deckFilter,
+        colors: colors
       }
     })
     .then(function(newDeck){
@@ -163,13 +165,18 @@ angular.module('frontendApp')
     });
   };
 
-  function CreateDeckCtrl($scope,$mdDialog,tags,currentTag) {
+  function CreateDeckCtrl($scope,$mdDialog,tags,currentTag,colors) {
     $scope.tags = tags;
     $scope.title = 'Create new deck';
     $scope.submitBtn = 'Add deck';
+    $scope.colors = colors;
     $scope.deck = {
       isPublic : false,
-      tag: [currentTag]
+      tag: [currentTag],
+      color: colors[0]
+    };
+    $scope.updateColor = function(selected) {
+      $scope.deck.color=selected;
     };
     $scope.cancel = function() {
       $mdDialog.cancel();
@@ -179,7 +186,8 @@ angular.module('frontendApp')
         name: deck.name,
         tags: deck.tag,
         isPublic: deck.isPublic,
-        isDeleted: false
+        isDeleted: false,
+        color: deck.color
       };
       $mdDialog.hide(newDeck);
     };
