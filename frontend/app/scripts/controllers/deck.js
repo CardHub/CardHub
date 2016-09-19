@@ -12,7 +12,12 @@ angular.module('frontendApp')
     $scope.deckId = $stateParams.id;
     $scope.deck = {};
     $scope.isOwner = false;
+    $scope.deleting = false;
+    $scope.changing = false;
+    $scope.selected = [];
 
+    // initialize to prevent directive error before async promise is returned
+    $scope.deck = {Cards:[]};
     function getCards() {
       apiHelper.deck.show($scope.deckId).then(function(res) {
         console.log(res.data);
@@ -68,4 +73,30 @@ angular.module('frontendApp')
         $mdDialog.hide(newCard);
       };
     }
+
+    // functions for 
+    $scope.isSelected = function(card) {
+      return $scope.selected.indexOf(card) > -1;
+    };
+    $scope.select = function(card) {
+      if ($scope.deleting) {
+        // toggle selected/not selected
+        var idx = $scope.selected.indexOf(card);
+        if (idx > -1) {
+          $scope.selected.splice(idx, 1);
+        } else {
+          $scope.selected.push(card);
+        }
+      } else if ($scope.changing) {
+        // go to update
+        console.log("open changeDialog");
+        // showChangeCardDialog(card);
+      }
+    };
+
+    $scope.deleteCards = function() {
+      for (var i=0; i<$scope.selected.length; i++) {
+        console.log("delete " + $scope.selected[i].id);
+      }
+    };
   });

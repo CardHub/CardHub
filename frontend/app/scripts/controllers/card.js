@@ -13,7 +13,7 @@ angular.module('frontendApp')
     $scope.cardId = $stateParams.cardId;
 
     $scope.card = {};
-    $scope.deck = [];
+    $scope.deck = {Cards:[]};
     $scope.isOwner = false;
     $scope.isCardFront = true;
     function getCardInDeck() {
@@ -33,6 +33,10 @@ angular.module('frontendApp')
       });
     }
     getCardInDeck();
+
+    $scope.showAddNewCardDialog = function(event) {
+      console.log("show adding new card dialog");
+    }
 
     $scope.showEditCardDialog = function(event) {
       $mdDialog.show({
