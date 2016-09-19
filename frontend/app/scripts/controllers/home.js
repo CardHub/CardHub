@@ -79,7 +79,8 @@ angular.module('frontendApp')
     var payload = {
       name: changedDeck.name,
       isPublic: changedDeck.isPublic,
-      Tags: tagIds
+      Tags: tagIds,
+      color: changedDeck.color
     };
     updateDeck(changedDeck.id,payload,'updating','update');   
   }
@@ -205,7 +206,8 @@ angular.module('frontendApp')
       fullscreen: true,
       locals: {
         selectedDeck: deck,
-        tags: $scope.tagFilters
+        tags: $scope.tagFilters,
+        colors: colors
       } 
     })
     .then(function(updatedDeck){
@@ -214,11 +216,12 @@ angular.module('frontendApp')
     });
   }
 
-  function ChangeDeckCtrl($scope,$mdDialog,selectedDeck,tags) {
+  function ChangeDeckCtrl($scope,$mdDialog,selectedDeck,tags,colors) {
     console.log(selectedDeck);
     $scope.tags = tags;
     $scope.title = 'Change selected deck';
     $scope.submitBtn = 'Update deck';
+    $scope.colors = colors;
     var tagNames = [];
     for (var i=0; i<selectedDeck.Tags.length; i++) {
       tagNames.push(selectedDeck.Tags[i].name);
@@ -226,9 +229,12 @@ angular.module('frontendApp')
     $scope.deck = {
       name : selectedDeck.name,
       tag : tagNames,
-      isPublic : selectedDeck.isPublic
+      isPublic : selectedDeck.isPublic,
+      color: selectedDeck.color
     };
-    console.log(selectedDeck.Tags[0].name);
+    $scope.updateColor = function(selected) {
+      $scope.deck.color=selected;
+    };
     $scope.cancel = function() {
       $mdDialog.cancel();
     };
@@ -238,7 +244,8 @@ angular.module('frontendApp')
         name: deck.name,
         Tags: deck.tag,
         isPublic: deck.isPublic,
-        isDeleted: false
+        isDeleted: false,
+        color: deck.color
       };
       $mdDialog.hide(updatedDeck);
     };
