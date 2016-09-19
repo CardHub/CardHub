@@ -53,4 +53,9 @@ angular.module('frontendApp')
         }
       });
     };
+
+    $scope.deleteCard = function() {
+      console.log("call delete card " + $scope.cardId + " from deck " + $scope.deckId + " in API");
+      $state.go('main.deck', {id: $scope.deckId});
+    };
   });
