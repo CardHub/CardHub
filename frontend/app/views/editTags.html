@@ -6,22 +6,40 @@
       </div>
     </md-toolbar>
     <md-dialog-content>
-      <form novalidate ng-repeat="tag in tags" ng-submit=tag.name+"Form.$valid && updateTag(tag)" name=tag.name+"Form">
+      <form novalidate name="outerForm">
         <div layout="row">
           <md-input-container class="md-block" flex-gt-sm>
-            <input type="text" name="name" ng-model="tag.name" required md-maxlength="20"  aria-label="tag" disabled="hee===false">
-            <div ng-messages=tag.name+"Form.name.$error">
-              <div ng-message="required">This is required!</div>
-              <div ng-message="md-maxlength">Please limit to 20 characters!</div>
-            </div>       
+            <ng-form name="newTagForm">
+              <input type="text" name="name" ng-model="newTag" md-maxlength="20"  aria-label="tag" placeholder="Add a new tag">
+              <div class="error-msg">{{errorMsgNewTag}}</div>
+              <div class="success-msg">{{successMsgNewTag}}</div>
+            </ng-form>      
           </md-input-container>
-          <md-button ng-click="hee=true">
+          <md-button ng-click="addTag()" class="edit-tag">
+            <i class="material-icons">add</i>
+          </md-button>
+        </div>
+        <div ng-repeat="tag in tags" layout="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <ng-form name="tagForm">
+              <input type="text" name="name" ng-model="tag.name" required md-maxlength="20"  aria-label="tag" ng-disabled="tag!==activeTag">
+              <div class="error-msg">{{tag.errorMsg}}</div>
+              <div class="success-msg">{{tag.successMsg}}</div>
+            </ng-form>      
+          </md-input-container>
+          <md-button ng-click="selectTag(tag)" ng-hide="tag===activeTag"class="edit-tag">
             <i class="material-icons">edit</i>
+          </md-button>
+          <md-button ng-click="outerForm.$valid;updateTag(tag)" ng-show="tag===activeTag" class="edit-tag">
+            <i class="material-icons">done</i>
+          </md-button>
+          <md-button ng-click="deleteTag(tag,$index)" ng-show="tag===activeTag" class="edit-tag">
+            <i class="material-icons">delete</i>
           </md-button>
         </div>
       </form>
       <div layout="row" layout-align="center">
-        <md-button class="edit-tag-cancel" ng-click="cancel()">Cancel</md-button>
+        <md-button class="edit-tag-cancel" ng-click="cancel()">Done</md-button>
       </div>
     </md-dialog-content>
   </div>

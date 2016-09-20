@@ -23,6 +23,16 @@ md-dialog {
 	min-width: 40%;
 }
 
+md-dialog-content {
+	button.edit-tag-cancel.md-button.md-ink-ripple {
+		color: $color-action;
+		background-color: white;
+		margin-bottom: 20px;
+	}
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
 md-checkbox:not(.md-checked) .md-icon {
 	//border-color: $color-action;
 }
@@ -90,5 +100,26 @@ md-checkbox.color-select {
 md-checkbox.color-select.md-checked .md-icon:after {
 	margin-left: 6px;
 	margin-top: 5px;
+}
+
+.edit-tag .material-icons {
+	padding-top:4px;
+}
+button.edit-tag.md-button.md-ink-ripple {
+	padding:0px;
+	height:35px;
+	width:35px;
+	min-width:0px;
+	min-height:0px;
+	margin-top:30px;
+}
+
+.success-msg {
+	font-size: 12px;
+	color: green;
+}
+.error-msg {
+	font-size: 12px;
+	color: red;
 }
 
