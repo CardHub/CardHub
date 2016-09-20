@@ -2,7 +2,7 @@
 
 angular.module('frontendApp')
   .service('deckUtil',function($mdDialog, $q, apiHelper) {
-     function CreateDeckCtrl($scope,tags,currentTag,colors) {
+     function CreateDeckCtrl($scope, tags, currentTag, colors) {
       $scope.tags = tags;
       $scope.title = 'Create new deck';
       $scope.submitBtn = 'Add deck';
@@ -45,15 +45,16 @@ angular.module('frontendApp')
         }
       })
       .then(function(newDeck){
-        // createDeck(newDeck);
-        deferred.resolve({status: "success"});
+        deferred.resolve({
+          status: "success",
+          newDeck: newDeck
+        });
       }, function() {
       });
       return deferred.promise;
     }
 
-    function ChangeDeckCtrl($scope,selectedDeck,tags,colors) {
-      console.log(selectedDeck);
+    function ChangeDeckCtrl($scope, selectedDeck, tags, colors) {
       $scope.tags = tags;
       $scope.title = 'Change selected deck';
       $scope.submitBtn = 'Update deck';
@@ -86,7 +87,7 @@ angular.module('frontendApp')
         $mdDialog.hide(updatedDeck);
       };
     }
-    function showEditDeckDialog(deck, tagFilters, colors, event) {
+    function showEditDeckDialog(deck, tagFilters, colors) {
       var deferred = $q.defer();
       $mdDialog.show({
         controller: ChangeDeckCtrl,
@@ -102,7 +103,10 @@ angular.module('frontendApp')
       })
       .then(function(updatedDeck){
         // changeDeck(updatedDeck);
-        deferred.resolve({status: "success"});
+        deferred.resolve({
+          status: "success",
+          updatedDeck: updatedDeck
+        });
       }, function() {
       });
       return deferred.promise;
