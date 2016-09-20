@@ -6,7 +6,7 @@
       </div>
     </md-toolbar>
     <md-dialog-content>
-      <form novalidate ng-repeat="tag in tags" ng-submit=(tag.name+'Form')+".$valid && updateTag(tag)" name=tag.name+"Form">
+      <form novalidate ng-repeat="tag in tags" ng-submit=tag.name+"Form.$valid && updateTag(tag)" name=tag.name+"Form">
         <div layout="row">
           <md-input-container class="md-block" flex-gt-sm>
             <input type="text" name="name" ng-model="tag.name" required md-maxlength="20"  aria-label="tag" disabled="hee===false">
