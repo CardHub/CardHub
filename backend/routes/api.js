@@ -26,6 +26,7 @@ router.get('/me', verifyToken, function(req, res) {
 });
 
 router.get('/user/:id', verifyToken, UserCtrl.show);
+router.get('/user/:id/deck', verifyToken, UserCtrl.getPublicDeck);
 
 router.get('/deck', verifyToken, DeckCtrl.index);
 router.post('/deck', verifyToken, DeckCtrl.create);
