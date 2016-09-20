@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('frontendApp')
-  .service('deckUtil',function($mdDialog, $q, apiHelper) {
+  .service('deckUtil',function($mdDialog, $q) {
      function CreateDeckCtrl($scope, tags, currentTag, colors) {
       $scope.tags = tags;
       $scope.title = 'Create new deck';

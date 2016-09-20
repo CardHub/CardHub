@@ -112,20 +112,23 @@ angular.module('frontendApp')
           );
           return;
         }
-        for(var i=0; i<$scope.tags.length; i++) {
-          if($scope.tags[i].name===$scope.newTag) {
-            $scope.newTag=null;
-            $scope.errorMsgNewTag='Tag exists!';
-            $timeout(
+        var clearErrorMsg = function () {
+          $timeout(
               function (){
                 $scope.errorMsgNewTag=null;
               }, 3000
             );
+        };
+        for(var i=0; i<$scope.tags.length; i++) {
+          if($scope.tags[i].name===$scope.newTag) {
+            $scope.newTag=null;
+            $scope.errorMsgNewTag='Tag exists!';
+            clearErrorMsg();
             return;
           }
         }
         var data = {};
-        data['name'] = $scope.newTag;
+        data.name = $scope.newTag;
         apiHelper.tag.create(data).then(function(res) {
           $scope.tags.unshift(res.data);
           $scope.newTag = null;
@@ -155,18 +158,21 @@ angular.module('frontendApp')
           );
           return;
         }
+        var clearErrorMsg = function () {
+          $timeout(
+            function (){
+              tag.errorMsg=null;
+            }, 3000
+          );
+        };
         for(var i=0; i<$scope.tags.length; i++) {
           if($scope.tags[i].name===tag.name && $scope.tags[i].id!==tag.id) {
             tag.errorMsg='Tag exists!';
-            $timeout(
-              function (){
-                tag.errorMsg=null;
-              }, 3000
-            );
+            clearErrorMsg();
             return;
           }
         }
-        apiHelper.tag.update(tag.id,tag).then(function(res) {
+        apiHelper.tag.update(tag.id,tag).then(function() {
           tag.successMsg='Success updating tag!';
           $timeout(
             function (){
@@ -189,7 +195,7 @@ angular.module('frontendApp')
       };
       $scope.deleteTag = function(tag,index) {
         apiHelper.tag.delete(tag.id).then(function(res) {
-          if (res.data == 1){
+          if (res.data === 1){
             $scope.tags.splice(index,1);
           } else {
             tag.errorMsg='Error deleting tag. Please try again';
