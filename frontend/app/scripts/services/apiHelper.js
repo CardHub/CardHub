@@ -76,4 +76,10 @@ angular.module('frontendApp')
         return $http.delete(Config.apiUrl + '/deck/' + deckId + '/card/' + cardId);
       }
     };
+
+    this.user = {
+      show: function(userId) {
+        return $http.get(Config.apiUrl + '/user/' + userId);
+      }
+    };
   });

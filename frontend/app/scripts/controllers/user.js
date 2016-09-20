@@ -8,9 +8,13 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('UserCtrl', function ($scope, $stateParams, $state) {
+  .controller('UserCtrl', function ($scope, $stateParams, $state, apiHelper) {
     $scope.userId = $stateParams.id;
-
+    apiHelper.user.show($scope.userId)
+      .then(function(res) {
+        console.log(res.data);
+      });
+      
     // dummy variable
     $scope.user = {
       '_id' : '12131313',
