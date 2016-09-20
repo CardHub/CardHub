@@ -43,6 +43,10 @@ angular.module('frontendApp')
         };
 
         scope.showAddDialog = function(event) {
+          //hide checkboxes
+          scope.deleting = false;
+          scope.changing = false;
+          scope.selected = [];
           scope.addFn({event: event});
         };
 
