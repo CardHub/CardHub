@@ -1,0 +1,28 @@
+<md-dialog aria-label="edit tags" >
+  <div layout="column" ng-cloak >
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h3>Edit tags</h3>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <form novalidate ng-repeat="tag in tags" ng-submit=(tag.name+'Form')+".$valid && updateTag(tag)" name=tag.name+"Form">
+        <div layout="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <input type="text" name="name" ng-model="tag.name" required md-maxlength="20"  aria-label="tag" disabled="hee===false">
+            <div ng-messages=tag.name+"Form.name.$error">
+              <div ng-message="required">This is required!</div>
+              <div ng-message="md-maxlength">Please limit to 20 characters!</div>
+            </div>       
+          </md-input-container>
+          <md-button ng-click="hee=true">
+            <i class="material-icons">edit</i>
+          </md-button>
+        </div>
+      </form>
+      <div layout="row" layout-align="center">
+        <md-button class="edit-tag-cancel" ng-click="cancel()">Cancel</md-button>
+      </div>
+    </md-dialog-content>
+  </div>
+</md-dialog>
