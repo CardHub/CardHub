@@ -1,3 +1,4 @@
+<page-util is-owner=true is-single-item=false deleting=deleting changing=changing selected=selected displayed=decks add-fn=showAddDeckDialog(event) del-fn=deleteDecks()></page-util>
 <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
 	<div ng-repeat="deck in displayedDecks" ng-class=displayedDecks[$index].color+"-deck-homeview" class="deck-homeview">
     <md-checkbox class="deck-select" aria-label="select deck" ng-disabled="!deleting&&!changing" ng-checked="isSelected(deck)" ng-click="select(deck)"></md-checkbox>
@@ -5,7 +6,7 @@
 	</div>
 </div>
 
-<div class="lock-size" layout="row" layout-align="center center">
+<!-- <div class="lock-size" layout="row" layout-align="center center">
   <md-fab-speed-dial class="md-fab-bottom-right md-scale" md-direction="up" md-open="actions.isOpen" ng-mouseenter="actions.isOpen=true" ng-mouseleave="actions.isOpen=false">
     <md-fab-trigger>
       <md-button aria-label="Actions" class="action md-fab">
@@ -41,4 +42,4 @@
   <div layout="row" layout-align="center center" ng-cloak ng-hide="!changing">
     <md-button ng-click="cancelChange()">Cancel</md-button>
   </div>
-</div>
+</div> -->

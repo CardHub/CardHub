@@ -35,7 +35,6 @@ angular.module('frontendApp')
     console.log(err);
   });
 
-
   getDeck();
 
   function createDeck(newDeck) {
@@ -62,13 +61,6 @@ angular.module('frontendApp')
       console.log(err);
       showToast(false,'Failed to ' + act + ' deck. Please try again.');
     });
-  }
-
-  function deleteDecks(decks) {
-    var payload = {isDeleted:"true"};
-    for (var i=0; i<decks.length; i++) {
-      updateDeck(decks[i].id,payload,'deleting','delete');
-    }  
   }
 
   function changeDeck(changedDeck) {
@@ -142,11 +134,6 @@ angular.module('frontendApp')
 
   //Add new deck dialog
   $scope.showAddDeckDialog = function(event) {
-    //hide checkboxes
-    $scope.deleting = false;
-    $scope.changing = false;
-    selected = [];
-  
     $mdDialog.show({
       controller: CreateDeckCtrl,
       templateUrl: 'views/createDeck.html',
@@ -196,8 +183,6 @@ angular.module('frontendApp')
 
   //Change deck dialog
   function showChangeDeckDialog(deck) {
-    $scope.changing = false;
-    selected = [];
     $mdDialog.show({
       controller: ChangeDeckCtrl,
       templateUrl: 'views/createDeck.html',
@@ -251,69 +236,32 @@ angular.module('frontendApp')
     };
   }
 
-  $scope.showUpdateOptions = function() {
-    $scope.changing=true; 
-    $scope.deleting=false;
-    selected=[];
-  };
-
-  $scope.cancelChange = function() {
-    $scope.changing=false;
-    selected=[];
-  };
-
   //Select decks
-  var selected = [];
-
+  $scope.selected = [];
   $scope.isSelected = function(deck) {
-    return selected.indexOf(deck) > -1;
+    return $scope.selected.indexOf(deck) > -1;
   };
-
   $scope.select = function(deck) {
     if ($scope.deleting) {
       //toggle selected/not selected
-      var idx = selected.indexOf(deck);
+      var idx = $scope.selected.indexOf(deck);
       if (idx > -1) {
-        selected.splice(idx, 1);
+        $scope.selected.splice(idx, 1);
       } else {
-        selected.push(deck);
+        $scope.selected.push(deck);
       }
     } else if ($scope.changing) {
+      $scope.changing = false;
+      $scope.selected = [];
       //go to update
       showChangeDeckDialog(deck);
     }
   };
 
-  $scope.isAllSelected = function() {
-    return selected.length === $scope.displayedDecks.length;
-  };
-
-  $scope.toggleAll = function() {
-    if (selected.length === $scope.displayedDecks.length) {
-      selected = [];
-    } else if (selected.length === 0 || selected.length > 0) {
-      selected = $scope.displayedDecks.slice(0);
-    }
-  };
-
-  $scope.showDeleteOptions = function() {
-    $scope.deleting=true; 
-    $scope.changing=false; 
-  };
-
-  $scope.cancelDelete = function() {
-    $scope.deleting = false;
-    selected=[];
-  };
-
   $scope.deleteDecks = function() {
-    if(selected.length===0) {
-      showToast(false, 'Please select deck to delete.');
-    } else {
-      deleteDecks(selected);
-      selected = [];
-      $scope.deleting = false;
-    }
+    var payload = {isDeleted:"true"};
+    for (var i=0; i<$scope.selected.length; i++) {
+      updateDeck($scope.selected[i].id, payload, 'deleting','delete');
+    }  
   };
-
 });
