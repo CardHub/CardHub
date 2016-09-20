@@ -8,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('MainCtrl', function ($rootScope,$scope, $timeout, $mdSidenav, $state, UserAuth, apiHelper) {
+  .controller('MainCtrl', function ($rootScope,$scope, $timeout, $mdSidenav, $mdDialog,$state, UserAuth, apiHelper) {
 
     $scope.tagFilters = {};
 
@@ -73,4 +73,39 @@ angular.module('frontendApp')
       $scope.toggleLeft();
       $state.go('main.user', {id: userId});
     };
+
+    $scope.showEditTagsDialog = function() {
+      $mdDialog.show({
+        controller: EditTagsCtrl,
+        templateUrl: 'views/editTags.html',
+        parent: angular.element(document.body),
+        targetEvent: event,
+        clickOutsideToClose:true,
+        fullscreen: true ,
+        locals: {
+          originalTags: $scope.tagFilters
+        }
+      })
+      .then(function(newDeck){
+        createDeck(newDeck);
+      }, function() {
+      });
+    };
+
+    function EditTagsCtrl($scope,$mdDialog,originalTags) {
+      $scope.tags = angular.copy(originalTags);
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+      $scope.create = function(deck) {
+        var newDeck = {
+          name: deck.name,
+          tags: deck.tag,
+          isPublic: deck.isPublic,
+          isDeleted: false,
+          color: deck.color
+        };
+        $mdDialog.hide(newDeck);
+      };
+    }
   });

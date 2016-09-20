@@ -23,6 +23,16 @@ md-dialog {
 	min-width: 40%;
 }
 
+md-dialog-content {
+	button.edit-tag-cancel.md-button.md-ink-ripple {
+		color: $color-action;
+		background-color: white;
+		margin-bottom: 20px;
+	}
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
 md-checkbox:not(.md-checked) .md-icon {
 	//border-color: $color-action;
 }
