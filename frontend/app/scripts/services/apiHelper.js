@@ -44,6 +44,12 @@ angular.module('frontendApp')
       },
       show: function(id) {
         return $http.get(Config.apiUrl + '/tag/' + id);
+      },
+      update: function(id,data) {
+        return $http.put(Config.apiUrl + '/tag/' + id,data);
+      },
+      delete: function(id) {
+        return $http.delete(Config.apiUrl + '/tag/' + id);
       }
     };
 
