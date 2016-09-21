@@ -20,6 +20,7 @@ angular.module('frontendApp')
         scope.deleting = false;
         scope.changing = false;
         scope.selected = [];
+        scope.displayed = [];
 
         scope.showDeleteOptions = function() {
           if (scope.isSingleItem === "true") {
@@ -56,14 +57,20 @@ angular.module('frontendApp')
         };
 
         scope.toggleAll = function() {
-          if (scope.selected.length === scope.displayed.length) {
-            scope.selected = [];
-          } else if (scope.selected.length >= 0) {
-            scope.selected = scope.displayed.slice();
+          // check existance of array of items to be displayed
+          if (!!scope.displayed) {
+            if (scope.selected.length === scope.displayed.length) {
+              scope.selected = [];
+            } else if (scope.selected.length >= 0) {
+              scope.selected = scope.displayed.slice();
+            }
           }
         };
 
         scope.isAllSelected = function() {
+          if (!scope.displayed) {
+            return false;
+          }
           return scope.selected.length === scope.displayed.length;
         };
 
