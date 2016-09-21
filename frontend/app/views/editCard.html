@@ -1,19 +1,29 @@
-<form novalidate ng-submit="cardForm.$valid && update(cardData)" name="cardForm" ng-cloak class="md-inline-form" flex-offset-gt-sm="25" flex-gt-sm="50">
-  <div layout="column">
-  <md-input-container>
-    <label>Front</label>
-    <input name="front" ng-model="cardData.front" required>
-    <div ng-messages="cardForm.front.$error" ng-show="cardForm.front.$dirty">
-      <div ng-message="required">This is required!</div>
-    </div>
-  </md-input-container>
-  <md-input-container>
-    <label>Back</label>
-    <input name="back" ng-model="cardData.back">
-  </md-input-container>
-  <div layout="row" layout-align="center">
-    <md-button class="cancel" ng-click="cancel()">Cancel</md-button>
-    <md-button type="submit">Update</md-button>
+<md-toolbar>
+  <div class="md-toolbar-tools">
+    <h3>Edit card</h3>
   </div>
+</md-toolbar>
+
+<md-dialog-content>
+  <div class="create-card-main">
+    <form novalidate ng-submit="cardForm.$valid && update(cardData)" name="cardForm" ng-cloak class="md-inline-form" flex-offset-gt-sm="25" flex-gt-sm="50">
+      <div layout="column">
+      <md-input-container>
+        <label>Front</label>
+        <textarea name="front" ng-model="cardData.front" required rows="3" max-rows="5" md-no-resize></textarea>
+        <div ng-messages="cardForm.front.$error" ng-show="cardForm.front.$dirty">
+          <div ng-message="required">This is required!</div>
+        </div>
+      </md-input-container>
+      <md-input-container>
+        <label>Back</label>
+        <textarea name="back" ng-model="cardData.back" rows="3" max-rows="5" md-no-resize></textarea>
+      </md-input-container>
+      <div layout="row" layout-align="center">
+        <md-button class="cancel" ng-click="cancel()">Cancel</md-button>
+        <md-button type="submit">Update</md-button>
+      </div>
+      </div>
+    </form>
   </div>
-</form>
+</md-dialog-content>
