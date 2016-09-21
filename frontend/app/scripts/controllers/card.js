@@ -47,7 +47,7 @@ angular.module('frontendApp')
     $scope.createCard = function(event) {
       cardUtil.showAddCardDialog($scope.deckId, $scope.deck.name, event).then(function(res) {
         if (res.status === "success") {
-          $state.go('main.card', {deckId: $scope.deckId, cardId: res.cardId});
+          $state.go('main.home.deck.card', {deckId: $scope.deckId, cardId: res.cardId});
         } else {
           console.log(res.error);
         }
@@ -86,7 +86,7 @@ angular.module('frontendApp')
     };
 
     function changeLocation(cardId) {
-      $state.go('main.card', {deckId: $scope.deckId, cardId: cardId}, {notify: false})
+      $state.go('main.home.deck.card', {deckId: $scope.deckId, cardId: cardId}, {notify: false})
     }
 
     $scope.canShowNextCard = function() {
