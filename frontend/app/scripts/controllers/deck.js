@@ -31,7 +31,7 @@ angular.module('frontendApp')
     getCards();
 
     $scope.viewCard = function(deckId, cardId) {
-      $state.go('main.card', {deckId: deckId, cardId: cardId});
+      $state.go('main.home.deck.card', {cardId: cardId});
     };
 
     $scope.createCard = function(event) {

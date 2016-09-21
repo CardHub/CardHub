@@ -9,7 +9,7 @@
  */
 angular.module('frontendApp')
   .controller('CardCtrl', function ($scope, $stateParams, $state, $mdDialog, UserAuth, apiHelper, cardUtil) {
-    $scope.deckId = $stateParams.deckId;
+    $scope.deckId = $stateParams.id;
     $scope.cardId = $stateParams.cardId;
     console.log($stateParams);
 
@@ -59,7 +59,7 @@ angular.module('frontendApp')
       console.log("call delete card " + $scope.cardId + " from deck " + $scope.deckId + " in API");
       apiHelper.card.delete($scope.deckId, $scope.cardId).then(function(res) {
         console.log(res.data);
-        $state.go('main.deck', {id: $scope.deckId});
+        $state.go('main.home.deck', {id: $scope.deckId});
       });
     };
   });

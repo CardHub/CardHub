@@ -56,30 +56,32 @@ angular
         label: 'Home'
       }
     }).state({
-      name: 'main.deck',
+      name: 'main.home.deck',
       url: '/deck/:id',
-      //parent: 'main',
-      templateUrl: 'views/deck.html',
-      controller: 'DeckCtrl',
+      views:{
+        "@main":{
+        templateUrl: 'views/deck.html',
+        controller: 'DeckCtrl'
+      }
+    },
       title: 'Deck',
       auth: true,
       ncyBreadcrumb: {
-        label: 'Deck',
-        parent: 'main.home'
+        label: '> Deck'
       }
     }).state({
-      name: 'main.card',
-      url: '/card/:deckId/:cardId',
-      //parent: 'main',
-      templateUrl: 'views/card.html',
-      controller: 'CardCtrl',
+      name: 'main.home.deck.card',
+      url: '/card/:cardId',
+      views:{
+        "@main":{
+        templateUrl: 'views/card.html',
+        controller: 'CardCtrl'
+      }
+    },
       title: 'Card',
       auth: true,
       ncyBreadcrumb: {
-        label: 'Card',
-        parent: function ($scope) {
-          return $scope.from;
-        }
+        label: '> Card'
       }
     }).state({
       name: 'main.user',
