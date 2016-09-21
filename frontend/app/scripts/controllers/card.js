@@ -16,13 +16,22 @@ angular.module('frontendApp')
     $scope.deck = {Cards:[]};
     $scope.isOwner = false;
     $scope.isCardFront = true;
+    $scope.currentIndex = -1;
+
     function getCardInDeck() {
       apiHelper.deck.show($scope.deckId).then(function(res) {
         console.log(res.data);
         $scope.deck = res.data;
+
+        if (!res.data.Cards) {
+          $state.go('main.home');
+          return;
+        }
+
         for (var i = 0; i < $scope.deck.Cards.length; i++) {
           if ($scope.deck.Cards[i].id == $scope.cardId) {
             $scope.card = $scope.deck.Cards[i];
+            $scope.currentIndex = i;
             break;
           }
         }
@@ -60,5 +69,30 @@ angular.module('frontendApp')
         console.log(res.data);
         $state.go('main.deck', {id: $scope.deckId});
       });
+    };
+
+    $scope.nextCard = function() {
+      var length = $scope.deck.Cards.length;
+      $scope.currentIndex = ($scope.currentIndex + 1) >= length ? length - 1 : ($scope.currentIndex + 1);
+      $scope.card = $scope.deck.Cards[$scope.currentIndex];
+      changeLocation($scope.card.id);
+    };
+
+    $scope.preCard = function() {
+      $scope.currentIndex = ($scope.currentIndex - 1) > 0 ? ($scope.currentIndex - 1) : 0;
+      $scope.card = $scope.deck.Cards[$scope.currentIndex];
+      changeLocation($scope.card.id);
+    };
+
+    function changeLocation(cardId) {
+      $state.go('main.card', {deckId: $scope.deckId, cardId: cardId}, {notify: false})
+    }
+
+    $scope.canShowNextCard = function() {
+      return $scope.currentIndex + 1 < $scope.deck.Cards.length - 1;
+    };
+
+    $scope.canShowPreviousCard = function() {
+      return $scope.currentIndex - 1 >= 0;
     };
   });
