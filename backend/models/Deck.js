@@ -3,7 +3,12 @@ var config = require('../config/config');
 
 module.exports = function(sequelize, DataTypes) {
   var Deck = sequelize.define('Deck', {
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      validate: {
+        len: [1,55]
+      }
+    },
     isPublic: {
       type: DataTypes.BOOLEAN,
       defaultValue: true

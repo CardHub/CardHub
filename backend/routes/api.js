@@ -25,8 +25,15 @@ router.get('/me', verifyToken, function(req, res) {
   res.send(req.user);
 });
 
-router.get('/user/:id', verifyToken, UserCtrl.show);
 router.get('/user/:id/deck', verifyToken, UserCtrl.getPublicDeck);
+router.get('/user/:id', verifyToken, UserCtrl.show);
+
+router.get('/deck/:id/card/:cardId', verifyToken, CardCtrl.show);
+router.put('/deck/:id/card/:cardId', verifyToken, CardCtrl.update);
+router.delete('/deck/:id/card/:cardId', verifyToken, CardCtrl.destroy);
+
+router.get('/deck/:id/card', verifyToken, CardCtrl.index);
+router.post('/deck/:id/card', verifyToken, CardCtrl.create);
 
 router.get('/deck', verifyToken, DeckCtrl.index);
 router.post('/deck', verifyToken, DeckCtrl.create);
@@ -35,12 +42,6 @@ router.put('/deck/:id', verifyToken, DeckCtrl.update);
 router.delete('/deck/:id', verifyToken, DeckCtrl.destroy);
 
 router.get('/forkDeck/:id', verifyToken, DeckCtrl.fork);
-
-router.get('/deck/:id/card', verifyToken, CardCtrl.index);
-router.post('/deck/:id/card', verifyToken, CardCtrl.create);
-router.get('/deck/:id/card/:cardId', verifyToken, CardCtrl.show);
-router.put('/deck/:id/card/:cardId', verifyToken, CardCtrl.update);
-router.delete('/deck/:id/card/:cardId', verifyToken, CardCtrl.destroy);
 
 router.get('/tag', verifyToken, TagCtrl.index);
 router.post('/tag', verifyToken, TagCtrl.create);
