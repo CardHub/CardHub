@@ -10,8 +10,10 @@
 angular.module('frontendApp')
   .controller('UserCtrl', function ($scope, $stateParams, $state, apiHelper) {
     $scope.userId = $stateParams.id;
+    $scope.user = {};
     apiHelper.user.show($scope.userId)
       .then(function(res) {
+        $scope.user = res.data;
         console.log(res.data);
       });
       
