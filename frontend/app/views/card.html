@@ -2,7 +2,7 @@
 <div layout="column" layout-align="center center" layout-margin>
   <div class="flip">
     <div class="card" ng-class="{'flipped':!isCardFront}" ng-click="isCardFront=!isCardFront">
-      <div class="face front" ng-class=deck.Tags[0].name+"-deck-deckview" layout="column" layout-align="center center" layout-padding>
+      <div class="face front" ng-class=deck.color+"-deck-deckview" layout="column" layout-align="center center" layout-padding>
         {{ card.front }}
       </div>
       <div class="face back" layout="column" layout-align="center center" layout-padding>
@@ -12,6 +12,6 @@
   </div>
 </div>
 <div layout="row" layout-align="center center" layout-margin>
-  <md-button ng-show="canShowPreviousCard()" ng-click="preCard()">Previous</md-button>
-  <md-button ng-if="canShowNextCard()" ng-click="nextCard()">Next</md-button>
+  <md-button ng-if="currentIndex - 1 >= 0" ng-click="preCard()">Previous</md-button>
+  <md-button ng-if="(currentIndex + 1) < deck.Cards.length" ng-click="nextCard()">Next</md-button>
 </div>

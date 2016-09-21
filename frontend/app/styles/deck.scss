@@ -47,14 +47,26 @@
   -moz-box-shadow: 2px 2px 2px 1px rgba(166,164,166,1);
   box-shadow: 2px 2px 2px 1px rgba(166,164,166,1);
 }
-.study-deck-deckview {
-  background-color: $color-study;
+.F6CAC9-deck-deckview {
+  background-color: #F6CAC9;
 }
-.work-deck-deckview {
-  background-color: $color-work;
+.F4B794-deck-deckview {
+  background-color: #F4B794;
 }
-.life-deck-deckview {
-  background-color: $color-life;
+.D1C2AB-deck-deckview {
+  background-color: #D1C2AB;
+}
+.E3EAA5-deck-deckview { //green
+  background-color: #E3EAA5;
+}
+.C3DDD6-deck-deckview { //blue
+  background-color: #C3DDD6;
+}
+.BEC6D5-deck-deckview { //indigo
+  background-color: #BEC6D5;
+}
+.D1C3D5-deck-deckview { //purple
+  background-color: #D1C3D5;
 }
 
 .metadata-wrapper {
@@ -66,7 +78,6 @@
       md-chip {
         font-size: 14px;
         color: white;
-        background: $color-main;
       }
     }
   }
