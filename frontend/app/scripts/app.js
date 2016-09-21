@@ -84,14 +84,14 @@ angular
       apiUrl: 'https://cardhub.tk/api'
     };
   })
-  .run(function($window, UserAuth, $location, $rootScope) {
+  .run(function($window, UserAuth, $location, $rootScope, FBLoginHelper) {
     $window.fbAsyncInit = function() {
       FB.init({
         appId: '346992402310773',
         xfbml: true,
         version: 'v2.7'
       });
-      UserAuth.watchFacebookAuthenticationStatus();
+      FBLoginHelper.watchFacebookAuthenticationStatus();
     };
 
     (function(d, s, id) {

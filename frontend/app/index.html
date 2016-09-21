@@ -5,6 +5,12 @@
     <title>Cardhub</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Make the app title different than the page title. -->
+    <meta name="apple-mobile-web-app-title"
+          content="Cardhub">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -15,6 +21,24 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="images/touch/apple-touch-icon-120x120.png"
+      sizes="120x120"
+      rel="apple-touch-icon-precomposed">
+    <link href="images/touch/apple-touch-icon-114x114.png"
+      sizes="114x114"
+      rel="apple-touch-icon-precomposed">
+    <link href="images/touch/apple-touch-icon-152x152.png"
+      sizes="152x152"
+      rel="apple-touch-icon-precomposed">
+    <link href="images/touch/apple-touch-startup-image-1242x2148.png"
+          media="(device-width: 414px) and (device-height: 736px)
+                 and (-webkit-device-pixel-ratio: 3)
+                 and (orientation: portrait)"
+          rel="apple-touch-startup-image">
+    <link href="images/touch/apple-touch-startup-image-750x1294.png"
+            media="(device-width: 375px) and (device-height: 667px)
+                   and (-webkit-device-pixel-ratio: 2)"
+            rel="apple-touch-startup-image">
   </head>
   <body ng-app="frontendApp">
     <!--[if lte IE 8]>
@@ -70,6 +94,7 @@
         <script src="scripts/services/cardUtil.js"></script>
         <script src="scripts/services/deckUtil.js"></script>
         <script src="scripts/services/utilService.js"></script>
+        <script src="scripts/services/FBLogin.js"></script>
         <script src="scripts/directives/pageUtil.js"></script>
 
         <!-- endbuild -->
