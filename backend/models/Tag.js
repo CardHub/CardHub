@@ -3,7 +3,12 @@ var config = require('../config/config');
 
 module.exports = function(sequelize, DataTypes) {
   var Tag = sequelize.define('Tag', {
-    name: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      validate: {
+        len: [1,20]
+      }
+    }
   }, {
     classMethods: {
       associate: function(models) {

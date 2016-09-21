@@ -76,6 +76,7 @@ exports.create = function(req, res) {
         res.json(card);
       });
     }
+    return null;
   })
     .catch(function(err) {
       resError(res, err);
