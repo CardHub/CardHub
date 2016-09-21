@@ -102,16 +102,6 @@ angular.module('frontendApp')
         $mdDialog.cancel();
       };
       $scope.addTag = function() {
-        if(!$scope.newTag || $scope.newTag.trim()==='' || $scope.newTag.length>20){
-          $scope.newTag=null;
-          $scope.errorMsgNewTag='Invalid tag length!';
-          $timeout(
-            function (){
-              $scope.errorMsgNewTag=null;
-            }, 3000
-          );
-          return;
-        }
         var clearErrorMsg = function () {
           $timeout(
               function (){
@@ -119,6 +109,18 @@ angular.module('frontendApp')
               }, 3000
             );
         };
+        if(!$scope.newTag || $scope.newTag.trim()==='' || $scope.newTag.length>20){
+          $scope.newTag=null;
+          $scope.errorMsgNewTag='Invalid tag length!';
+          clearErrorMsg();
+          return;
+        }
+        if($scope.newTag.trim()==='all') {
+          $scope.newTag=null;
+          $scope.errorMsgNewTag='Tag exists!';
+          clearErrorMsg();
+          return;
+        }
         for(var i=0; i<$scope.tags.length; i++) {
           if($scope.tags[i].name===$scope.newTag) {
             $scope.newTag=null;
