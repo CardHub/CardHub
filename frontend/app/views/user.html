@@ -8,8 +8,9 @@
   </div>
 
   <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
-    <div ng-repeat="deck in user.Decks" ng-class=user.Decks[$index].tags[0].name+"-deck-homeview" class="deck-homeview">
-      <div layout="column" layout-align="center" class="deck-title" ng-click="viewDeck(user.Decks[$index]._id)">
+    <div ng-repeat="deck in user.Decks" ng-class=deck.color+"-deck-homeview" class="deck-homeview">
+      <md-checkbox class="deck-select" aria-label="select deck" ng-disabled=true></md-checkbox>
+      <div layout="column" layout-align="center center" class="deck-title" ng-click="viewDeck(user.Decks[$index].id)">
         {{deck.name | limitTo:55}}
       </div>
     </div>

@@ -24,7 +24,7 @@ angular.module('frontendApp')
         $scope.deck = res.data;
 
         if (!res.data.Cards) {
-          $state.go('main.home');
+          $state.go('main.home', {filterTag: 'all'});
           return;
         }
 

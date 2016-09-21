@@ -15,10 +15,10 @@ angular.module('frontendApp')
     //get user tags
     function getTags() {
         apiHelper.tag.get().then(function(res) {
-        $scope.tagFilters = res.data;
-      }).catch(function(err) {
-        console.log(err);
-      });
+          $scope.tagFilters = res.data;
+        }).catch(function(err) {
+          console.log(err);
+        });
     }
 
     getTags();

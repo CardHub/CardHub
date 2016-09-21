@@ -10,7 +10,7 @@
         <p>Hey, {{currentUser.name}}</p>
       </md-list-item>
       <md-subheader class="md-no-sticky">Personal</md-subheader>
-      <md-list-item ng-click="changeFilter()"class="nav-item">
+      <md-list-item ng-click="changeFilter('all')"class="nav-item">
         <p>All</p>
       </md-list-item>
       <md-list-item ng-click="changeFilter(filter.name)" ng-repeat="filter in tagFilters" class="nav-item">

@@ -112,7 +112,7 @@ angular.module('frontendApp')
     for (var i=0;i < $scope.decks.length;i++) {
       var deck = $scope.decks[i];
       if (deckDeleted === deck.isDeleted) {
-        if (deckDeleted || deckFilter === undefined || deckFilter === '') {
+        if (deckDeleted || deckFilter ==='all') {
           $scope.displayedDecks.push(deck);
         } else {
           var hasTag = deck.Tags.some(checkHasTag);

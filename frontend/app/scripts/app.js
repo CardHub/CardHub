@@ -92,7 +92,7 @@ angular
       title: 'User',
       auth: true
     });
-    $urlRouterProvider.when('/main', '/main/home/');
+    $urlRouterProvider.when('/main', '/main/home/all');
     $urlRouterProvider.otherwise('/login');
   })
   .factory('Config', function() {
@@ -139,7 +139,7 @@ angular
             } else {
               // Initial visit, has logined, and come to login page.
               // redirect to main.
-              $location.url('/main/home/');
+              $location.url('/main/home/all');
             }
           }
         }
