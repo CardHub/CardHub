@@ -11,7 +11,6 @@ angular.module('frontendApp')
   .controller('CardCtrl', function ($scope, $stateParams, $state, $mdDialog, UserAuth, apiHelper, cardUtil) {
     $scope.deckId = $stateParams.id;
     $scope.cardId = $stateParams.cardId;
-    console.log($stateParams);
 
     $scope.card = {};
     $scope.deck = {Cards:[]};
@@ -88,12 +87,4 @@ angular.module('frontendApp')
     function changeLocation(cardId) {
       $state.go('main.home.deck.card', {deckId: $scope.deckId, cardId: cardId}, {notify: false})
     }
-
-    $scope.canShowNextCard = function() {
-      return $scope.currentIndex + 1 < $scope.deck.Cards.length - 1;
-    };
-
-    $scope.canShowPreviousCard = function() {
-      return $scope.currentIndex - 1 >= 0;
-    };
   });
