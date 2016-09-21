@@ -93,6 +93,7 @@ angular
       auth: true
     });
     $urlRouterProvider.when('/main', '/main/home/all');
+    $urlRouterProvider.when('/main/home', '/main/home/all');
     $urlRouterProvider.otherwise('/login');
   })
   .factory('Config', function() {

@@ -48,6 +48,7 @@ angular.module('frontendApp')
     $scope.isSelected = function(card) {
       return $scope.selected.indexOf(card) > -1;
     };
+
     $scope.select = function(card, event) {
       if ($scope.deleting) {
         // toggle selected/not selected

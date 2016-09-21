@@ -26,7 +26,7 @@ angular.module('frontendApp')
               UserAuth.saveToken(res.data);
               UserAuth.saveCurrentUser(tokenPayload);
               LoadingHelper.hide();
-              $state.go('main.home');
+              $state.go('main.home',  {filterTag: 'all'});
             })
             .catch(function(err) {
               LoadingHelper.hide();
