@@ -88,4 +88,10 @@ angular.module('frontendApp')
         return $http.get(Config.apiUrl + '/user/' + userId);
       }
     };
+
+    this.userDeck = {
+      show: function(userId) {
+        return $http.get(Config.apiUrl + '/user/' + userId + "/deck");
+      }
+    };
   });
