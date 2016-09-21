@@ -50,14 +50,14 @@ angular.module('frontendApp')
     }
 
     function EditCardCtrl($scope, card) {
-      $scope.card = card;
+      $scope.cardData = card;
       $scope.cancel = function() {
         $mdDialog.cancel();
       };
-      $scope.update = function(card) {
+      $scope.update = function() {
         var newCard = {
-          front: card.front,
-          back: card.back
+          front: $scope.cardData.front,
+          back: $scope.cardData.back
         };
         $mdDialog.hide(newCard);
       };
