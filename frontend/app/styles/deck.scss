@@ -59,15 +59,16 @@
 
 .metadata-wrapper {
   background-color: #FFFFFF;
-  padding: 20px;
-  .metadata-tag {
-    background-color: $color-main;
-    padding: 5px 10px;
-    margin-right: 5px;
-    pointer-events: none;
-    border: none;
-    border-radius: 8px;
-    vertical-align: middle;
+  padding: 8px 16px;
+  .metadata-chips {
+    .md-chips {
+      box-shadow: none;
+      md-chip {
+        font-size: 14px;
+        color: white;
+        background: $color-main;
+      }
+    }
   }
   .material-icons {
     width: 25px;
@@ -76,13 +77,12 @@
   .metadata-accessibility-icon {
     transform: translateX(-25px);
   }
-
+  .metadata-title-text {
+    font-size: 26px;
+  }
   .metadata-title-icon {
     margin-left: 4px;
     margin-top: -10px;
-  }
-  .metadata-title-text {
-    margin-left: -4px;
   }
 }
 .metadata-wrapper > div {
@@ -117,6 +117,7 @@ md-checkbox[disabled]:not(.md-checked) .md-icon {
   background-color: $color-action;
   color: white;
   font-size: 10px;
+  z-index: 10;
 }
 
 @media screen and (max-width: 768px) {

@@ -1,36 +1,26 @@
 <page-util is-owner=isOwner is-single-item=false deleting=deleting changing=changing selected=selected displayed=deck.Cards add-fn=createCard(event) del-fn=deleteCards()></page-util>
 <!-- <div layout="column" layout-align="top center"> -->
-  <div layout-margin layout-wrap layout="row" layout-align="center center">
+  <div>
     <!-- <div>{{selected[0]}}</div> -->
-    <div layout="column" layout-align="center start" class="metadata-wrapper">
+    <div layout-align="center start" class="metadata-wrapper">
     <!-- icons here are dummied, refer to https://material.angularjs.org/latest/api/directive/mdIcon for customized icons -->
       <div layout="row" layout-align="start center">
-        <i class="material-icons metadata-title-icon">T</i>
         <div class="metadata-title-text">{{ deck.name | limitTo:30}}</div>
       </div>
       <div layout="row" layout-align="start center">
-        <i class="material-icons metadata-accessibility-icon">clock_outline</i>
-        <div ng-if="deck.isPublic">Public Deck</div>
-        <div ng-if="!deck.isPublic">Private Deck</div>
+        <div ng-if="deck.isPublic">Public</div>
+        <div ng-if="!deck.isPublic">Private</div>
       </div>
-      <div ng-if="deck.isForked" layout="row" layout-align="start center"> 
-        <i class="material-icons">lightbulb_outline</i>
+      <div ng-if="deck.isForked" layout="row" layout-align="start center">
         <div>Forked from {{deck.forkedFrom | limitTo:40}}</div>
       </div>
 
-      <!-- <div layout="row" layout-align="start center">
-        <i class="material-icons">query_builder</i>
-        <div>{{ deck.createdAt }}</div>
-      </div>
       <div layout="row" layout-align="start center">
-        <i class="material-icons">query_builder</i>
-        <div>{{ deck.updatedAt }}</div>
-      </div> -->
+        <md-chips class="metadata-chips">
+          <md-chip ng-repeat="tag in deck.Tags">{{tag.name}}</md-chip>
+        </md-chips>
+      </div>
 
-      <div layout="row" layout-align="start center">
-        <i class="material-icons">label_outline</i>
-        <button ng-repeat="tag in deck.Tags" class="metadata-tag">{{ tag.name }}</button>
-      </div>
     </div>
   </div>
   <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
