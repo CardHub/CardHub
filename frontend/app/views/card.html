@@ -11,3 +11,7 @@
     </div>
   </div>
 </div>
+<div layout="row" layout-align="center center" layout-margin>
+  <md-button ng-show="canShowPreviousCard()" ng-click="preCard()">Previous</md-button>
+  <md-button ng-if="canShowNextCard()" ng-click="nextCard()">Next</md-button>
+</div>

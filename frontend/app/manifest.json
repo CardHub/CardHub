@@ -1,0 +1,22 @@
+{
+  "short_name": "Cardhub",
+  "name": "Cardhub: Organize your life in cards",
+  "icons": [
+    {
+      "src": "images/touch/launcher-icon-1x.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "images/touch/launcher-icon-2x.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "limages/touch/auncher-icon-4x.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "#/login"
+}
