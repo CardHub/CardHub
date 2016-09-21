@@ -35,6 +35,12 @@ md-content {
 //header color
 .md-toolbar-tools {
   background-color: $color-main;
+  li {
+    list-style-type: none;
+    display: inline-flex;
+    margin-right: 20px;
+
+  }
 }
 
 .loading-fullscreen {

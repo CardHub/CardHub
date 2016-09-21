@@ -11,6 +11,7 @@ angular.module('frontendApp')
   .controller('CardCtrl', function ($scope, $stateParams, $state, $mdDialog, UserAuth, apiHelper, cardUtil) {
     $scope.deckId = $stateParams.deckId;
     $scope.cardId = $stateParams.cardId;
+    console.log($stateParams);
 
     $scope.card = {};
     $scope.deck = {Cards:[]};

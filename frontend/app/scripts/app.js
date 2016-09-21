@@ -18,7 +18,8 @@ angular
     'ngMaterial',
     'LocalStorageModule',
     'angular-jwt',
-    'ngMessages'
+    'ngMessages',
+    'ncy-angular-breadcrumb'
   ])
   .config(function($mdIconProvider) {
     $mdIconProvider.fontSet('md', 'material-icons');
@@ -46,27 +47,40 @@ angular
     }).state({
       name: 'main.home',
       url: '/home/:filterTag',
-      parent: 'main',
+      //parent: 'main',
       templateUrl: 'views/home.html',
       controller: 'HomeCtrl',
       title: 'Home',
-      auth: true
+      auth: true,
+      ncyBreadcrumb: {
+        label: 'Home'
+      }
     }).state({
       name: 'main.deck',
       url: '/deck/:id',
-      parent: 'main',
+      //parent: 'main',
       templateUrl: 'views/deck.html',
       controller: 'DeckCtrl',
       title: 'Deck',
-      auth: true
+      auth: true,
+      ncyBreadcrumb: {
+        label: 'Deck',
+        parent: 'main.home'
+      }
     }).state({
       name: 'main.card',
       url: '/card/:deckId/:cardId',
-      parent: 'main',
+      //parent: 'main',
       templateUrl: 'views/card.html',
       controller: 'CardCtrl',
       title: 'Card',
-      auth: true
+      auth: true,
+      ncyBreadcrumb: {
+        label: 'Card',
+        parent: function ($scope) {
+          return $scope.from;
+        }
+      }
     }).state({
       name: 'main.user',
       url: '/user/:id',
