@@ -126,3 +126,10 @@ button.edit-tag.md-button.md-ink-ripple {
 .create-card-main {
   padding: 12px 6px;
 }
+
+md-content.md-padding.privacy.ng-scope._md {
+	background-color: white;
+	h3 {
+		color: $color-main;
+	}
+}
