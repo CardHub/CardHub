@@ -66,14 +66,16 @@ exports.create = function(req, res) {
     }
   }).then(function(deck) {
     if (!deck) {
-      res.json({});
+      res.status(400).json({
+        message: "The request deck does not exist."
+      });
     } else {
       Card.create({
         front: req.body.front,
         back: req.body.back,
         DeckId: deckId
       }).then(function(card) {
-        res.json(card);
+        res.status(201).json(card);
       });
     }
     return null;

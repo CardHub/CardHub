@@ -51,7 +51,7 @@ exports.create = function(req, res) {
     var count = deckData.tags.length;
     // Return the result if no tag specified
     if (count === 0) {
-      res.json(deck);
+      res.status(201).json(deck);
     } else {
       deckData.tags.forEach(function(tag) {
         Tag.findOne({
@@ -65,7 +65,7 @@ exports.create = function(req, res) {
           count--;
           // Return the result when all finished.
           if (count === 0) {
-            res.json(deck);
+            res.status(201).json(deck);
           }
         });
       });
@@ -218,7 +218,7 @@ exports.fork = function(req, res) {
     }
   }).then(function(deck) {
     if (!deck) {
-      res.json({
+      res.status(400).json({
         success: false,
         message: 'Error forking the deck.'
       });
@@ -226,7 +226,7 @@ exports.fork = function(req, res) {
       deck.fork().then(data => {
         Deck.create({
           name: data.deck.name,
-          isPublic: true,
+          isPublic: false,
           isDeleted: false,
           color: data.deck.color,
           isForked:true,

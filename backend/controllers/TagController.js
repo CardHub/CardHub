@@ -28,15 +28,17 @@ exports.create = function(req, res) {
     }
   }).then(function(result) {
     if (result) {
-      res.json({}); // cannot add duplicate tag
-      return;
+      res.status(400).json({
+        message: "Cannot add duplicate tag"
+      });
+      return null;
     }
     return Tag.create({
       name: req.body.name,
       UserId: req.user.id
     });
   }).then(function(tags) {
-    res.json(tags);
+    res.status(201).json(tags);
   }).catch(function(err) {
     resError(res, err);
   });
