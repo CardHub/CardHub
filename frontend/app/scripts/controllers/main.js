@@ -27,7 +27,7 @@ angular.module('frontendApp')
       {
         'name': 'Explore',
         'icon': 'explore',
-        'state': 'main.deck'
+        'state': 'main.home.explore'
       }
     ];
 
@@ -37,7 +37,6 @@ angular.module('frontendApp')
     };
 
     $scope.showHelp = function() {
-      console.log($state.current.name);
       switch ($state.current.name) {
         case 'main.home': 
           $rootScope.$broadcast('showWholeDeck');

@@ -1,0 +1,17 @@
+<form novalidate ng-submit="search(queryString)" name="cardForm" ng-cloak class="md-inline-form" flex-offset-gt-sm="25" flex-gt-sm="50">
+  <div layout="row">
+    <md-input-container id="search-wrapper" flex="85">
+      <input id="search-bar" ng-model="queryString" required></input>
+    </md-input-container>
+    <md-button id="search-button" flex="15" type="submit">Search</md-button>
+  </div>
+</form>
+
+<div id="main-cardview" layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
+  <div ng-repeat="deck in searchResults" ng-class=deck.color+"-deck-homeview" ng-click="viewDeck(deck.id)" class="deck-homeview">
+    <md-checkbox class="deck-select" aria-label="select deck" ng-disabled=true></md-checkbox>
+    <div layout="column" layout-align="center center" class="deck-title" ng-click="viewDeck(user.Decks[$index].id)">
+      {{deck.name | limitTo:55}}
+    </div>
+  </div>
+</div>
