@@ -20,24 +20,36 @@ exports.show = function(req, res) {
 };
 
 exports.getPublicDeck = function(req, res) {
+  var foundUser = null;
   User.findOne({
     where: {
       id: req.params.id
     },
-    attributes: ['id', 'name', 'facebookId', 'avatar'],
-    include: [{
-      attributes: ['id', 'name', 'color', 'isForked', 'forkedFrom', 'UserId'],
-      model: Deck,
-      where: {
-        'isPublic': true
-      }
-    }]
-  }).then(function(data) {
-    if (data) {
-      res.json(data);
-    } else {
+    attributes: ['id', 'name', 'facebookId', 'avatar']
+  }).then(function(user) {
+    if (!user) {
       res.json({});
+      return;
+    } else {
+      foundUser = user;
+      return Deck.findAll({
+        order: [
+          ['updatedAt', 'DESC']
+        ],
+        attributes: ['id', 'name', 'color', 'isForked', 'forkedFrom', 'UserId'],
+        where: {
+          UserId: user.id
+        }
+      })
     }
+  }).
+  then(function(decks) {
+    if (!decks) {
+      decks = [];
+    }
+    var result = foundUser.toJSON();
+    result.Decks = decks;
+    res.json(foundUser);
   }).catch(function(err) {
     resError(res, err);
   });

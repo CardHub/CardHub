@@ -77,6 +77,18 @@ angular.module('frontendApp')
     updateDeck(changedDeck.id,payload,'updating','update');   
   }
 
+  function permDeleteDeck(id,acting,act) {
+    apiHelper.deck.delete(id).then(function(res) {
+      console.log(res.data);
+      getDeck();
+      showToast(true,'Success ' + acting + ' selected deck!');
+    })
+    .catch(function(err) {
+      console.log(err);
+      showToast(false,'Failed to ' + act + ' deck. Please try again.');
+    });
+  }
+
   function showToast(success,msg) {
     var theme;
     if (success) {
@@ -100,6 +112,9 @@ angular.module('frontendApp')
   // variables required by pageUtil directive
   $scope.deleting = false;
   $scope.changing = false;
+  $scope.permDeleting = false;
+  $scope.puttingBack = false;
+  $scope.isDeleteFilter = false;
   $scope.selectedArray = [];
   // variables for tutorial walkthrough / help
   $scope.showUtilButton = false;
@@ -107,7 +122,8 @@ angular.module('frontendApp')
   // all color variable, later can be abstracted out into factory
   var colors = ['BEC6D5','F6CAC9','F4B794','E3EAA5','C3DDD6','D1C3D5','D1C2AB'];
 
-  $scope.updateDeckView = function(deckFilter, deckDeleted) {      
+  $scope.updateDeckView = function(deckFilter, deckDeleted) {
+    $scope.isDeleteFilter = deckDeleted;  
     function checkHasTag(tag) {
       return tag.name === deckFilter;
     }
@@ -150,7 +166,7 @@ angular.module('frontendApp')
         } else {
           showToast(false, res.error);
         }
-      });
+    });
   };
 
   //Select decks
@@ -158,7 +174,7 @@ angular.module('frontendApp')
     return $scope.selectedArray.indexOf(deck) > -1;
   };
   $scope.select = function(deck) {
-    if ($scope.deleting) {
+    if ($scope.deleting || $scope.permDeleting || $scope.puttingBack) {
       //toggle selected/not selected
       var idx = $scope.selectedArray.indexOf(deck);
       if (idx > -1) {
@@ -186,6 +202,19 @@ angular.module('frontendApp')
     var payload = {isDeleted:"true"};
     for (var i=0; i<$scope.selectedArray.length; i++) {
       updateDeck($scope.selectedArray[i].id, payload, 'deleting','delete');
+    }  
+  };
+
+  $scope.permDeleteDecks = function() {
+    for (var i=0; i<$scope.selectedArray.length; i++) {
+      permDeleteDeck($scope.selectedArray[i].id, 'permanently deleting','permanently delete');
+    }  
+  };
+
+  $scope.putBackDecks = function() {
+    var payload = {isDeleted:"false"};
+    for (var i=0; i<$scope.selectedArray.length; i++) {
+      updateDeck($scope.selectedArray[i].id, payload, 'putting back','put back');
     }  
   };
 });
