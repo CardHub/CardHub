@@ -2,9 +2,19 @@
 <walkthrough
             is-round=true
             walkthrough-type="transparency"
+            focus-element-selector="#cardview-deckinfo"
+            icon="single_tap"
+            main-caption="This panel shows information on current Deck"
+            force-caption-location="BOTTOM"
+            is-active="showDeckInfo"
+            on-walkthrough-hide="showAllCards=true">
+</walkthrough>
+<walkthrough
+            is-round=true
+            walkthrough-type="transparency"
             focus-element-selector="#main-cardview"
             icon="single_tap"
-            main-caption="This panel shows all the Decks you have"
+            main-caption="This panel shows all the Cards in the Deck"
             force-caption-location="BOTTOM"
             is-active="showAllCards"
             on-walkthrough-hide="showSidebarButton=true">
@@ -14,7 +24,7 @@
             focus-element-selector="#sidebar-button"
             force-caption-location="BOTTOM"
             icon="single_tap"
-            main-caption="Click here to navigate among different tags"
+            main-caption="Click here to navigate among different tags of Decks"
             icon-padding-left="0"
             icon-padding-top="20"
             is-active="showSidebarButton"
@@ -25,7 +35,7 @@
             walkthrough-type="transparency"
             focus-element-selector="#util-button"
             icon="single_tap"
-            main-caption="Click here for creating, updating and deleting Deck"
+            main-caption="Click here for creating, updating and deleting Cards in current Deck"
             force-caption-location="BOTTOM"
             icon-padding-left="0"
             icon-padding-top="20"
@@ -33,7 +43,7 @@
 </walkthrough>
 
 <!-- <div layout="column" layout-align="top center"> -->
-  <div id="main-cardview">
+  <div id="cardview-deckinfo">
     <!-- <div>{{selected[0]}}</div> -->
     <div layout-align="center start" class="metadata-wrapper">
     <!-- icons here are dummied, refer to https://material.angularjs.org/latest/api/directive/mdIcon for customized icons -->
@@ -56,7 +66,7 @@
 
     </div>
   </div>
-  <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
+  <div id="main-cardview" layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
     <!-- tag color here is dummied to the first one in the list -->
     <div ng-repeat="card in deck.Cards" ng-class=deck.color+"-deck-deckview" ng-click="viewCard(deck.id, card.id)" class="deck-deckview">
       <md-checkbox class="card-select" aria-label="select deck" ng-disabled="!deleting&&!changing" ng-checked="isSelected(card)" ng-click="select(card, $event); $event.stopPropagation();"></md-checkbox>

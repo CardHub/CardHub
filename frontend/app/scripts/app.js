@@ -61,10 +61,10 @@ angular
       url: '/deck/:id',
       views:{
         "@main":{
-        templateUrl: 'views/deck.html',
-        controller: 'DeckCtrl'
-      }
-    },
+          templateUrl: 'views/deck.html',
+          controller: 'DeckCtrl'
+        }
+      },
       title: 'Deck',
       auth: true,
       ncyBreadcrumb: {
@@ -75,23 +75,29 @@ angular
       url: '/card/:cardId',
       views:{
         "@main":{
-        templateUrl: 'views/card.html',
-        controller: 'CardCtrl'
-      }
-    },
+          templateUrl: 'views/card.html',
+          controller: 'CardCtrl'
+        }
+      },
       title: 'Card',
       auth: true,
       ncyBreadcrumb: {
         label: '> Card'
       }
     }).state({
-      name: 'main.user',
+      name: 'main.home.user',
       url: '/user/:id',
-      parent: 'main',
-      templateUrl: 'views/user.html',
-      controller: 'UserCtrl',
+      views:{
+        "@main":{
+          templateUrl: 'views/user.html',
+          controller: 'UserCtrl'
+        }
+      },
       title: 'User',
-      auth: true
+      auth: true,
+      ncyBreadcrumb: {
+        label: '> User'
+      }
     });
     $urlRouterProvider.when('/main', '/main/home/all');
     $urlRouterProvider.when('/main/home', '/main/home/all');

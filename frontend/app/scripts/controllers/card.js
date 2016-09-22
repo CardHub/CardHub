@@ -17,6 +17,14 @@ angular.module('frontendApp')
     $scope.isOwner = false;
     $scope.isCardFront = true;
     $scope.currentIndex = -1;
+    // variables for help display
+    $scope.showCardInfo = false;
+    $scope.showSidebarButton = false;
+    $scope.showUtilButton = false;
+
+    $scope.$on('showCard', function(event, args) {
+      $scope.showCardInfo = true;
+    });
 
     function getCardInDeck() {
       apiHelper.deck.show($scope.deckId).then(function(res) {
