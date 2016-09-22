@@ -13,14 +13,12 @@ angular.module('frontendApp')
     $scope.searchResults = [];
     $scope.noResult = false;
     // variables for help display
-    // $scope.showDefaultDeckInfo = false;
-    // $scope.showSearchInfo = false;
-    // $scope.showResultDeckInfo = false;
-    // $scope.showSidebarButton = false;
+    // $scope.showSearchbar = false;
+    $scope.showSidebarButton = false;
 
-    // $scope.$on('showUser', function(event, args) {
-    //   $scope.showDefaultDeckInfo = true;
-    // });
+    $scope.$on('showExplore', function(event, args) {
+      $scope.showSidebarButton = true;
+    });
 
     $scope.search = function(queryString) {
       apiHelper.search.show(queryString)
