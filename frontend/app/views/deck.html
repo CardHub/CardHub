@@ -31,9 +31,13 @@
       <div layout="row" layout-align="start center">
         <div ng-if="deck.isPublic">Public</div>
         <div ng-if="!deck.isPublic">Private</div>
+        <div ng-if=!isOwner ng-click="forkDeck(deck.id)">
+          <i class="material-icons">file_download</i>
+        </div>
       </div>
       <div ng-if="deck.isForked" layout="row" layout-align="start center">
-        <div>Forked from {{deck.forkedFrom | limitTo:40}}</div>
+        <span>Forked from &nbsp</span>
+        <a ng-href="" ng-click="viewUserProfile(deck.forkedFrom)">{{originalUser.name | limitTo:40}}</a>
       </div>
 
       <div layout="row" layout-align="start center">
@@ -44,12 +48,11 @@
 
     </div>
   </div>
-  <div class="no-deck" layout="column" layout-align="center center" ng-if="deck.Cards.length===0" >
-    <h2>Start by adding a new deck<h2>
-    <img hide-gt-sm src="../images/arrow.png"/>
+  <div ng-if=isOwner class="no-deck" layout="column" layout-align="center center" ng-show="noCard">
+    <h2>Start by adding a new card<h2>
+    <img class="no-card" hide-gt-sm src="../images/arrow.png"/>
   </div>
   <div id="main-cardview" layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
-    <!-- tag color here is dummied to the first one in the list -->
     <div ng-repeat="card in deck.Cards" ng-class=deck.color+"-deck-deckview" ng-click="viewCard(deck.id, card.id)" class="deck-deckview">
       <md-checkbox class="card-select" aria-label="select deck" ng-disabled="!deleting&&!changing" ng-checked="isSelected(card)" ng-click="select(card, $event); $event.stopPropagation();"></md-checkbox>
       <div align="center" class="card-preview">{{ card.front | limitTo:55}}</div>

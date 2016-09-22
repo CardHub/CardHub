@@ -15,13 +15,12 @@ angular.module('frontendApp')
         $mdDialog.hide(newCard);
       };
     }
-    function showAddCardDialog(deckId, deckName, event) {
+    function showAddCardDialog(deckId, deckName) {
       var deferred = $q.defer();
       $mdDialog.show({
         controller: CreateCardCtrl,
         templateUrl: 'views/createCard.html',
         parent: angular.element(document.body),
-        targetEvent: event,
         clickOutsideToClose: true,
         fullscreen: true,
         locals: {

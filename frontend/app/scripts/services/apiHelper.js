@@ -68,6 +68,9 @@ angular.module('frontendApp')
       },
       delete: function(id) {
         return $http.delete(Config.apiUrl + '/deck/' + id);   
+      },
+      fork: function(deckId) {
+        return $http.get(Config.apiUrl + '/forkDeck/' + deckId); 
       }
     };
 
@@ -95,6 +98,20 @@ angular.module('frontendApp')
     this.userDeck = {
       show: function(userId) {
         return $http.get(Config.apiUrl + '/user/' + userId + "/deck");
+      }
+    };
+
+    this.search = {
+      show: function(searchString, page) {
+        var currentPage = page || 1;
+        return $http({
+          url: Config.apiUrl + '/search',
+          method: 'GET',
+          params: {
+            q: searchString,
+            page: currentPage
+          }
+        });
       }
     };
   });

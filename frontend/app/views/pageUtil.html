@@ -1,6 +1,6 @@
-<div ng-if="isOwner || isOwner==='true'">
+<div ng-if=isOwner>
   <div class="lock-size" layout="row" layout-align="center center">
-    <md-fab-speed-dial class="md-fab-bottom-right md-scale" md-direction="up" md-open="actions.isOpen" ng-mouseenter="actions.isOpen=true" ng-mouseleave="actions.isOpen=false">
+    <md-fab-speed-dial class="md-fab-bottom-right md-scale" md-direction="up" md-open="actions.isOpen">
       <md-fab-trigger id="util-button">
         <md-button aria-label="Actions" class="action md-fab">
           <md-icon md-font-set="md">create</md-icon>
@@ -24,7 +24,7 @@
           <md-icon md-font-set="md" class="action-item">change_history</md-icon>
         </md-button>
         <div class="action-tooltip" ng-if="!isDeleteFilter">Add</div>
-        <md-button aria-label="Add" ng-if="!isDeleteFilter" ng-click="showAddDialog($event)" class="md-fab md-raised md-mini">
+        <md-button aria-label="Add" ng-if="!isDeleteFilter" ng-click="showAddDialog()" class="md-fab md-raised md-mini">
           <md-icon md-font-set="md" class="action-item">add</md-icon>
         </md-button>
       </md-fab-actions>

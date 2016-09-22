@@ -27,7 +27,7 @@ angular.module('frontendApp')
       {
         'name': 'Explore',
         'icon': 'explore',
-        'state': 'main.deck'
+        'state': 'main.home.explore'
       }
     ];
 
@@ -37,7 +37,6 @@ angular.module('frontendApp')
     };
 
     $scope.showHelp = function() {
-      console.log($state.current.name);
       switch ($state.current.name) {
         case 'main.home': 
           $rootScope.$broadcast('showWholeDeck');
@@ -50,6 +49,9 @@ angular.module('frontendApp')
           break;
         case 'main.home.user':
           $rootScope.$broadcast('showUser');
+          break;
+        case 'main.home.explore':
+          $rootScope.$broadcast('showExplore');
           break;
       }
     };
@@ -90,8 +92,8 @@ angular.module('frontendApp')
       };
       $scope.share = function() {
         $mdDialog.hide();
-      }
-    };
+      };
+    }
 
     function shareOnFb() {
       $scope.toggleLeft();

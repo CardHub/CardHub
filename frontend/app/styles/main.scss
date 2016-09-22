@@ -69,14 +69,31 @@ md-toast.md-failure-toast-theme .md-toast-content {
   margin-right: 0 !important;
 }
 
+#search-wrapper {
+  margin: 0;
+  padding: 0;
+  margin: 5px 20px;
+}
+#search-bar {
+  height: 90% !important;
+}
+#search-button {
+  margin-right: 15px;
+  border-radius: 40px;
+  padding: 0 15px;
+}
+
 .no-deck {
   h2 {
     color: $color-main;
-    margin: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
     margin-top: 50px;
-    margin-down: 50px;
   }
   img {
     width:300px;
+  }
+  img.no-card {
+    margin-top: -50px;
   }
 }

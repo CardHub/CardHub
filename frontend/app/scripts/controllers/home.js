@@ -13,8 +13,7 @@ angular.module('frontendApp')
   function getDeck() {
     apiHelper.deck.get().then(function(res) {
       $scope.decks = res.data;
-      console.log(res);
-      $scope.updateDeckView($scope.deckFilter, $scope.deckDeleted);
+      updateDeckView($scope.deckFilter, $scope.deckDeleted);
     }).catch(function(err) {
       console.log(err);
     });
@@ -109,6 +108,7 @@ angular.module('frontendApp')
   $scope.displayedDecks = $scope.decks;
   $scope.selectedTag= '';
   $scope.deckFilter = $stateParams.filterTag;
+  $scope.noDeck = false;
   // variables required by pageUtil directive
   $scope.deleting = false;
   $scope.changing = false;
@@ -127,7 +127,7 @@ angular.module('frontendApp')
     $scope.showWholeDeck = true;
   });
 
-  $scope.updateDeckView = function(deckFilter, deckDeleted) {
+  function updateDeckView (deckFilter, deckDeleted) {
     $scope.isDeleteFilter = deckDeleted;  
     function checkHasTag(tag) {
       return tag.name === deckFilter;
@@ -146,15 +146,21 @@ angular.module('frontendApp')
         }
       }
     }
-  };
+    if($scope.displayedDecks.length===0){
+      $scope.noDeck = true;
+    }else{
+      $scope.noDeck = false;
+    }
+  }
+
   if ($scope.deckFilter) {
     if ($scope.deckFilter !== 'deleted') {
-      $scope.updateDeckView($scope.deckFilter, false);
+      updateDeckView($scope.deckFilter, false);
     } else {
-      $scope.updateDeckView($scope.deckFilter, true);
+      updateDeckView($scope.deckFilter, true);
     }
   } else {
-    $scope.updateDeckView($scope.deckFilter, false);
+    updateDeckView($scope.deckFilter, false);
   }
 
   $scope.viewDeck = function(deckId) {
@@ -162,8 +168,8 @@ angular.module('frontendApp')
   };
 
   //Add new deck dialog
-  $scope.showAddDeckDialog = function(event) {
-    deckUtil.showAddDeckDialog($scope.tagFilters, $scope.deckFilter, colors, event)
+  $scope.showAddDeckDialog = function() {
+    deckUtil.showAddDeckDialog($scope.tagFilters, $scope.deckFilter, colors)
       .then(function(res) {
         if (res.status === "success") {
           console.log(res.newDeck);

@@ -5,7 +5,7 @@ angular.module('frontendApp')
     return {
       restrict: 'E',
       scope: {
-        isOwner: '@',
+        isOwner: '=',
         isSingleItem: '@',
         isDeleteFilter: '=',
         deleting: '=',
