@@ -32,12 +32,14 @@
   </div>
 
   <div ng-if="isSingleItem==='false'" class="bottom-sheet">
-   <div layout="row" layout-align="center center" ng-cloak ng-hide="!deleting">
+   <div layout="row" layout-align="center center" ng-cloak ng-hide="!deleting&&!permDeleting&&!puttingBack">
       <md-button ng-click="toggleAll()">
         <div ng-show="isAllSelected()">Unselect All</div>
         <div ng-hide="isAllSelected()">Select All</div>
       </md-button>
-      <md-button ng-click="deleteSelected()">Delete</md-button>
+      <md-button ng-click="deleteSelected()" ng-hide="!deleting">Delete</md-button>
+      <md-button ng-click="permDeleteSelected()" ng-hide="!permDeleting">Permanently Delete</md-button>
+      <md-button ng-click="putBackSelected()" ng-hide="!puttingBack">Put Back</md-button>
       <md-button ng-click="cancelDelete()">Cancel</md-button>
     </div>
     <div layout="row" layout-align="center center" ng-cloak ng-hide="!changing">

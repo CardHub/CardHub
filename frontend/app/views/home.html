@@ -1,7 +1,7 @@
-<page-util is-owner=true is-single-item=false deleting=deleting changing=changing selected-array=selectedArray displayed=decks add-fn=showAddDeckDialog(event) del-fn=deleteDecks() perm-del-fn=permDeleteDecks() put-back-fn=putBackDecks() is-delete-filter=isDeleteFilter></page-util>
+<page-util is-owner=true is-single-item=false deleting=deleting changing=changing perm-deleting=permDeleting putting-back=puttingBack selected-array=selectedArray displayed-array=displayedDecks add-fn=showAddDeckDialog(event) del-fn=deleteDecks() perm-del-fn=permDeleteDecks() put-back-fn=putBackDecks() is-delete-filter=isDeleteFilter></page-util>
 <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
 	<div ng-repeat="deck in displayedDecks" ng-class=displayedDecks[$index].color+"-deck-homeview" class="deck-homeview">
-    <md-checkbox class="deck-select" aria-label="select deck" ng-disabled="!deleting&&!changing" ng-checked="isSelected(deck)" ng-click="select(deck)"></md-checkbox>
+    <md-checkbox class="deck-select" aria-label="select deck" ng-disabled="!deleting&&!changing&&!permDeleting&&!puttingBack" ng-checked="isSelected(deck)" ng-click="select(deck)"></md-checkbox>
 		<div layout="column" layout-align="center center" class="deck-title" ng-click="viewDeck(displayedDecks[$index].id)">{{displayedDecks[$index].name | limitTo:55}}</div>
 	</div>
 </div>

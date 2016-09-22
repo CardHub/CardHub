@@ -65,6 +65,9 @@ angular.module('frontendApp')
       },
       update: function(id,data) {
         return $http.put(Config.apiUrl + '/deck/' + id, data);
+      },
+      delete: function(id) {
+        return $http.delete(Config.apiUrl + '/deck/' + id);   
       }
     };
 

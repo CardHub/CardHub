@@ -10,8 +10,10 @@ angular.module('frontendApp')
         isDeleteFilter: '=',
         deleting: '=',
         changing: '=',
+        permDeleting: '=',
+        puttingBack: '=',
         selectedArray: '=',
-        displayedArray: '@',
+        displayedArray: '=',
         addFn: '&',
         changeFn: '&',
         delFn: '&',
@@ -28,17 +30,19 @@ angular.module('frontendApp')
         scope.showPermanentDeleteOptions = function() {
           if (scope.isSingleItem === 'true') {
             scope.permDelFn();
-          } else {
-            scope.deleting = true; 
-            scope.changing = false; 
+          } else { 
+            scope.permDeleting = true;
+            scope.puttingBack = false;
+            scope.selectedArray = [];
           }
         };
         scope.showPutBackOptions = function() {
           if (scope.isSingleItem === 'true') {
             scope.putBackFn();
           } else {
-            scope.deleting = false; 
-            scope.changing = true; 
+            scope.permDeleting = false;
+            scope.puttingBack = true;
+            scope.selectedArray = [];
           }
         };
 
@@ -48,6 +52,7 @@ angular.module('frontendApp')
           } else {
             scope.deleting = true; 
             scope.changing = false; 
+            scope.selectedArray = [];
           }
         };
 
@@ -76,7 +81,7 @@ angular.module('frontendApp')
 
         scope.toggleAll = function() {
           // check existance of array of items to be displayed
-          if (!scope.displayedArray) {
+          if (scope.displayedArray) {
             if (scope.selectedArray.length === scope.displayedArray.length) {
               scope.selectedArray = [];
             } else if (scope.selectedArray.length >= 0) {
@@ -94,6 +99,8 @@ angular.module('frontendApp')
 
         scope.cancelDelete = function() {
           scope.deleting = false;
+          scope.permDeleting = false;
+          scope.puttingBack = false;
           scope.selectedArray = [];
         };
 
@@ -105,6 +112,26 @@ angular.module('frontendApp')
             scope.delFn();
             scope.selectedArray = [];
             scope.deleting = false;
+          }
+        };
+
+        scope.putBackSelected = function() {
+          if(scope.selectedArray.length === 0) {
+            console.log('Alert for selection of at least one');
+          } else {
+            scope.putBackFn();
+            scope.selectedArray = [];
+            scope.puttingBack = false;
+          }
+        };
+
+        scope.permDeleteSelected = function() {
+          if(scope.selectedArray.length === 0) {
+            console.log('Alert for selection of at least one');
+          } else {
+            scope.permDelFn();
+            scope.selectedArray = [];
+            scope.permDeleting = false;
           }
         };
       },
