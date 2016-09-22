@@ -9,11 +9,11 @@
  */
 angular.module('frontendApp')
   .controller('HomeCtrl', function ($scope, $state, $stateParams, $mdDialog, $mdToast, $mdBottomSheet, apiHelper, deckUtil) {
-  
+
   function getDeck() {
     apiHelper.deck.get().then(function(res) {
       $scope.decks = res.data;
-      updateDeckView($scope.deckFilter, $scope.deckDeleted);
+      updateDeckView($scope.deckFilter, $scope.deckFilter === 'deleted');
     }).catch(function(err) {
       console.log(err);
     });
@@ -24,12 +24,10 @@ angular.module('frontendApp')
   //get user tags
   apiHelper.tag.get().then(function(res) {
     tagMap = {};
-    console.log(res.data);
     for(var i=0; i<res.data.length; i++){
       var tagName = res.data[i].name;
       tagMap[tagName] = res.data[i].id;
     }
-    console.log(tagMap);
   }).catch(function(err) {
     console.log(err);
   });
@@ -37,10 +35,7 @@ angular.module('frontendApp')
   getDeck();
 
   function createDeck(newDeck) {
-    console.log("new deck");
-    console.log(newDeck);
     apiHelper.deck.create(newDeck).then(function(res) {
-      console.log(res.data);
       showToast(true,'Success creating deck!');
       getDeck();
     })
@@ -73,7 +68,7 @@ angular.module('frontendApp')
       Tags: tagIds,
       color: changedDeck.color
     };
-    updateDeck(changedDeck.id,payload,'updating','update');   
+    updateDeck(changedDeck.id,payload,'updating','update');
   }
 
   function permDeleteDeck(id,acting,act) {
@@ -103,7 +98,7 @@ angular.module('frontendApp')
         .hideDelay(3000)
     );
   }
-    
+
   $scope.decks = [];
   $scope.displayedDecks = $scope.decks;
   $scope.selectedTag= '';
@@ -128,7 +123,7 @@ angular.module('frontendApp')
   });
 
   function updateDeckView (deckFilter, deckDeleted) {
-    $scope.isDeleteFilter = deckDeleted;  
+    $scope.isDeleteFilter = deckDeleted;
     function checkHasTag(tag) {
       return tag.name === deckFilter;
     }
@@ -146,7 +141,8 @@ angular.module('frontendApp')
         }
       }
     }
-    if($scope.displayedDecks.length===0){
+
+    if($scope.displayedDecks.length===0 && !$scope.isDeleteFilter) {
       $scope.noDeck = true;
     }else{
       $scope.noDeck = false;
@@ -213,19 +209,19 @@ angular.module('frontendApp')
     var payload = {isDeleted:"true"};
     for (var i=0; i<$scope.selectedArray.length; i++) {
       updateDeck($scope.selectedArray[i].id, payload, 'deleting','delete');
-    }  
+    }
   };
 
   $scope.permDeleteDecks = function() {
     for (var i=0; i<$scope.selectedArray.length; i++) {
       permDeleteDeck($scope.selectedArray[i].id, 'permanently deleting','permanently delete');
-    }  
+    }
   };
 
   $scope.putBackDecks = function() {
     var payload = {isDeleted:"false"};
     for (var i=0; i<$scope.selectedArray.length; i++) {
       updateDeck($scope.selectedArray[i].id, payload, 'putting back','put back');
-    }  
+    }
   };
 });

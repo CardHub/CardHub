@@ -8,24 +8,24 @@
     <md-dialog-content>
       <form novalidate name="outerForm">
         <div layout="row">
-          <md-input-container class="md-block" flex-gt-sm>
+          <md-input-container class="md-block" style="flex:2">
             <ng-form name="newTagForm">
               <input type="text" name="name" ng-model="newTag" md-maxlength="20"  aria-label="tag" placeholder="Add a new tag">
               <div class="error-msg">{{errorMsgNewTag}}</div>
               <div class="success-msg">{{successMsgNewTag}}</div>
-            </ng-form>      
+            </ng-form>
           </md-input-container>
           <md-button ng-click="addTag()" class="edit-tag">
             <i class="material-icons">add</i>
           </md-button>
         </div>
         <div ng-repeat="tag in tags" layout="row">
-          <md-input-container class="md-block" flex-gt-sm>
+          <md-input-container class="md-block" style="flex:2">
             <ng-form name="tagForm">
               <input type="text" name="name" ng-model="tag.name" required md-maxlength="20"  aria-label="tag" ng-disabled="tag!==activeTag">
               <div class="error-msg">{{tag.errorMsg}}</div>
               <div class="success-msg">{{tag.successMsg}}</div>
-            </ng-form>      
+            </ng-form>
           </md-input-container>
           <md-button ng-click="selectTag(tag)" ng-hide="tag===activeTag"class="edit-tag">
             <i class="material-icons">edit</i>

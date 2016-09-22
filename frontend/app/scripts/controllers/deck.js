@@ -9,10 +9,6 @@
  */
 angular.module('frontendApp')
   .controller('DeckCtrl', function ($scope, $rootScope,$state, $stateParams, $mdDialog, UserAuth, apiHelper, cardUtil) {
-    /*console.log($state.previous.name);
-    if($state.previous.name==='main.home.explore'){
-      $scope.fromState = 'main.home.explore';
-    }*/
     $scope.deckId = $stateParams.id;
     $scope.deck = {};
     $scope.isOwner = false;
@@ -35,12 +31,11 @@ angular.module('frontendApp')
     $scope.deck = {Cards:[]};
     function getCards() {
       apiHelper.deck.show($scope.deckId).then(function(res) {
-        console.log(res.data);
         $scope.deck = res.data;
-        if ($scope.deck.Cards.length===0) {
-          $scope.noCard = true; 
+        if ($scope.deck.Cards.length===0 ) {
+          $scope.noCard = true;
         } else {
-          $scope.noCard = false; 
+          $scope.noCard = false;
         }
         // check if current user is the owner
         $scope.isOwner = (UserAuth.getCurrentUser().id === $scope.deck.UserId);

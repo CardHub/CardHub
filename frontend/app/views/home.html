@@ -19,9 +19,12 @@
             has-glow="true"
             is-active="showUtilButton">
 </walkthrough>
-<div class="no-deck" layout="column" layout-align="center center" ng-show="noDeck" ng-cloak>
+<div class="no-deck" layout="column" layout-align="center center" ng-if="noDeck" ng-cloak>
   <h2>Start by adding a new deck<h2>
   <img hide-gt-sm src="../images/arrow.png"/>
+</div>
+<div class="no-deck" layout="column" layout-align="center center" ng-if="isDeleteFilter" ng-cloak>
+  <h2>No deleted deck<h2>
 </div>
 <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center" id="main-deckview">
 	<div ng-repeat="deck in displayedDecks" ng-class=displayedDecks[$index].color+"-deck-homeview" class="deck-homeview">
