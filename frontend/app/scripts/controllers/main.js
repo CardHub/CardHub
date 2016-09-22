@@ -36,6 +36,18 @@ angular.module('frontendApp')
       return $state.current;
     };
 
+    $scope.showHelp = function() {
+      // console.log($state.current.name);
+      // switch ($state.current.name) {
+      //   case 'main.home': 
+          $scope.showWholeDeck=true;
+          // break;
+        // case 'main.home.deck':
+        //   $scope.showAllCards=true;
+        //   break;
+      // }
+    };
+
     $scope.goTo = function(stateUrl, stateId) {
       $scope.toggleLeft();
       $state.go(stateUrl, {id: stateId});

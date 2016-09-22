@@ -19,7 +19,8 @@ angular
     'LocalStorageModule',
     'angular-jwt',
     'ngMessages',
-    'ncy-angular-breadcrumb'
+    'ncy-angular-breadcrumb',
+    'ng-walkthrough'
   ])
   .config(function($mdIconProvider) {
     $mdIconProvider.fontSet('md', 'material-icons');

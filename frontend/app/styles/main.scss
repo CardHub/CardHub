@@ -1,6 +1,7 @@
 // bower:scss
 // endbower
 
+@import 'ng-walkthrough';
 @import 'variables';
 @import 'mixins';
 @import 'sidenav';
@@ -59,4 +60,11 @@ md-toast.md-failure-toast-theme .md-toast-content {
 
 .breadcrumb {
   padding-left:0px;
+}
+
+.help-button {
+  position: absolute;
+  right: 0;
+  padding-right: 0;
+  margin-right: 0 !important;
 }

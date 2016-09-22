@@ -1,5 +1,37 @@
 <page-util is-owner=true is-single-item=false deleting=deleting changing=changing selected-array=selectedArray displayed-array=decks add-fn=showAddDeckDialog(event) del-fn=deleteDecks()></page-util>
-<div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
+<walkthrough
+            is-round=true
+            walkthrough-type="transparency"
+            focus-element-selector="#main-deckview"
+            icon="single_tap"
+            main-caption="This panel shows all the Decks you have"
+            force-caption-location="BOTTOM"
+            is-active="showWholeDeck"
+            on-walkthrough-hide="showSidebarButton=true">
+</walkthrough>
+<walkthrough
+            walkthrough-type="transparency"
+            focus-element-selector="#sidebar-button"
+            force-caption-location="BOTTOM"
+            icon="single_tap"
+            main-caption="Click here to navigate among different tags"
+            icon-padding-left="0"
+            icon-padding-top="20"
+            is-active="showSidebarButton"
+            on-walkthrough-hide="showUtilButton=true">
+</walkthrough>
+<walkthrough
+            is-round=true
+            walkthrough-type="transparency"
+            focus-element-selector="#util-button"
+            icon="single_tap"
+            main-caption="Click here for creating, updating and deleting Deck"
+            force-caption-location="BOTTOM"
+            icon-padding-left="0"
+            icon-padding-top="20"
+            is-active="showUtilButton">
+</walkthrough>
+<div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center" id="main-deckview">
 	<div ng-repeat="deck in displayedDecks" ng-class=displayedDecks[$index].color+"-deck-homeview" class="deck-homeview">
     <md-checkbox class="deck-select" aria-label="select deck" ng-disabled="!deleting&&!changing" ng-checked="isSelected(deck)" ng-click="select(deck)"></md-checkbox>
 		<div layout="column" layout-align="center center" class="deck-title" ng-click="viewDeck(displayedDecks[$index].id)">{{displayedDecks[$index].name | limitTo:55}}</div>

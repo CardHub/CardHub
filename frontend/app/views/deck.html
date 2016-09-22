@@ -1,6 +1,39 @@
 <page-util is-owner=isOwner is-single-item=false deleting=deleting changing=changing selected-array=selectedArray displayed-array=deck.Cards add-fn=createCard(event) del-fn=deleteCards()></page-util>
+<!-- <walkthrough
+            is-round=true
+            walkthrough-type="transparency"
+            focus-element-selector="#main-cardview"
+            icon="single_tap"
+            main-caption="This panel shows all the Decks you have"
+            force-caption-location="BOTTOM"
+            is-active="showAllCards"
+            on-walkthrough-hide="showSidebarButton=true">
+</walkthrough>
+<walkthrough
+            walkthrough-type="transparency"
+            focus-element-selector="#sidebar-button"
+            force-caption-location="BOTTOM"
+            icon="single_tap"
+            main-caption="Click here to navigate among different tags"
+            icon-padding-left="0"
+            icon-padding-top="20"
+            is-active="showSidebarButton"
+            on-walkthrough-hide="showUtilButton=true">
+</walkthrough>
+<walkthrough
+            is-round=true
+            walkthrough-type="transparency"
+            focus-element-selector="#util-button"
+            icon="single_tap"
+            main-caption="Click here for creating, updating and deleting Deck"
+            force-caption-location="BOTTOM"
+            icon-padding-left="0"
+            icon-padding-top="20"
+            is-active="showUtilButton">
+</walkthrough> -->
+
 <!-- <div layout="column" layout-align="top center"> -->
-  <div>
+  <div id="main-cardview">
     <!-- <div>{{selected[0]}}</div> -->
     <div layout-align="center start" class="metadata-wrapper">
     <!-- icons here are dummied, refer to https://material.angularjs.org/latest/api/directive/mdIcon for customized icons -->
