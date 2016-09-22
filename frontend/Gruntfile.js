@@ -558,7 +558,8 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'swPrecache:dist'
   ]);
 
   grunt.registerTask('default', [

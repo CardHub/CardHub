@@ -69,6 +69,7 @@ md-toast.md-failure-toast-theme .md-toast-content {
   margin-right: 0 !important;
 }
 
+<<<<<<< HEAD
 #search-wrapper {
   margin: 0;
   padding: 0;
@@ -79,4 +80,16 @@ md-toast.md-failure-toast-theme .md-toast-content {
 }
 #search-button {
   margin-right: 15px;
+}
+
+.no-deck {
+  h2 {
+    color: $color-main;
+    margin: 20px;
+    margin-top: 50px;
+    margin-down: 50px;
+  }
+  img {
+    width:300px;
+  }
 }

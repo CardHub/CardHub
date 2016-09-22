@@ -13,7 +13,9 @@ angular.module('frontendApp')
   function getDeck() {
     apiHelper.deck.get().then(function(res) {
       $scope.decks = res.data;
-      console.log(res);
+      if($scope.decks.length===0){
+        $scope.noDeck = true;
+      }
       $scope.updateDeckView($scope.deckFilter, $scope.deckDeleted);
     }).catch(function(err) {
       console.log(err);
@@ -109,6 +111,7 @@ angular.module('frontendApp')
   $scope.displayedDecks = $scope.decks;
   $scope.selectedTag= '';
   $scope.deckFilter = $stateParams.filterTag;
+  $scope.noDeck = false;
   // variables required by pageUtil directive
   $scope.deleting = false;
   $scope.changing = false;

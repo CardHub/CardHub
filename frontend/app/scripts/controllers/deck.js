@@ -15,6 +15,7 @@ angular.module('frontendApp')
     $scope.deleting = false;
     $scope.changing = false;
     $scope.selectedArray = [];
+    $scope.noCard = false;
     // variables for help display
     $scope.showDeckInfo = false;
     $scope.showAllCards = false;
@@ -31,6 +32,9 @@ angular.module('frontendApp')
       apiHelper.deck.show($scope.deckId).then(function(res) {
         console.log(res.data);
         $scope.deck = res.data;
+        if($scope.deck.length===0) {
+          $scope.noCard = true; 
+        }
         // check if current user is the owner
         $scope.isOwner = (UserAuth.getCurrentUser().id === $scope.deck.UserId);
       }).catch(function(err) {

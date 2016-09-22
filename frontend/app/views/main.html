@@ -29,9 +29,9 @@
         <i class="material-icons">{{state.icon}}</i>
         <p>{{state.name}}</p>
       </md-list-item>
-      <md-list-item ng-click="shareOnFb()" ng-repeat="state in publicStates">
+      <md-list-item ng-click="showShareDialog()" ng-repeat="state in publicStates">
         <i class="material-icons">face</i>
-        <p>Share public decks on FB</p>
+        <p>Share on Facebook</p>
       </md-list-item>
       <md-divider></md-divider>
       <md-list-item ng-click="logOut()">Log Out</md-list-item>
@@ -45,8 +45,9 @@
         <md-icon md-font-set="md">menu</md-icon>
       </md-button>
       <div ncy-breadcrumb></div>
-      <md-button class="help-button" ng-click="showHelp()">
-        <md-icon md-font-set="md">help</md-icon>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="showHelp()">
+         <md-icon md-font-set="md">help</md-icon>
       </md-button>
     </div>
   </md-toolbar>
