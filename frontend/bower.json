@@ -18,5 +18,8 @@
     "angular-mocks": "^1.4.0"
   },
   "appPath": "app",
-  "moduleName": "frontendApp"
+  "moduleName": "frontendApp",
+  "resolutions": {
+    "angular": "^1.5.8"
+  }
 }

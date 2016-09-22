@@ -19,7 +19,8 @@ angular
     'LocalStorageModule',
     'angular-jwt',
     'ngMessages',
-    'ncy-angular-breadcrumb'
+    'ncy-angular-breadcrumb',
+    'ng-walkthrough'
   ])
   .config(function($mdIconProvider) {
     $mdIconProvider.fontSet('md', 'material-icons');
@@ -102,9 +103,9 @@ angular
     };
   })
   .run(function($window, UserAuth, $location, $rootScope, FBLoginHelper) {
-    $window.ga('create', 'UA-83446936-2', 'auto');
     $rootScope.$on('$stateChangeSuccess', function (event) {
-      $window.ga('send', 'pageview', $location.path());
+      ga('set', 'page', $location.path());
+      ga('send', 'pageview');
     });
 
     $window.fbAsyncInit = function() {

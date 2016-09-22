@@ -116,6 +116,9 @@ angular.module('frontendApp')
   $scope.puttingBack = false;
   $scope.isDeleteFilter = false;
   $scope.selectedArray = [];
+  // variables for tutorial walkthrough / help
+  $scope.showUtilButton = false;
+  $scope.showSidebarButton = false;
   // all color variable, later can be abstracted out into factory
   var colors = ['BEC6D5','F6CAC9','F4B794','E3EAA5','C3DDD6','D1C3D5','D1C2AB'];
 
