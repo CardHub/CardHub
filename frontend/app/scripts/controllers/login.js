@@ -9,7 +9,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('LoginCtrl', function($scope, LoadingHelper, UserAuth, apiHelper, $state, jwtHelper) {
+  .controller('LoginCtrl', function($scope, LoadingHelper, UserAuth, apiHelper, $state, jwtHelper, $mdDialog) {
 
     $scope.login = function() {
       // Handle ios add to screen login.
@@ -43,4 +43,45 @@ angular.module('frontendApp')
           return;
       }
     };
+
+    $scope.showPrivacy = function() {
+      $mdDialog.show({
+        controller: PrivacyTermsCtrl,
+        templateUrl: 'views/privacyAndTerms.html',
+        parent: angular.element(document.body),
+        targetEvent: event,
+        clickOutsideToClose:true,
+        fullscreen: true,
+        locals: {
+          selectedTab: 0
+        } 
+      })
+      .then(function(){
+      }, function() {
+      });
+    };
+
+    $scope.showTerms = function() {
+      $mdDialog.show({
+        controller: PrivacyTermsCtrl,
+        templateUrl: 'views/privacyAndTerms.html',
+        parent: angular.element(document.body),
+        targetEvent: event,
+        clickOutsideToClose:true,
+        fullscreen: true,
+        locals: {
+          selectedTab: 1
+        } 
+      })
+      .then(function(){
+      }, function() {
+      });
+    };
+
+    function PrivacyTermsCtrl($scope,$mdDialog,selectedTab) {
+      $scope.selectedTab = selectedTab;
+      $scope.cancel = function () {
+        $mdDialog.cancel();
+      }
+    }
   });

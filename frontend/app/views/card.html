@@ -1,4 +1,4 @@
-<page-util is-owner=isOwner is-single-item=true deleting=false changing=false selected=[] displayed=deck.Cards add-fn=createCard(event) change-fn=updateCard(event) del-fn=deleteCard()></page-util>
+<page-util is-owner=isOwner is-single-item=true deleting=false changing=false selected-array=[] displayed-array=deck.Cards add-fn=createCard(event) change-fn=updateCard(event) del-fn=deleteCard()></page-util>
 <div layout="column" layout-align="center center" layout-margin>
   <div class="flip">
     <div class="card" ng-class="{'flipped':!isCardFront}" ng-click="isCardFront=!isCardFront">
