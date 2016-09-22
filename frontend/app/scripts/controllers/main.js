@@ -89,8 +89,8 @@ angular.module('frontendApp')
       };
       $scope.share = function() {
         $mdDialog.hide();
-      }
-    };
+      };
+    }
 
     function shareOnFb() {
       $scope.toggleLeft();

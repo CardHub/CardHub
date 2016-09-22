@@ -46,7 +46,7 @@
   </div>
   <div class="no-deck" layout="column" layout-align="center center" ng-show="noCard">
     <h2>Start by adding a new card<h2>
-    <img hide-gt-sm src="../images/arrow.png"/>
+    <img class="no-card" hide-gt-sm src="../images/arrow.png"/>
   </div>
   <div id="main-cardview" layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
     <div ng-repeat="card in deck.Cards" ng-class=deck.color+"-deck-deckview" ng-click="viewCard(deck.id, card.id)" class="deck-deckview">
