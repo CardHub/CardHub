@@ -68,3 +68,15 @@ md-toast.md-failure-toast-theme .md-toast-content {
   padding-right: 0;
   margin-right: 0 !important;
 }
+
+.no-deck {
+  h2 {
+    color: $color-main;
+    margin: 20px;
+    margin-top: 50px;
+    margin-down: 50px;
+  }
+  img {
+    width:300px;
+  }
+}

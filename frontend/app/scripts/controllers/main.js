@@ -70,7 +70,30 @@ angular.module('frontendApp')
       );
     }
 
-    $scope.shareOnFb = function() {
+    $scope.showShareDialog = function() {
+      $mdDialog.show({
+        controller: shareCtrl,
+        templateUrl: 'views/share.html',
+        parent: angular.element(document.body),
+        targetEvent: event,
+        clickOutsideToClose:true
+      })
+      .then(function(){
+        shareOnFb();
+      }, function() {
+      });
+    };
+
+    function shareCtrl($scope,$mdDialog) {
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+      $scope.share = function() {
+        $mdDialog.hide();
+      }
+    };
+
+    function shareOnFb() {
       $scope.toggleLeft();
       FB.api(
         "/me/feed",
@@ -87,7 +110,7 @@ angular.module('frontendApp')
           }
         }
       );
-    };
+    }
 
     $scope.goTo = function(stateUrl, stateId) {
       $scope.toggleLeft();
