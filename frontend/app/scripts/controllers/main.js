@@ -76,8 +76,7 @@ angular.module('frontendApp')
         templateUrl: 'views/share.html',
         parent: angular.element(document.body),
         targetEvent: event,
-        clickOutsideToClose:true,
-        fullscreen: true ,
+        clickOutsideToClose:true
       })
       .then(function(){
         shareOnFb();
