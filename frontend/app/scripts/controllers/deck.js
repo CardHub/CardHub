@@ -8,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('DeckCtrl', function ($scope, $state, $stateParams, $mdDialog, UserAuth, apiHelper, cardUtil) {
+  .controller('DeckCtrl', function ($scope, $rootScope, $state, $stateParams, $mdDialog, UserAuth, apiHelper, cardUtil) {
     $scope.deckId = $stateParams.id;
     $scope.deck = {};
     $scope.isOwner = false;
