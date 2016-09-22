@@ -9,6 +9,10 @@
  */
 angular.module('frontendApp')
   .controller('DeckCtrl', function ($scope, $state, $stateParams, $mdDialog, UserAuth, apiHelper, cardUtil) {
+    /*console.log($state.previous.name);
+    if($state.previous.name==='main.home.explore'){
+      $scope.fromState = 'main.home.explore';
+    }*/
     $scope.deckId = $stateParams.id;
     $scope.deck = {};
     $scope.isOwner = false;
@@ -46,7 +50,12 @@ angular.module('frontendApp')
     getCards();
 
     $scope.viewCard = function(deckId, cardId) {
-      $state.go('main.home.deck.card', {cardId: cardId});
+      console.log($state.previous.name);
+      if($state.previous.name==='main.home.explore'){
+        $state.go('main.home.explore.deck.card', {filterTag: 'all',cardId: cardId});
+      }else{
+        $state.go('main.home.deck.card', {cardId: cardId});
+      }
     };
 
     $scope.createCard = function() {

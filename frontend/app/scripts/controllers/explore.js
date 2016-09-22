@@ -36,6 +36,6 @@ angular.module('frontendApp')
     };
 
     $scope.viewDeck = function(deckId) {
-      $state.go('main.home.deck', {filterTag: 'all', id: deckId});
+      $state.go('main.home.explore.deck', {filterTag: 'all', id: deckId});
     };
   });

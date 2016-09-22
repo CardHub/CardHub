@@ -69,6 +69,10 @@ angular
       auth: true,
       ncyBreadcrumb: {
         label: '> Deck'
+       /* ,
+        parent: function ($scope) {
+          return $scope.fromState || 'main.home';
+        }*/
       }
     }).state({
       name: 'main.home.deck.card',
@@ -111,6 +115,32 @@ angular
       auth: true,
       ncyBreadcrumb: {
         label: '> Explore'
+      }
+    }).state({
+      name: 'main.home.explore.deck',
+      url: '/deck/:id',
+      views:{
+        "@main":{
+          templateUrl: 'views/deck.html',
+          controller: 'DeckCtrl'
+        }
+      },
+      auth: true,
+      ncyBreadcrumb: {
+        label: '> Deck'
+      }
+    }).state({
+      name: 'main.home.explore.deck.card',
+      url: '/card/:cardId',
+      views:{
+        "@main":{
+          templateUrl: 'views/card.html',
+          controller: 'CardCtrl'
+        }
+      },
+      auth: true,
+      ncyBreadcrumb: {
+        label: '> Card'
       }
     });
     $urlRouterProvider.when('/main', '/main/home/all');
