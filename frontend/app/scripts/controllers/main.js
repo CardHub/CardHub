@@ -77,7 +77,7 @@ angular.module('frontendApp')
         "POST",
         {
             "message": "Check out my cards on Cardhub!",
-            "link": "https://cardhub.tk/#/main/user"+UserAuth.getCurrentUser().id
+            "link": "https://cardhub.tk/#/main/home/all/user/"+UserAuth.getCurrentUser().id
         },
         function (response) {
           if (response && !response.error) {
