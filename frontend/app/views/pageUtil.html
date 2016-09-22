@@ -7,16 +7,24 @@
         </md-button>
       </md-fab-trigger>
      <md-fab-actions>
-     		<div class="action-tooltip">Delete</div>
-        <md-button aria-label="Delete" ng-click="showDeleteOptions()" class="md-fab md-raised md-mini">
+        <div class="action-tooltip" ng-if="isDeleteFilter">Permanently<br>Delete</div>
+        <md-button aria-label="Delete" ng-if="isDeleteFilter" ng-click="showPermanentDeleteOptions()" class="md-fab md-raised md-mini">
           <md-icon md-font-set="md" class="action-item">remove</md-icon>
         </md-button>
-        <div class="action-tooltip">Change</div>
-        <md-button aria-label="Edit" ng-click="showUpdateOptions($event)" class="md-fab md-raised md-mini">
+        <div class="action-tooltip" ng-if="isDeleteFilter">Put Back</div>
+        <md-button aria-label="Edit" ng-if="isDeleteFilter" ng-click="showPutBackOptions()" class="md-fab md-raised md-mini">
           <md-icon md-font-set="md" class="action-item">change_history</md-icon>
         </md-button>
-        <div class="action-tooltip">Add</div>
-        <md-button aria-label="Add" ng-click="showAddDialog($event)" class="md-fab md-raised md-mini">
+     		<div class="action-tooltip" ng-if="!isDeleteFilter">Delete</div>
+        <md-button aria-label="Delete" ng-if="!isDeleteFilter" ng-click="showDeleteOptions()" class="md-fab md-raised md-mini">
+          <md-icon md-font-set="md" class="action-item">remove</md-icon>
+        </md-button>
+        <div class="action-tooltip" ng-if="!isDeleteFilter">Change</div>
+        <md-button aria-label="Edit" ng-if="!isDeleteFilter" ng-click="showUpdateOptions($event)" class="md-fab md-raised md-mini">
+          <md-icon md-font-set="md" class="action-item">change_history</md-icon>
+        </md-button>
+        <div class="action-tooltip" ng-if="!isDeleteFilter">Add</div>
+        <md-button aria-label="Add" ng-if="!isDeleteFilter" ng-click="showAddDialog($event)" class="md-fab md-raised md-mini">
           <md-icon md-font-set="md" class="action-item">add</md-icon>
         </md-button>
       </md-fab-actions>
@@ -24,12 +32,14 @@
   </div>
 
   <div ng-if="isSingleItem==='false'" class="bottom-sheet">
-   <div layout="row" layout-align="center center" ng-cloak ng-hide="!deleting">
+   <div layout="row" layout-align="center center" ng-cloak ng-hide="!deleting&&!permDeleting&&!puttingBack">
       <md-button ng-click="toggleAll()">
         <div ng-show="isAllSelected()">Unselect All</div>
         <div ng-hide="isAllSelected()">Select All</div>
       </md-button>
-      <md-button ng-click="deleteSelected()">Delete</md-button>
+      <md-button ng-click="deleteSelected()" ng-hide="!deleting">Delete</md-button>
+      <md-button ng-click="permDeleteSelected()" ng-hide="!permDeleting">Permanently Delete</md-button>
+      <md-button ng-click="putBackSelected()" ng-hide="!puttingBack">Put Back</md-button>
       <md-button ng-click="cancelDelete()">Cancel</md-button>
     </div>
     <div layout="row" layout-align="center center" ng-cloak ng-hide="!changing">

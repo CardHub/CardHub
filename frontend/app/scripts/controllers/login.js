@@ -82,6 +82,6 @@ angular.module('frontendApp')
       $scope.selectedTab = selectedTab;
       $scope.cancel = function () {
         $mdDialog.cancel();
-      }
+      };
     }
   });
