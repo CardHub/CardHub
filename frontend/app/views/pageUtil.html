@@ -7,16 +7,24 @@
         </md-button>
       </md-fab-trigger>
      <md-fab-actions>
-     		<div class="action-tooltip">Delete</div>
-        <md-button aria-label="Delete" ng-click="showDeleteOptions()" class="md-fab md-raised md-mini">
+        <div class="action-tooltip" ng-if="isDeleteFilter">Permanently<br>Delete</div>
+        <md-button aria-label="Delete" ng-if="isDeleteFilter" ng-click="showPermanentDeleteOptions()" class="md-fab md-raised md-mini">
           <md-icon md-font-set="md" class="action-item">remove</md-icon>
         </md-button>
-        <div class="action-tooltip">Change</div>
-        <md-button aria-label="Edit" ng-click="showUpdateOptions($event)" class="md-fab md-raised md-mini">
+        <div class="action-tooltip" ng-if="isDeleteFilter">Put Back</div>
+        <md-button aria-label="Edit" ng-if="isDeleteFilter" ng-click="showPutBackOptions()" class="md-fab md-raised md-mini">
           <md-icon md-font-set="md" class="action-item">change_history</md-icon>
         </md-button>
-        <div class="action-tooltip">Add</div>
-        <md-button aria-label="Add" ng-click="showAddDialog($event)" class="md-fab md-raised md-mini">
+     		<div class="action-tooltip" ng-if="!isDeleteFilter">Delete</div>
+        <md-button aria-label="Delete" ng-if="!isDeleteFilter" ng-click="showDeleteOptions()" class="md-fab md-raised md-mini">
+          <md-icon md-font-set="md" class="action-item">remove</md-icon>
+        </md-button>
+        <div class="action-tooltip" ng-if="!isDeleteFilter">Change</div>
+        <md-button aria-label="Edit" ng-if="!isDeleteFilter" ng-click="showUpdateOptions($event)" class="md-fab md-raised md-mini">
+          <md-icon md-font-set="md" class="action-item">change_history</md-icon>
+        </md-button>
+        <div class="action-tooltip" ng-if="!isDeleteFilter">Add</div>
+        <md-button aria-label="Add" ng-if="!isDeleteFilter" ng-click="showAddDialog($event)" class="md-fab md-raised md-mini">
           <md-icon md-font-set="md" class="action-item">add</md-icon>
         </md-button>
       </md-fab-actions>

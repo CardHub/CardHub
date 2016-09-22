@@ -7,13 +7,16 @@ angular.module('frontendApp')
       scope: {
         isOwner: '@',
         isSingleItem: '@',
+        isDeleteFilter: '=',
         deleting: '=',
         changing: '=',
         selected: '=',
         displayed: '=',
         addFn: '&',
         changeFn: '&',
-        delFn: '&'
+        delFn: '&',
+        permDelFn: '&',
+        putBackFn: '&'
       },
       // bindToController: ,
       link: function(scope) {
@@ -21,6 +24,23 @@ angular.module('frontendApp')
         scope.changing = false;
         scope.selected = [];
         scope.displayed = [];
+
+        scope.showPermanentDeleteOptions = function() {
+          if (scope.isSingleItem === 'true') {
+            scope.permDelFn();
+          } else {
+            scope.deleting = true; 
+            scope.changing = false; 
+          }
+        };
+        scope.showPutBackOptions = function() {
+          if (scope.isSingleItem === 'true') {
+            scope.putBackFn();
+          } else {
+            scope.deleting = false; 
+            scope.changing = true; 
+          }
+        };
 
         scope.showDeleteOptions = function() {
           if (scope.isSingleItem === 'true') {

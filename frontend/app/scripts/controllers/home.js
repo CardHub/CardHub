@@ -101,10 +101,13 @@ angular.module('frontendApp')
   $scope.deleting = false;
   $scope.changing = false;
   $scope.selected = [];
+  $scope.isDeleteFilter = false;
+
   // all color variable, later can be abstracted out into factory
   var colors = ['BEC6D5','F6CAC9','F4B794','E3EAA5','C3DDD6','D1C3D5','D1C2AB'];
 
-  $scope.updateDeckView = function(deckFilter, deckDeleted) {      
+  $scope.updateDeckView = function(deckFilter, deckDeleted) {
+    $scope.isDeleteFilter = deckDeleted;  
     function checkHasTag(tag) {
       return tag.name === deckFilter;
     }
@@ -147,7 +150,7 @@ angular.module('frontendApp')
         } else {
           showToast(false, res.error);
         }
-      });
+    });
   };
 
   //Select decks
@@ -183,6 +186,17 @@ angular.module('frontendApp')
     var payload = {isDeleted:"true"};
     for (var i=0; i<$scope.selected.length; i++) {
       updateDeck($scope.selected[i].id, payload, 'deleting','delete');
+    }  
+  };
+
+  $scope.permDeleteDecks = function() {
+
+  };
+
+  $scope.putBackDecks = function() {
+    var payload = {isDeleted:"false"};
+    for (var i=0; i<$scope.selected.length; i++) {
+      updateDeck($scope.selected[i].id, payload, 'putting back','put back');
     }  
   };
 });
