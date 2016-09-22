@@ -14,7 +14,6 @@ angular.module('frontendApp')
     apiHelper.deck.get().then(function(res) {
       $scope.decks = res.data;
       if($scope.decks.length===0){
-        $scope.noDeck = true;
       }
       $scope.updateDeckView($scope.deckFilter, $scope.deckDeleted);
     }).catch(function(err) {
@@ -148,6 +147,9 @@ angular.module('frontendApp')
           }
         }
       }
+    }
+    if($scope.displayedDecks.length==0){
+      $scope.noDeck = true;
     }
   };
   if ($scope.deckFilter) {
