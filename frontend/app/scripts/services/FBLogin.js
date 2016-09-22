@@ -1,8 +1,10 @@
+'use strict';
+
 angular.module('frontendApp')
   .service('FBLoginHelper', function($rootScope, $window, LoadingHelper, apiHelper, jwtHelper, UserAuth, $state) {
     function facebookStatusChangeCallback(response) {
       if (response.status === 'connected') {
-        if ("standalone" in navigator && navigator.standalone) {
+        if ('standalone' in navigator && navigator.standalone) {
           var token = response.authResponse.accessToken;
           LoadingHelper.show();
           apiHelper.login({
