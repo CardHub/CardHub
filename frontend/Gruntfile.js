@@ -6,6 +6,9 @@
 // 'test/spec/{,*/}*.js'
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
+var packageJson = require('./package.json');
+var path = require('path');
+var swPrecache = require('sw-precache');
 
 module.exports = function (grunt) {
 
@@ -451,9 +454,56 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    swPrecache: {
+      dev: {
+        handleFetch: false,
+        rootDir: 'app'
+      },
+      dist: {
+        handleFetch: true,
+        rootDir: 'dist'
+      }
     }
   });
 
+  function writeServiceWorkerFile(rootDir, handleFetch, callback) {
+    var cachedFiles = [
+      rootDir + '/styles/**/*.*',
+      rootDir + '/**.*',
+      rootDir + '/views/**/*.html',
+      rootDir + '/images/**/*.*',
+      rootDir + '/scripts/**/*.js'
+    ];
+    var config = {
+      cacheId: packageJson.version,
+      // If handleFetch is false (i.e. because this is called from swPrecache:dev), then
+      // the service worker will precache resources but won't actually serve them.
+      // This allows you to test precaching behavior without worry about the cache preventing your
+      // local changes from being picked up during the development cycle.
+      handleFetch: handleFetch,
+      staticFileGlobs: cachedFiles,
+      stripPrefix: rootDir + '/',
+      // verbose defaults to false, but for the purposes of this demo, log more.
+      verbose: true
+    };
+
+    swPrecache.write(path.join(rootDir, 'sw.js'), config, callback);
+  }
+
+  grunt.registerMultiTask('swPrecache', function() {
+    var done = this.async();
+    var rootDir = this.data.rootDir;
+    var handleFetch = this.data.handleFetch;
+
+    writeServiceWorkerFile(rootDir, handleFetch, function(error) {
+      if (error) {
+        grunt.fail.warn(error);
+      }
+      done();
+    });
+  });
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {

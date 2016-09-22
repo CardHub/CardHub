@@ -1,5 +1,6 @@
 {
   "name": "frontend",
+  "version": "1.0.0",
   "private": true,
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
@@ -33,6 +34,7 @@
     "karma-jasmine": "^1.0.2",
     "karma-phantomjs-launcher": "^1.0.2",
     "phantomjs-prebuilt": "^2.1.12",
+    "sw-precache": "^4.1.0",
     "time-grunt": "^1.0.0"
   },
   "engines": {
