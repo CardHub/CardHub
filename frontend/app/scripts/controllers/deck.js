@@ -14,7 +14,7 @@ angular.module('frontendApp')
     $scope.isOwner = false;
     $scope.deleting = false;
     $scope.changing = false;
-    $scope.selected = [];
+    $scope.selectedArray = [];
 
     // initialize to prevent directive error before async promise is returned
     $scope.deck = {Cards:[]};
@@ -46,17 +46,17 @@ angular.module('frontendApp')
 
     // functions for change and delete
     $scope.isSelected = function(card) {
-      return $scope.selected.indexOf(card) > -1;
+      return $scope.selectedArray.indexOf(card) > -1;
     };
 
     $scope.select = function(card, event) {
       if ($scope.deleting) {
         // toggle selected/not selected
-        var idx = $scope.selected.indexOf(card);
+        var idx = $scope.selectedArray.indexOf(card);
         if (idx > -1) {
-          $scope.selected.splice(idx, 1);
+          $scope.selectedArray.splice(idx, 1);
         } else {
-          $scope.selected.push(card);
+          $scope.selectedArray.push(card);
         }
       } else if ($scope.changing) {
         cardUtil.showEditCardDialog($scope.deckId, card, event).then(function(res) {
@@ -70,9 +70,9 @@ angular.module('frontendApp')
     };
 
     $scope.deleteCards = function() {
-      for (var i=0; i<$scope.selected.length; i++) {
-        console.log("delete " + $scope.selected[i].id + " from deck " + $scope.deckId);
-        apiHelper.card.delete($scope.deckId, $scope.selected[i].id);
+      for (var i=0; i<$scope.selectedArray.length; i++) {
+        console.log("delete " + $scope.selectedArray[i].id + " from deck " + $scope.deckId);
+        apiHelper.card.delete($scope.deckId, $scope.selectedArray[i].id);
       }
     };
   });

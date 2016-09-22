@@ -100,9 +100,8 @@ angular.module('frontendApp')
   // variables required by pageUtil directive
   $scope.deleting = false;
   $scope.changing = false;
-  $scope.selected = [];
   $scope.isDeleteFilter = false;
-
+  $scope.selectedArray = [];
   // all color variable, later can be abstracted out into factory
   var colors = ['BEC6D5','F6CAC9','F4B794','E3EAA5','C3DDD6','D1C3D5','D1C2AB'];
 
@@ -155,20 +154,20 @@ angular.module('frontendApp')
 
   //Select decks
   $scope.isSelected = function(deck) {
-    return $scope.selected.indexOf(deck) > -1;
+    return $scope.selectedArray.indexOf(deck) > -1;
   };
   $scope.select = function(deck) {
     if ($scope.deleting) {
       //toggle selected/not selected
-      var idx = $scope.selected.indexOf(deck);
+      var idx = $scope.selectedArray.indexOf(deck);
       if (idx > -1) {
-        $scope.selected.splice(idx, 1);
+        $scope.selectedArray.splice(idx, 1);
       } else {
-        $scope.selected.push(deck);
+        $scope.selectedArray.push(deck);
       }
     } else if ($scope.changing) {
       $scope.changing = false;
-      $scope.selected = [];
+      $scope.selectedArray = [];
       //go to update
       // showChangeDeckDialog(deck);
       deckUtil.showEditDeckDialog(deck, $scope.tagFilters, colors).then(function(res) {
@@ -184,8 +183,8 @@ angular.module('frontendApp')
 
   $scope.deleteDecks = function() {
     var payload = {isDeleted:"true"};
-    for (var i=0; i<$scope.selected.length; i++) {
-      updateDeck($scope.selected[i].id, payload, 'deleting','delete');
+    for (var i=0; i<$scope.selectedArray.length; i++) {
+      updateDeck($scope.selectedArray[i].id, payload, 'deleting','delete');
     }  
   };
 
