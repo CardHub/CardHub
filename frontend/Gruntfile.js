@@ -477,7 +477,7 @@ module.exports = function (grunt) {
       rootDir + '/scripts/**/*.js'
     ];
     var config = {
-      cacheId: packageJson.version,
+      cacheId: packageJson.name,
       // If handleFetch is false (i.e. because this is called from swPrecache:dev), then
       // the service worker will precache resources but won't actually serve them.
       // This allows you to test precaching behavior without worry about the cache preventing your
@@ -486,7 +486,15 @@ module.exports = function (grunt) {
       staticFileGlobs: cachedFiles,
       stripPrefix: rootDir + '/',
       // verbose defaults to false, but for the purposes of this demo, log more.
-      verbose: true
+      verbose: true,
+      runtimeCaching: [{
+        urlPattern: /^https:\/\/graph\.facebook\.com/,
+        handler: 'networkFirst'
+      },
+      {
+        urlPattern: /^https:\/\/cardhub\.tk\/api/,
+        handler: 'networkFirst'
+      }],
     };
 
     swPrecache.write(path.join(rootDir, 'sw.js'), config, callback);
