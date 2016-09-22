@@ -16,6 +16,7 @@ angular.module('frontendApp')
     $scope.changing = false;
     $scope.selectedArray = [];
     $scope.noCard = false;
+    $scope.originalUser = {name:''};
     // variables for help display
     $scope.showDeckInfo = false;
     $scope.showAllCards = false;
@@ -32,13 +33,21 @@ angular.module('frontendApp')
       apiHelper.deck.show($scope.deckId).then(function(res) {
         console.log(res.data);
         $scope.deck = res.data;
-        if($scope.deck.Cards.length===0) {
+        if ($scope.deck.Cards.length===0) {
           $scope.noCard = true; 
-        }else{
+        } else {
           $scope.noCard = false; 
         }
         // check if current user is the owner
         $scope.isOwner = (UserAuth.getCurrentUser().id === $scope.deck.UserId);
+        // get original user info
+        if ($scope.deck.isForked) {
+          apiHelper.userDeck.show($scope.deck.forkedFrom)
+            .then(function(res) {
+              console.log(res.data);
+              $scope.originalUser = res.data;
+            });
+        }
       }).catch(function(err) {
         console.log(err);
       });
@@ -85,18 +94,32 @@ angular.module('frontendApp')
     };
 
     function permDeleteCard(deckId,cardId) {
-    apiHelper.card.delete(deckId,cardId).then(function(res) {
-      getCards();
-    })
-    .catch(function(err) {
-      console.log(err);
-    });
-  }
+      apiHelper.card.delete(deckId,cardId).then(function(res) {
+        getCards();
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+    }
 
     $scope.deleteCards = function() {
       for (var i=0; i<$scope.selectedArray.length; i++) {
         console.log("delete " + $scope.selectedArray[i].id + " from deck " + $scope.deckId);
         permDeleteCard($scope.deckId, $scope.selectedArray[i].id);
       }
+    };
+
+    $scope.forkDeck = function(deckId) {
+      console.log(deckId);
+      apiHelper.deck.fork(deckId).then(function(res) {
+        console.log(res.data);
+
+      }).catch(function(err) {
+        console.log(err);
+      });
+    }
+
+    $scope.viewUserProfile = function(userId) {
+      $state.go('main.home.user', {id: userId});
     };
   });

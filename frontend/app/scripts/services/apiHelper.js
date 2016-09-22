@@ -68,6 +68,9 @@ angular.module('frontendApp')
       },
       delete: function(id) {
         return $http.delete(Config.apiUrl + '/deck/' + id);   
+      },
+      fork: function(deckId) {
+        return $http.get(Config.apiUrl + '/forkDeck/' + deckId); 
       }
     };
 

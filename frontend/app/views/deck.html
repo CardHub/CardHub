@@ -31,9 +31,13 @@
       <div layout="row" layout-align="start center">
         <div ng-if="deck.isPublic">Public</div>
         <div ng-if="!deck.isPublic">Private</div>
+        <div ng-if=!isOwner ng-click="forkDeck(deck.id)">
+          <i class="material-icons">file_download</i>
+        </div>
       </div>
       <div ng-if="deck.isForked" layout="row" layout-align="start center">
-        <div>Forked from {{deck.forkedFrom | limitTo:40}}</div>
+        <span>Forked from &nbsp</span>
+        <a ng-href="" ng-click="viewUserProfile(deck.forkedFrom)">{{originalUser.name | limitTo:40}}</a>
       </div>
 
       <div layout="row" layout-align="start center">
