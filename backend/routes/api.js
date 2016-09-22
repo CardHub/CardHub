@@ -8,6 +8,7 @@ var DeckCtrl = require('../controllers/DeckController');
 var TagCtrl = require('../controllers/TagController');
 var CardCtrl = require('../controllers/CardController');
 var UserCtrl = require('../controllers/UserController');
+var SearchCtrl = require('../controllers/SearchController');
 
 // Set up token authenticate
 var verifyToken = jwt({secret: config.secret});
@@ -48,5 +49,7 @@ router.post('/tag', verifyToken, TagCtrl.create);
 router.get('/tag/:id', verifyToken, TagCtrl.show);
 router.put('/tag/:id', verifyToken, TagCtrl.update);
 router.delete('/tag/:id', verifyToken, TagCtrl.destroy);
+
+router.get('/search', verifyToken, SearchCtrl.search);
 
 module.exports = router;
