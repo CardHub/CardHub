@@ -11,6 +11,15 @@ angular.module('frontendApp')
   .controller('UserCtrl', function ($scope, $stateParams, $state, apiHelper) {
     $scope.userId = $stateParams.id;
     $scope.user = {};
+    // variables for help display
+    $scope.showUserInfo = false;
+    $scope.showUserDeckInfo = false;
+    $scope.showSidebarButton = false;
+
+    $scope.$on('showUser', function(event, args) {
+      $scope.showUserInfo = true;
+    });
+    
     apiHelper.userDeck.show($scope.userId)
       .then(function(res) {
         $scope.user = res.data;

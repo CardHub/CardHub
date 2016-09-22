@@ -40,10 +40,16 @@ angular.module('frontendApp')
       console.log($state.current.name);
       switch ($state.current.name) {
         case 'main.home': 
-          $scope.showWholeDeck=true;
+          $rootScope.$broadcast('showWholeDeck');
           break;
         case 'main.home.deck':
-          $scope.showAllCards=true;
+          $rootScope.$broadcast('showAllCards');
+          break;
+        case 'main.home.deck.card':
+          $rootScope.$broadcast('showCard');
+          break;
+        case 'main.home.user':
+          $rootScope.$broadcast('showUser');
           break;
       }
     };
@@ -86,7 +92,7 @@ angular.module('frontendApp')
 
     $scope.viewUserProfile = function(userId) {
       $scope.toggleLeft();
-      $state.go('main.user', {id: userId});
+      $state.go('main.home.user', {id: userId});
     };
 
     $scope.showEditTagsDialog = function() {

@@ -1,6 +1,39 @@
 <page-util is-owner=isOwner is-single-item=true deleting=false changing=false selected-array=[] displayed-array=deck.Cards add-fn=createCard(event) change-fn=updateCard(event) del-fn=deleteCard()></page-util>
+<walkthrough
+            is-round=true
+            walkthrough-type="transparency"
+            focus-element-selector="#cardInfo"
+            icon="single_tap"
+            main-caption="This panel shows information on current Card"
+            force-caption-location="BOTTOM"
+            is-active="showCardInfo"
+            on-walkthrough-hide="showSidebarButton=true">
+</walkthrough>
+<walkthrough
+            walkthrough-type="transparency"
+            focus-element-selector="#sidebar-button"
+            force-caption-location="BOTTOM"
+            icon="single_tap"
+            main-caption="Click here to navigate among different tags of Decks"
+            icon-padding-left="0"
+            icon-padding-top="20"
+            is-active="showSidebarButton"
+            on-walkthrough-hide="showUtilButton=true">
+</walkthrough>
+<walkthrough
+            is-round=true
+            walkthrough-type="transparency"
+            focus-element-selector="#util-button"
+            icon="single_tap"
+            main-caption="Click here for creating new Crad or updating / deleting current Card"
+            force-caption-location="BOTTOM"
+            icon-padding-left="0"
+            icon-padding-top="20"
+            is-active="showUtilButton">
+</walkthrough>
+
 <div layout="column" layout-align="center center" layout-margin>
-  <div class="flip">
+  <div class="flip" id="cardInfo">
     <div class="card" ng-class="{'flipped':!isCardFront}" ng-click="isCardFront=!isCardFront">
       <div class="face front" ng-class=deck.color+"-deck-deckview" layout="column" layout-align="center center" layout-padding>
         {{ card.front }}

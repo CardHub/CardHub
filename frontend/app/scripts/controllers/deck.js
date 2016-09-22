@@ -16,8 +16,14 @@ angular.module('frontendApp')
     $scope.changing = false;
     $scope.selectedArray = [];
     // variables for help display
+    $scope.showDeckInfo = false;
+    $scope.showAllCards = false;
     $scope.showSidebarButton = false;
     $scope.showUtilButton = false;
+
+    $scope.$on('showAllCards', function(event, args) {
+      $scope.showDeckInfo = true;
+    });
 
     // initialize to prevent directive error before async promise is returned
     $scope.deck = {Cards:[]};
