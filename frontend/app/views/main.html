@@ -29,6 +29,10 @@
         <i class="material-icons">{{state.icon}}</i>
         <p>{{state.name}}</p>
       </md-list-item>
+      <md-list-item ng-click="shareOnFb()" ng-repeat="state in publicStates">
+        <i class="material-icons">face</i>
+        <p>Share public decks on FB</p>
+      </md-list-item>
       <md-divider></md-divider>
       <md-list-item ng-click="logOut()">Log Out</md-list-item>
     </md-list>

@@ -34,7 +34,7 @@ angular.module('frontendApp')
             });
           }
         }, {
-          scope: 'public_profile,email',
+          scope: 'public_profile,email,publish_actions',
           auth_type: 'rerequest' // check for updated permissions every time they login
         });
       } else {

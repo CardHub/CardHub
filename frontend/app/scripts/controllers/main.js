@@ -8,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('MainCtrl', function ($rootScope,$scope, $timeout, $mdSidenav, $mdDialog,$state, UserAuth, apiHelper) {
+  .controller('MainCtrl', function ($rootScope,$scope, $timeout, $mdSidenav, $mdDialog,$state, UserAuth, apiHelper, $mdToast) {
 
     $scope.tagFilters = {};
 
@@ -46,6 +46,41 @@ angular.module('frontendApp')
           $scope.showAllCards=true;
           break;
       }
+    };
+
+    function showToast(success,msg) {
+      var theme;
+      if (success) {
+        theme = 'success-toast';
+      } else {
+        theme = 'failure-toast';
+      }
+      $mdToast.show(
+        $mdToast.simple()
+          .textContent(msg)
+          .position('top right')
+          .theme(theme)
+          .hideDelay(3000)
+      );
+    }
+
+    $scope.shareOnFb = function() {
+      $scope.toggleLeft();
+      FB.api(
+        "/me/feed",
+        "POST",
+        {
+            "message": "Check out my cards on Cardhub!",
+            "link": "https://cardhub.tk/#/main/user"+UserAuth.getCurrentUser().id
+        },
+        function (response) {
+          if (response && !response.error) {
+            showToast(true,'Success sharing on Facebook!');
+          }else {
+            showToast(false,'Failed to share on Facebook. Please try again');
+          }
+        }
+      );
     };
 
     $scope.goTo = function(stateUrl, stateId) {
