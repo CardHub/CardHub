@@ -23,8 +23,7 @@ angular.module('frontendApp')
         scope.displayed = [];
 
         scope.showDeleteOptions = function() {
-          if (scope.isSingleItem === "true") {
-            console.log("delete single item");
+          if (scope.isSingleItem === 'true') {
             scope.delFn();
           } else {
             scope.deleting = true; 
@@ -33,8 +32,7 @@ angular.module('frontendApp')
         };
 
         scope.showUpdateOptions = function(event) {
-          if (scope.isSingleItem === "true") {
-            console.log("update single item");
+          if (scope.isSingleItem === 'true') {
             scope.changeFn({event: event});
           } else {
             scope.changing = true; 
@@ -81,7 +79,7 @@ angular.module('frontendApp')
 
         scope.deleteSelected = function() {
           if(scope.selected.length === 0) {
-            console.log("Alert for selection of at least one");
+            console.log('Alert for selection of at least one');
             // showToast(false, 'Please select deck to delete.');
           } else {
             scope.delFn();
