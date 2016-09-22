@@ -31,6 +31,10 @@
             icon-padding-top="20"
             is-active="showUtilButton">
 </walkthrough>
+<div class="no-deck" layout="column" layout-align="center center" ng-if="displayedDecks.length===0" >
+      <h2>Start by adding a new deck<h2>
+      <img hide-gt-sm src="../images/arrow.png"/>
+</div>
 <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center" id="main-deckview">
 	<div ng-repeat="deck in displayedDecks" ng-class=displayedDecks[$index].color+"-deck-homeview" class="deck-homeview">
     <md-checkbox class="deck-select" aria-label="select deck" ng-disabled="!deleting&&!changing&&!permDeleting&&!puttingBack" ng-checked="isSelected(deck)" ng-click="select(deck)"></md-checkbox>
