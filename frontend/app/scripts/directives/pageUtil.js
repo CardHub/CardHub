@@ -9,8 +9,8 @@ angular.module('frontendApp')
         isSingleItem: '@',
         deleting: '=',
         changing: '=',
-        selected: '=',
-        displayed: '=',
+        selectedArray: '=',
+        displayedArray: '=',
         addFn: '&',
         changeFn: '&',
         delFn: '&'
@@ -19,8 +19,8 @@ angular.module('frontendApp')
       link: function(scope) {
         scope.deleting = false;
         scope.changing = false;
-        scope.selected = [];
-        scope.displayed = [];
+        scope.selectedArray = [];
+        scope.displayedArray = [];
 
         scope.showDeleteOptions = function() {
           if (scope.isSingleItem === 'true') {
@@ -37,7 +37,7 @@ angular.module('frontendApp')
           } else {
             scope.changing = true; 
             scope.deleting = false;
-            scope.selected = [];
+            scope.selectedArray = [];
           }
         };
 
@@ -45,45 +45,45 @@ angular.module('frontendApp')
           //hide checkboxes
           scope.deleting = false;
           scope.changing = false;
-          scope.selected = [];
+          scope.selectedArray = [];
           scope.addFn({event: event});
         };
 
         scope.cancelChange = function() {
           scope.changing = false;
-          scope.selected = [];
+          scope.selectedArray = [];
         };
 
         scope.toggleAll = function() {
           // check existance of array of items to be displayed
-          if (!!scope.displayed) {
-            if (scope.selected.length === scope.displayed.length) {
-              scope.selected = [];
-            } else if (scope.selected.length >= 0) {
-              scope.selected = scope.displayed.slice();
+          if (!!scope.displayedArray) {
+            if (scope.selectedArray.length === scope.displayedArray.length) {
+              scope.selectedArray = [];
+            } else if (scope.selectedArray.length >= 0) {
+              scope.selectedArray = scope.displayedArray.slice();
             }
           }
         };
 
         scope.isAllSelected = function() {
-          if (!scope.displayed) {
+          if (!scope.displayedArray) {
             return false;
           }
-          return scope.selected.length === scope.displayed.length;
+          return scope.selectedArray.length === scope.displayedArray.length;
         };
 
         scope.cancelDelete = function() {
           scope.deleting = false;
-          scope.selected = [];
+          scope.selectedArray = [];
         };
 
         scope.deleteSelected = function() {
-          if(scope.selected.length === 0) {
+          if(scope.selectedArray.length === 0) {
             console.log('Alert for selection of at least one');
             // showToast(false, 'Please select deck to delete.');
           } else {
             scope.delFn();
-            scope.selected = [];
+            scope.selectedArray = [];
             scope.deleting = false;
           }
         };

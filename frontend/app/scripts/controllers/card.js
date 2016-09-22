@@ -85,6 +85,6 @@ angular.module('frontendApp')
     };
 
     function changeLocation(cardId) {
-      $state.go('main.home.deck.card', {deckId: $scope.deckId, cardId: cardId}, {notify: false})
+      $state.go('main.home.deck.card', {deckId: $scope.deckId, cardId: cardId}, {notify: false});
     }
   });
