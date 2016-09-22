@@ -29,13 +29,12 @@ angular.module('frontendApp')
         $mdDialog.hide(newDeck);
       };
     }
-    function showAddDeckDialog(tagFilters, deckFilter, colors, event) {
+    function showAddDeckDialog(tagFilters, deckFilter, colors) {
       var deferred = $q.defer();
       $mdDialog.show({
         controller: CreateDeckCtrl,
         templateUrl: 'views/createDeck.html',
         parent: angular.element(document.body),
-        targetEvent: event,
         clickOutsideToClose:true,
         fullscreen: true ,
         locals: {

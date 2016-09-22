@@ -13,8 +13,6 @@ angular.module('frontendApp')
   function getDeck() {
     apiHelper.deck.get().then(function(res) {
       $scope.decks = res.data;
-      if($scope.decks.length===0){
-      }
       $scope.updateDeckView($scope.deckFilter, $scope.deckDeleted);
     }).catch(function(err) {
       console.log(err);
@@ -150,6 +148,8 @@ angular.module('frontendApp')
     }
     if($scope.displayedDecks.length==0){
       $scope.noDeck = true;
+    }else{
+      $scope.noDeck = false;
     }
   };
   if ($scope.deckFilter) {
@@ -167,8 +167,8 @@ angular.module('frontendApp')
   };
 
   //Add new deck dialog
-  $scope.showAddDeckDialog = function(event) {
-    deckUtil.showAddDeckDialog($scope.tagFilters, $scope.deckFilter, colors, event)
+  $scope.showAddDeckDialog = function() {
+    deckUtil.showAddDeckDialog($scope.tagFilters, $scope.deckFilter, colors)
       .then(function(res) {
         if (res.status === "success") {
           console.log(res.newDeck);

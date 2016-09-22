@@ -32,8 +32,10 @@ angular.module('frontendApp')
       apiHelper.deck.show($scope.deckId).then(function(res) {
         console.log(res.data);
         $scope.deck = res.data;
-        if($scope.deck.length===0) {
+        if($scope.deck.Cards.length===0) {
           $scope.noCard = true; 
+        }else{
+          $scope.noCard = false; 
         }
         // check if current user is the owner
         $scope.isOwner = (UserAuth.getCurrentUser().id === $scope.deck.UserId);
@@ -47,8 +49,8 @@ angular.module('frontendApp')
       $state.go('main.home.deck.card', {cardId: cardId});
     };
 
-    $scope.createCard = function(event) {
-      cardUtil.showAddCardDialog($scope.deckId, $scope.deck.name, event).then(function(res) {
+    $scope.createCard = function() {
+      cardUtil.showAddCardDialog($scope.deckId, $scope.deck.name).then(function(res) {
         if (res.status === "success") {
           getCards();
         } else {
@@ -82,10 +84,19 @@ angular.module('frontendApp')
       }
     };
 
+    function permDeleteCard(deckId,cardId) {
+    apiHelper.card.delete(deckId,cardId).then(function(res) {
+      getCards();
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
+  }
+
     $scope.deleteCards = function() {
       for (var i=0; i<$scope.selectedArray.length; i++) {
         console.log("delete " + $scope.selectedArray[i].id + " from deck " + $scope.deckId);
-        apiHelper.card.delete($scope.deckId, $scope.selectedArray[i].id);
+        permDeleteCard($scope.deckId, $scope.selectedArray[i].id);
       }
     };
   });

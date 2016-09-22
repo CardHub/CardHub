@@ -19,7 +19,7 @@
             has-glow="true"
             is-active="showUtilButton">
 </walkthrough>
-<div class="no-deck" layout="column" layout-align="center center" ng-show="noDeck" >
+<div class="no-deck" layout="column" layout-align="center center" ng-hide="!noDeck" ng-cloak>
   <h2>Start by adding a new deck<h2>
   <img hide-gt-sm src="../images/arrow.png"/>
 </div>
