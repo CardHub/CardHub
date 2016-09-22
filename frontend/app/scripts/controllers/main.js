@@ -50,6 +50,9 @@ angular.module('frontendApp')
         case 'main.home.user':
           $rootScope.$broadcast('showUser');
           break;
+        case 'main.home.explore':
+          $rootScope.$broadcast('showExplore');
+          break;
       }
     };
 
