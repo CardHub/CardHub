@@ -37,15 +37,15 @@ angular.module('frontendApp')
     };
 
     $scope.showHelp = function() {
-      // console.log($state.current.name);
-      // switch ($state.current.name) {
-      //   case 'main.home': 
+      console.log($state.current.name);
+      switch ($state.current.name) {
+        case 'main.home': 
           $scope.showWholeDeck=true;
-          // break;
-        // case 'main.home.deck':
-        //   $scope.showAllCards=true;
-        //   break;
-      // }
+          break;
+        case 'main.home.deck':
+          $scope.showAllCards=true;
+          break;
+      }
     };
 
     $scope.goTo = function(stateUrl, stateId) {

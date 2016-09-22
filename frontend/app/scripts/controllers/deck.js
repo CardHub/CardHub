@@ -16,7 +16,6 @@ angular.module('frontendApp')
     $scope.changing = false;
     $scope.selectedArray = [];
     // variables for help display
-    $scope.showAllCards = true;
     $scope.showSidebarButton = false;
     $scope.showUtilButton = false;
 
