@@ -1,31 +1,30 @@
 <walkthrough
-            is-round=true
             walkthrough-type="transparency"
             focus-element-selector="#userInfo"
-            icon="single_tap"
             main-caption="This panel shows information on current User"
             force-caption-location="BOTTOM"
             is-active="showUserInfo"
+            has-glow="true"
             on-walkthrough-hide="showUserDeckInfo=true">
 </walkthrough>
 <walkthrough
-            is-round=true
             walkthrough-type="transparency"
             focus-element-selector="#deckInfo-userview"
-            icon="single_tap"
             main-caption="This panel shows all public decks current user has"
-            force-caption-location="BOTTOM"
+            force-caption-location="TOP"
             is-active="showUserDeckInfo"
+            has-glow="true"
             on-walkthrough-hide="showSidebarButton=true">
 </walkthrough>
 <walkthrough
             walkthrough-type="transparency"
             focus-element-selector="#sidebar-button"
-            force-caption-location="BOTTOM"
+            force-caption-location="TOP"
             icon="single_tap"
             main-caption="Click here to navigate among different tags of Decks"
             icon-padding-left="0"
             icon-padding-top="20"
+            has-glow="true"
             is-active="showSidebarButton">
 </walkthrough>
 

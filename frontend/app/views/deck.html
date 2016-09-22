@@ -1,37 +1,14 @@
 <page-util is-owner=isOwner is-single-item=false deleting=deleting changing=changing selected-array=selectedArray displayed-array=deck.Cards add-fn=createCard(event) del-fn=deleteCards()></page-util>
 <walkthrough
-            is-round=true
             walkthrough-type="transparency"
             focus-element-selector="#cardview-deckinfo"
-            icon="single_tap"
             main-caption="This panel shows information on current Deck"
             force-caption-location="BOTTOM"
             is-active="showDeckInfo"
-            on-walkthrough-hide="showAllCards=true">
-</walkthrough>
-<walkthrough
-            is-round=true
-            walkthrough-type="transparency"
-            focus-element-selector="#main-cardview"
-            icon="single_tap"
-            main-caption="This panel shows all the Cards in the Deck"
-            force-caption-location="BOTTOM"
-            is-active="showAllCards"
-            on-walkthrough-hide="showSidebarButton=true">
-</walkthrough>
-<walkthrough
-            walkthrough-type="transparency"
-            focus-element-selector="#sidebar-button"
-            force-caption-location="BOTTOM"
-            icon="single_tap"
-            main-caption="Click here to navigate among different tags of Decks"
-            icon-padding-left="0"
-            icon-padding-top="20"
-            is-active="showSidebarButton"
+            has-glow="true"
             on-walkthrough-hide="showUtilButton=true">
 </walkthrough>
 <walkthrough
-            is-round=true
             walkthrough-type="transparency"
             focus-element-selector="#util-button"
             icon="single_tap"
@@ -39,6 +16,7 @@
             force-caption-location="BOTTOM"
             icon-padding-left="0"
             icon-padding-top="20"
+            has-glow="true"
             is-active="showUtilButton">
 </walkthrough>
 
