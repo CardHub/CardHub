@@ -49,7 +49,6 @@
     <img hide-gt-sm src="../images/arrow.png"/>
   </div>
   <div id="main-cardview" layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
-    <!-- tag color here is dummied to the first one in the list -->
     <div ng-repeat="card in deck.Cards" ng-class=deck.color+"-deck-deckview" ng-click="viewCard(deck.id, card.id)" class="deck-deckview">
       <md-checkbox class="card-select" aria-label="select deck" ng-disabled="!deleting&&!changing" ng-checked="isSelected(card)" ng-click="select(card, $event); $event.stopPropagation();"></md-checkbox>
       <div align="center" class="card-preview">{{ card.front | limitTo:55}}</div>

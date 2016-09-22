@@ -98,6 +98,20 @@ angular
       ncyBreadcrumb: {
         label: '> User'
       }
+    }).state({
+      name: 'main.home.explore',
+      url: '/explore',
+      views:{
+        "@main":{
+          templateUrl: 'views/explore.html',
+          controller: 'ExploreCtrl'
+        }
+      },
+      title: 'Explore',
+      auth: true,
+      ncyBreadcrumb: {
+        label: '> Explore'
+      }
     });
     $urlRouterProvider.when('/main', '/main/home/all');
     $urlRouterProvider.when('/main/home', '/main/home/all');
