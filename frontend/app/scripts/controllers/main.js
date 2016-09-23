@@ -8,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('MainCtrl', function ($rootScope, $scope, $timeout, $mdSidenav, $mdDialog,$state, UserAuth, apiHelper, $mdToast) {
+  .controller('MainCtrl', function ($rootScope, $scope, $timeout, $mdSidenav, $mdDialog, $state, UserAuth, apiHelper, $mdToast) {
     $scope.tagFilters = {};
 
     //get user tags

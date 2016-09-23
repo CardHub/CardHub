@@ -43,7 +43,6 @@ angular.module('frontendApp')
         if ($scope.deck.isForked) {
           apiHelper.userDeck.show($scope.deck.forkedFrom)
             .then(function(res) {
-              console.log(res.data);
               $scope.originalUser = res.data;
             });
         }
@@ -54,7 +53,6 @@ angular.module('frontendApp')
     getCards();
 
     $scope.viewCard = function(deckId, cardId) {
-      console.log($state.previous.name);
       if($state.previous.name==='main.home.explore'){
         $state.go('main.home.explore.deck.card', {filterTag: 'all',cardId: cardId});
       }else{
@@ -108,7 +106,6 @@ angular.module('frontendApp')
 
     $scope.deleteCards = function() {
       for (var i=0; i<$scope.selectedArray.length; i++) {
-        console.log("delete " + $scope.selectedArray[i].id + " from deck " + $scope.deckId);
         permDeleteCard($scope.deckId, $scope.selectedArray[i].id);
       }
     };
@@ -130,7 +127,6 @@ angular.module('frontendApp')
     }
 
     $scope.forkDeck = function(deckId) {
-      console.log(deckId);
       apiHelper.deck.fork(deckId).then(function(res) {
         console.log(res.data);
         showToast(true,'Success forking the deck!');
@@ -138,7 +134,7 @@ angular.module('frontendApp')
         console.log(err);
         showToast(false,'Failed to fork the deck. Please try again');
       });
-    }
+    };
 
     $scope.viewUserProfile = function(userId) {
       $state.go('main.home.user', {id: userId});

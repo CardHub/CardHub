@@ -29,8 +29,22 @@
   </div>
 </form>
 
+<div class="no-deck" layout="column" layout-align="center center" ng-if=noResult>
+  <h2>No result. Please try again. :)</h2>
+</div>
+
 <div id="main-cardview" layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
   <div ng-repeat="deck in searchResults" ng-class=deck.color+"-deck-homeview" ng-click="viewDeck(deck.id)" class="deck-homeview">
+    <md-checkbox class="deck-select" aria-label="select deck" ng-disabled=true></md-checkbox>
+    <div layout="column" layout-align="center center" class="deck-title" ng-click="viewDeck(deck.id)">
+      {{deck.name | limitTo:55}}
+    </div>
+  </div>
+</div>
+
+<div ng-if="showRecommendation" class="recommendation-wrapper" layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
+  <h3><i class="material-icons">favorite</i><span>Recommended</span></h3>
+  <div ng-repeat="deck in recommended" ng-class=deck.color+"-deck-homeview" ng-click="viewDeck(deck.id)" class="deck-homeview">
     <md-checkbox class="deck-select" aria-label="select deck" ng-disabled=true></md-checkbox>
     <div layout="column" layout-align="center center" class="deck-title" ng-click="viewDeck(deck.id)">
       {{deck.name | limitTo:55}}
