@@ -51,3 +51,7 @@ button.md-raised.button-fork.md-button.md-ink-ripple {
   background-color: $color-action;
   color: white;
 }
+
+.md-button:not([disabled]):hover, .md-button:not([disabled]):focus {
+  background-color: $color-action;
+}
