@@ -33,7 +33,7 @@
             is-active="showUtilButton">
 </walkthrough>
 
-<div layout="column" layout-align="center center" layout-margin  ng-swipe-left="currentIndex - 1 >= 0&&preCard()" ng-swipe-right="(currentIndex + 1) < deck.Cards.length&&nextCard()">
+<div layout="column" layout-align="center center" layout-margin  md-swipe-right="currentIndex - 1 >= 0&&preCard()" md-swipe-left="(currentIndex + 1) < deck.Cards.length&&nextCard()">
   <div class="flip" id="cardInfo">
     <div class="card" ng-class="{'flipped':!isCardFront}" ng-click="isCardFront=!isCardFront">
       <div class="face front" ng-class=deck.color+"-deck-deckview" layout="column" layout-align="center center" layout-padding>
