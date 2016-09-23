@@ -3,7 +3,7 @@
             walkthrough-type="transparency"
             focus-element-selector="#cardInfo"
             icon="single_tap"
-            main-caption="This panel shows information on current Card"
+            main-caption="Tap to flip card. Swipe left for previous card, right for next card."
             force-caption-location="BOTTOM"
             is-active="showCardInfo"
             has-glow="true"
@@ -33,7 +33,7 @@
             is-active="showUtilButton">
 </walkthrough>
 
-<div layout="column" layout-align="center center" layout-margin>
+<div layout="column" layout-align="center center" layout-margin  md-swipe-right="currentIndex - 1 >= 0&&preCard()" md-swipe-left="(currentIndex + 1) < deck.Cards.length&&nextCard()">
   <div class="flip" id="cardInfo">
     <div class="card" ng-class="{'flipped':!isCardFront}" ng-click="isCardFront=!isCardFront">
       <div class="face front" ng-class=deck.color+"-deck-deckview" layout="column" layout-align="center center" layout-padding>
@@ -47,5 +47,5 @@
 </div>
 <div layout="row" layout-align="center center" layout-margin>
   <md-button ng-if="currentIndex - 1 >= 0" ng-click="preCard()">Previous</md-button>
-  <md-button ng-if="(currentIndex + 1) < deck.Cards.length" ng-click="nextCard()">Next</md-button>
+  <md-button ng-if="(currentIndex + 1) < deck.Cards.length" ng-click="nextCard()" >Next</md-button>
 </div>
