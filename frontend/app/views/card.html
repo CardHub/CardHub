@@ -46,6 +46,6 @@
   </div>
 </div>
 <div layout="row" layout-align="center center" layout-margin>
-  <md-button ng-if="currentIndex - 1 >= 0" ng-click="preCard()">Previous</md-button>
-  <md-button ng-if="(currentIndex + 1) < deck.Cards.length" ng-click="nextCard()" >Next</md-button>
+  <md-button ng-if="currentIndex - 1 >= 0" class="card-nav-button"  ng-click="preCard()">Previous</md-button>
+  <md-button ng-if="(currentIndex + 1) < deck.Cards.length" class="card-nav-button"  ng-click="nextCard()" >Next</md-button>
 </div>
