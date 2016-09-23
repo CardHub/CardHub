@@ -8,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('DeckCtrl', function ($scope, $rootScope,$state, $stateParams, $mdDialog, UserAuth, apiHelper, cardUtil) {
+  .controller('DeckCtrl', function ($scope, $rootScope,$state, $stateParams, $mdDialog, UserAuth, apiHelper, cardUtil,$mdToast) {
     $scope.deckId = $stateParams.id;
     $scope.deck = {};
     $scope.isOwner = false;
@@ -113,13 +113,30 @@ angular.module('frontendApp')
       }
     };
 
+    function showToast(success,msg) {
+      var theme;
+      if (success) {
+        theme = 'success-toast';
+      } else {
+        theme = 'failure-toast';
+      }
+      $mdToast.show(
+        $mdToast.simple()
+          .textContent(msg)
+          .position('top right')
+          .theme(theme)
+          .hideDelay(3000)
+      );
+    }
+
     $scope.forkDeck = function(deckId) {
       console.log(deckId);
       apiHelper.deck.fork(deckId).then(function(res) {
         console.log(res.data);
-
+        showToast(true,'Success forking the deck!');
       }).catch(function(err) {
         console.log(err);
+        showToast(false,'Failed to fork the deck. Please try again');
       });
     }
 
