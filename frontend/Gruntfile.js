@@ -11,7 +11,7 @@ var path = require('path');
 var swPrecache = require('sw-precache');
 
 module.exports = function (grunt) {
-
+  grunt.loadNpmTasks('grunt-appcache');
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
@@ -267,7 +267,10 @@ module.exports = function (grunt) {
           '<%= yeoman.dist %>/scripts/{,*/}*.js',
           '<%= yeoman.dist %>/styles/{,*/}*.css',
           '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= yeoman.dist %>/styles/fonts/*'
+          '<%= yeoman.dist %>/styles/fonts/*',
+          '!<%= yeoman.dist %>/images/touch/cardhub-icon-1x.png',
+          '!<%= yeoman.dist %>/images/touch/cardhub-icon-2x.png',
+          '!<%= yeoman.dist %>/images/touch/cardhub-icon-4x.png',
         ]
       }
     },
@@ -416,7 +419,7 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>',
           src: [
             '*.{ico,png,txt}',
-            '*.html',
+            '*.{html,json}',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
           ]
@@ -464,6 +467,27 @@ module.exports = function (grunt) {
       dist: {
         handleFetch: true,
         rootDir: 'dist'
+      }
+    },
+
+    appcache: {
+      options: {
+        basePath: '<%= yeoman.dist %>'
+      },
+      app: {
+        // we are now in the root of the web app
+        baseUrl: '/',
+        // appcache is always for the distrib version not for development
+        dest: '<%= yeoman.dist %>/manifest.appcache',
+        cache: {
+            patterns: [
+                // add all css, js and assets of my application
+                '<%= yeoman.dist %>/**/*.*'
+            ],
+            // don't forget to cache the root
+            literals: '/'
+        },
+        network: '*'
       }
     }
   });
@@ -559,6 +583,7 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'htmlmin',
+    'appcache:app',
     'swPrecache:dist'
   ]);
 

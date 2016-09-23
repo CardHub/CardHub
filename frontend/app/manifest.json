@@ -3,20 +3,21 @@
   "name": "Cardhub: Organize your life in cards",
   "icons": [
     {
-      "src": "images/touch/launcher-icon-1x.png",
+      "src": "images/touch/cardhub-icon-1x.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "images/touch/launcher-icon-2x.png",
+      "src": "images/touch/cardhub-icon-2x.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "limages/touch/auncher-icon-4x.png",
+      "src": "images/touch/cardhub-icon-4x.png",
       "type": "image/png",
       "sizes": "192x192"
     }
   ],
+  "display": "standalone",
   "start_url": "#/login"
 }

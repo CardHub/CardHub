@@ -214,7 +214,6 @@ angular
       }
     });
 
-
     $window.addEventListener('offline', function(e) {
       $rootScope.$broadcast('app:offline');
     }, false);
