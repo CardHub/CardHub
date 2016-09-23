@@ -1,6 +1,6 @@
-button.action.md-fab.md-button.md-ink-ripple { 
+button.action.md-fab.md-button.md-ink-ripple {
 	background-color: $color-action;
-
+  z-index:999;
 }
 
 button.md-fab.md-raised.md-mini.md-button.md-ink-ripple {
@@ -13,7 +13,7 @@ md-icon.action-item.ng-scope.material-icons {
 }
 
 md-fab-speed-dial.md-fab-bottom-right {
-position: fixed !important;
+  position: fixed !important;
 }
 
 .action-tooltip{
