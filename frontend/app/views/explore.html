@@ -29,6 +29,10 @@
   </div>
 </form>
 
+<div class="no-deck" layout="column" layout-align="center center" ng-if=noResult>
+  <h2>No result. Please try again. :)</h2>
+</div>
+
 <div id="main-cardview" layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center">
   <div ng-repeat="deck in searchResults" ng-class=deck.color+"-deck-homeview" ng-click="viewDeck(deck.id)" class="deck-homeview">
     <md-checkbox class="deck-select" aria-label="select deck" ng-disabled=true></md-checkbox>

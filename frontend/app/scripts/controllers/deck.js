@@ -134,7 +134,7 @@ angular.module('frontendApp')
         console.log(err);
         showToast(false,'Failed to fork the deck. Please try again');
       });
-    }
+    };
 
     $scope.viewUserProfile = function(userId) {
       $state.go('main.home.user', {id: userId});
