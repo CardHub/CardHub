@@ -20,7 +20,8 @@ angular.module('frontendApp')
     $scope.showSidebarButton = false;
     var recommendedId = [41,42,43];
     for (var i =0; i<recommendedId.length; i++) {
-      apiHelper.deck.get().then(function(res) {
+      apiHelper.deck.show(recommendedId[i]).then(function(res) {
+        console.log(res.data);
         $scope.recommended.push(res.data);
       }).catch(function(err) {
         console.log(err);
