@@ -42,6 +42,11 @@
 .flip .card.flipped {
   @include transform(rotatey(-180deg));
 }
-button.md-raised.button__fork.md-button.md-ink-ripple {
+button.md-raised.button-fork.md-button.md-ink-ripple {
   margin-left:0px;
+}
+
+.card-nav-button {
+  background-color: $color-action;
+  color: white;
 }
