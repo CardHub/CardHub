@@ -8,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('HomeCtrl', function ($scope, $state, $stateParams, $mdDialog, $mdToast, $mdBottomSheet, apiHelper, deckUtil) {
+  .controller('HomeCtrl', function ($rootScope, $scope, $state, $stateParams, $mdDialog, $mdToast, $mdBottomSheet, apiHelper, deckUtil) {
 
   function getDeck() {
     apiHelper.deck.get().then(function(res) {
@@ -22,16 +22,26 @@ angular.module('frontendApp')
   var tagMap = {};
 
   //get user tags
-  apiHelper.tag.get().then(function(res) {
-    tagMap = {};
-    for(var i=0; i<res.data.length; i++){
-      var tagName = res.data[i].name;
-      tagMap[tagName] = res.data[i].id;
-    }
-  }).catch(function(err) {
-    console.log(err);
+  function getTag() {
+    apiHelper.tag.get().then(function(res) {
+      tagMap = {};
+      for(var i=0; i<res.data.length; i++){
+        var tagName = res.data[i].name;
+        tagMap[tagName] = res.data[i].id;
+      }
+    }).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  $scope.$on('app:online', function() {
+    $scope.$apply(function() {
+      getTag();
+      getDeck();
+    });
   });
 
+  getTag();
   getDeck();
 
   function createDeck(newDeck) {
@@ -47,7 +57,6 @@ angular.module('frontendApp')
 
   function updateDeck(id, payload, acting, act) {
     apiHelper.deck.update(id,payload).then(function(res) {
-      console.log(res.data);
       getDeck();
       showToast(true,'Success ' + acting + ' selected deck!');
     })
@@ -73,7 +82,6 @@ angular.module('frontendApp')
 
   function permDeleteDeck(id,acting,act) {
     apiHelper.deck.delete(id).then(function(res) {
-      console.log(res.data);
       getDeck();
       showToast(true,'Success ' + acting + ' selected deck!');
     })
@@ -168,7 +176,6 @@ angular.module('frontendApp')
     deckUtil.showAddDeckDialog($scope.tagFilters, $scope.deckFilter, colors)
       .then(function(res) {
         if (res.status === "success") {
-          console.log(res.newDeck);
           createDeck(res.newDeck);
         } else {
           showToast(false, res.error);
@@ -196,7 +203,6 @@ angular.module('frontendApp')
       // showChangeDeckDialog(deck);
       deckUtil.showEditDeckDialog(deck, $scope.tagFilters, colors).then(function(res) {
         if (res.status === "success") {
-          console.log(res.updatedDeck);
           changeDeck(res.updatedDeck);
         } else {
           showToast(false, res.error);

@@ -17,19 +17,19 @@
         <i class="material-icons">label_outline</i>
         <p>{{filter.name}}</p>
       </md-list-item>
-      <md-list-item ng-click="showEditTagsDialog()"class="nav-item">
+      <md-list-item ng-click="showEditTagsDialog()"class="nav-item" ng-if="appOnLine">
         <i class="material-icons">edit</i>
         <p>Edit tags</p>
       </md-list-item>
       <md-list-item ng-click="changeFilter('deleted')"class="nav-item">
         <p>Deleted</p>
       </md-list-item>
-      <md-subheader class="md-no-sticky">Public</md-subheader>
-      <md-list-item ng-click="goTo(state.state)" ng-repeat="state in publicStates">
+      <md-subheader class="md-no-sticky">Public</md-subheader ng-if="appOnLine">
+      <md-list-item ng-click="goTo(state.state)" ng-repeat="state in publicStates" ng-if="appOnLine">
         <i class="material-icons">{{state.icon}}</i>
         <p>{{state.name}}</p>
       </md-list-item>
-      <md-list-item ng-click="showShareDialog()" ng-repeat="state in publicStates">
+      <md-list-item ng-click="showShareDialog()" ng-repeat="state in publicStates" ng-if="appOnLine">
         <i class="material-icons">face</i>
         <p>Share on Facebook</p>
       </md-list-item>
@@ -52,6 +52,10 @@
     </div>
   </md-toolbar>
   <md-content flex>
+    <div class="offline-banner" layout="column" layout-align="center center" ng-if="!appOnLine" ng-cloak>
+      <div>You are currently offline.</div>
+      <div>Please check your internet connection.</div>
+    </div>
     <ui-view style="width: 100%;" autoscroll="true"></ui-view>
   </md-content>
 </div>

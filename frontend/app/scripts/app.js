@@ -202,7 +202,7 @@ angular
         }
     });
   })
-  .run(function($rootScope, $state) {
+  .run(function($rootScope, $state, $window) {
     $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams ){
       if (from.name) {
         from.params = fromParams;
@@ -213,6 +213,18 @@ angular
         $state.previous = $state.get('main.home');
       }
     });
+
+
+    $window.addEventListener('offline', function(e) {
+      console.log('fired');
+      $rootScope.$broadcast('app:offline');
+    }, false);
+
+    $window.addEventListener('online', function(e) {
+      $rootScope.$broadcast('app:online');
+    }, false);
+
+    $rootScope.appOnLine = navigator.onLine;
 
     // Check if browser supports service workers
     if ('serviceWorker' in navigator) {

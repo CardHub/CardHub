@@ -6,6 +6,7 @@ angular.module('frontendApp')
       restrict: 'E',
       scope: {
         isOwner: '=',
+        isOnline: '=',
         isSingleItem: '@',
         isDeleteFilter: '=',
         deleting: '=',
@@ -30,7 +31,7 @@ angular.module('frontendApp')
         scope.showPermanentDeleteOptions = function() {
           if (scope.isSingleItem === 'true') {
             scope.permDelFn();
-          } else { 
+          } else {
             scope.permDeleting = true;
             scope.puttingBack = false;
             scope.selectedArray = [];
@@ -50,8 +51,8 @@ angular.module('frontendApp')
           if (scope.isSingleItem === 'true') {
             scope.delFn();
           } else {
-            scope.deleting = true; 
-            scope.changing = false; 
+            scope.deleting = true;
+            scope.changing = false;
             scope.selectedArray = [];
           }
         };
@@ -60,7 +61,7 @@ angular.module('frontendApp')
           if (scope.isSingleItem === 'true') {
             scope.changeFn({event: event});
           } else {
-            scope.changing = true; 
+            scope.changing = true;
             scope.deleting = false;
             scope.selectedArray = [];
           }

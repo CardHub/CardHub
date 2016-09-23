@@ -1,4 +1,4 @@
-<page-util is-owner=true is-single-item=false deleting=deleting changing=changing perm-deleting=permDeleting putting-back=puttingBack selected-array=selectedArray displayed-array=displayedDecks add-fn=showAddDeckDialog(event) del-fn=deleteDecks() perm-del-fn=permDeleteDecks() put-back-fn=putBackDecks() is-delete-filter=isDeleteFilter></page-util>
+<page-util is-owner=true  is-online="appOnLine" is-single-item=false deleting=deleting changing=changing perm-deleting=permDeleting putting-back=puttingBack selected-array=selectedArray displayed-array=displayedDecks add-fn=showAddDeckDialog(event) del-fn=deleteDecks() perm-del-fn=permDeleteDecks() put-back-fn=putBackDecks() is-delete-filter=isDeleteFilter></page-util>
 <walkthrough
             walkthrough-type="transparency"
             focus-element-selector="#sidebar-button"
@@ -19,16 +19,16 @@
             has-glow="true"
             is-active="showUtilButton">
 </walkthrough>
-<div class="no-deck" layout="column" layout-align="center center" ng-if="noDeck" ng-cloak>
-  <h2>Start by adding a new deck<h2>
+<div class="no-deck" layout="column" layout-align="center center" ng-if="noDeck && appOnLine" ng-cloak>
+  <h2>Start by adding a new deck</h2>
   <img hide-gt-sm src="../images/arrow.png"/>
 </div>
-<div class="no-deck" layout="column" layout-align="center center" ng-if="isDeleteFilter" ng-cloak>
-  <h2>No deleted deck<h2>
+<div class="no-deck" layout="column" layout-align="center center" ng-if="isDeleteFilter && appOnLine" ng-cloak>
+  <h2>No deleted deck</h2>
 </div>
 <div layout-margin layout-wrap layout="row" layout-xs="column" layout-align="center center" id="main-deckview">
 	<div ng-repeat="deck in displayedDecks" ng-class=displayedDecks[$index].color+"-deck-homeview" class="deck-homeview">
     <md-checkbox class="deck-select" aria-label="select deck" ng-disabled="!deleting&&!changing&&!permDeleting&&!puttingBack" ng-checked="isSelected(deck)" ng-click="select(deck)"></md-checkbox>
-		<div layout="column" layout-align="center center" class="deck-title" ng-click="viewDeck(displayedDecks[$index].id)">{{displayedDecks[$index].name | limitTo:55}}</div>
+		<div layout="column" layout-align="center center" class="deck-title" ng-click="viewDeck(displayedDecks[$index].id)">{{isOnLine}}{{displayedDecks[$index].name | limitTo:55}}</div>
 	</div>
 </div>

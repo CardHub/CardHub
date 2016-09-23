@@ -97,3 +97,13 @@ md-toast.md-failure-toast-theme .md-toast-content {
     margin-top: -50px;
   }
 }
+
+.offline-banner {
+  padding: 20px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  color: rgb(250,250,250);
+  background-color: #323232;
+}

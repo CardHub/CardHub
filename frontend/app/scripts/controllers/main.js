@@ -8,8 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('MainCtrl', function ($rootScope,$scope, $timeout, $mdSidenav, $mdDialog,$state, UserAuth, apiHelper, $mdToast) {
-
+  .controller('MainCtrl', function ($rootScope, $scope, $timeout, $mdSidenav, $mdDialog,$state, UserAuth, apiHelper, $mdToast) {
     $scope.tagFilters = {};
 
     //get user tags
@@ -31,6 +30,18 @@ angular.module('frontendApp')
       }
     ];
 
+    $scope.$on('app:offline', function() {
+      $rootScope.$apply(function() {
+        $rootScope.appOnLine = false;
+      });
+    });
+
+    $scope.$on('app:online', function() {
+      $rootScope.$apply(function() {
+        $rootScope.appOnLine = true;
+      });
+    });
+
     // Default state
     $scope.currentState = function() {
       return $state.current;
@@ -38,7 +49,7 @@ angular.module('frontendApp')
 
     $scope.showHelp = function() {
       switch ($state.current.name) {
-        case 'main.home': 
+        case 'main.home':
           $rootScope.$broadcast('showWholeDeck');
           break;
         case 'main.home.deck':
