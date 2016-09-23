@@ -22,6 +22,7 @@
 
 <!-- <div layout="column" layout-align="top center"> -->
   <div id="cardview-deckinfo">
+
     <!-- <div>{{selected[0]}}</div> -->
     <div layout-align="center start" class="metadata-wrapper">
     <!-- icons here are dummied, refer to https://material.angularjs.org/latest/api/directive/mdIcon for customized icons -->
@@ -33,10 +34,12 @@
         <div ng-if="!deck.isPublic">Private</div>
       </div>
       <div ng-if="!isOwner" >
-        <md-button class="md-raised" style="margin-left:0px" ng-click="forkDeck(deck.id)">
+        <md-button class="md-raised button__fork" ng-click="forkDeck(deck.id)">
           <md-icon md-font-set="md">call_split</md-icon>Fork
         </md-button>
+           
       </div>
+
 
       <div layout="row" layout-align="start center">
         <span>Created By </span>
