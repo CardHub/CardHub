@@ -40,7 +40,6 @@ md-content {
     list-style-type: none;
     display: inline-flex;
     margin-right: 10px;
-
   }
 }
 
@@ -81,6 +80,16 @@ md-toast.md-failure-toast-theme .md-toast-content {
   margin-right: 15px;
   border-radius: 40px;
   padding: 0 15px;
+}
+
+.recommendation-wrapper {
+  h3 {
+    color: $color-main;
+    i {
+      margin: 10px;
+      transform: translateY(5px);
+    }
+  }
 }
 
 .no-deck {
