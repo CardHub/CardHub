@@ -38,7 +38,9 @@ exports.getPublicDeck = function(req, res) {
         ],
         attributes: ['id', 'name', 'color', 'isForked', 'forkedFrom', 'UserId'],
         where: {
-          UserId: user.id
+          UserId: user.id,
+          isPublic: true,
+          isDeleted: false
         }
       })
     }
