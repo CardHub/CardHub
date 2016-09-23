@@ -216,7 +216,6 @@ angular
 
 
     $window.addEventListener('offline', function(e) {
-      console.log('fired');
       $rootScope.$broadcast('app:offline');
     }, false);
 

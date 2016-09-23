@@ -23,7 +23,6 @@ angular.module('frontendApp')
     apiHelper.userDeck.show($scope.userId)
       .then(function(res) {
         $scope.user = res.data;
-        console.log(res.data);
       });
       
     $scope.viewDeck = function(deckId) {

@@ -29,7 +29,6 @@ angular.module('frontendApp')
     $scope.search = function(queryString) {
       apiHelper.search.show(queryString)
         .then(function(res) {
-          console.log(res.data);
           if (res.data === []) {
             $scope.noResult = true;
             localStorageService.remove(KEY_SEARCH_HISTORY);

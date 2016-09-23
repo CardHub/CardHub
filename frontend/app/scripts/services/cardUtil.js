@@ -28,9 +28,7 @@ angular.module('frontendApp')
         }
       })
       .then(function(newCard){
-        console.log(newCard);
         apiHelper.card.create(deckId, newCard).then(function(res) {
-          console.log(res.data);
           deferred.resolve({
             status: "success",
             cardId: res.data.id
@@ -76,7 +74,6 @@ angular.module('frontendApp')
       })
       .then(function(newCard){
         apiHelper.card.update(deckId, card.id, newCard).then(function(res) {
-          console.log(res.data);
           deferred.resolve({status: "success"});
         })
         .catch(function(err) {

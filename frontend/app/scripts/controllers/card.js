@@ -28,7 +28,6 @@ angular.module('frontendApp')
 
     function getCardInDeck() {
       apiHelper.deck.show($scope.deckId).then(function(res) {
-        console.log(res.data);
         $scope.deck = res.data;
 
         if (!res.data.Cards) {
@@ -72,9 +71,7 @@ angular.module('frontendApp')
     };
 
     $scope.deleteCard = function() {
-      console.log("call delete card " + $scope.cardId + " from deck " + $scope.deckId + " in API");
       apiHelper.card.delete($scope.deckId, $scope.cardId).then(function(res) {
-        console.log(res.data);
         $state.go('main.home.deck', {id: $scope.deckId});
       });
     };
