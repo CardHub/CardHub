@@ -14,10 +14,18 @@ angular.module('frontendApp')
     $scope.defaultDecks = [];
     $scope.searchResults = [];
     $scope.noResult = false;
+    $scope.recommended = [];
     // variables for help display
     // $scope.showSearchbar = false;
     $scope.showSidebarButton = false;
-
+    var recommendedId = [41,42,43];
+    for (var i =0; i<recommendedId.length; i++) {
+      apiHelper.deck.get().then(function(res) {
+        $scope.recommended.push(res.data);
+      }).catch(function(err) {
+        console.log(err);
+      });
+    }
     $scope.$on('showExplore', function(event, args) {
       $scope.showSidebarButton = true;
     });
