@@ -20,7 +20,8 @@ angular
     'angular-jwt',
     'ngMessages',
     'ncy-angular-breadcrumb',
-    'ng-walkthrough'
+    'ng-walkthrough',
+    'ngTouch'
   ])
   .config(function($mdIconProvider) {
     $mdIconProvider.fontSet('md', 'material-icons');
