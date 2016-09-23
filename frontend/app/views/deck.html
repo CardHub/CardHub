@@ -31,13 +31,20 @@
       <div layout="row" layout-align="start center">
         <div ng-if="deck.isPublic">Public</div>
         <div ng-if="!deck.isPublic">Private</div>
-        <div ng-if=!isOwner ng-click="forkDeck(deck.id)">
-          <i class="material-icons">file_download</i>
-        </div>
+      </div>
+      <div ng-if="!isOwner" >
+        <md-button class="md-raised" style="margin-left:0px" ng-click="forkDeck(deck.id)">
+          <md-icon md-font-set="md">call_split</md-icon>Fork
+        </md-button>
+      </div>
+
+      <div layout="row" layout-align="start center">
+        <span>Created By </span>
+        <span ng-click="viewUserProfile(deck.User.id)" class="forked-from">{{deck.User.name | limitTo:40}}</span>
       </div>
       <div ng-if="deck.isForked" layout="row" layout-align="start center">
-        <span>Forked from &nbsp</span>
-        <a ng-href="" ng-click="viewUserProfile(deck.forkedFrom)">{{originalUser.name | limitTo:40}}</a>
+        <span>Forked from </span>
+        <span ng-click="viewUserProfile(deck.forkedFrom)" class="forked-from">{{originalUser.name | limitTo:40}}</span>
       </div>
 
       <div layout="row" layout-align="start center">
@@ -45,7 +52,6 @@
           <md-chip ng-repeat="tag in deck.Tags" ng-class= deck.color+"-deck-deckview" >{{tag.name}}</md-chip>
         </md-chips>
       </div>
-
     </div>
   </div>
   <div ng-if=isOwner class="no-deck" layout="column" layout-align="center center" ng-show="noCard">
